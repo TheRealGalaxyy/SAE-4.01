@@ -5,7 +5,7 @@ if (cookieValue === undefined) {
 }
 
 async function getPanier(id_us) {
-    return await fetch("https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/getPanier.php", {
+    return await fetch("http://localhost/SAE-4.01/serveur/api/getPanier.php", {
             method: "POST",
             body: new URLSearchParams({
                 id_us: id_us,
@@ -16,7 +16,7 @@ async function getPanier(id_us) {
 }
 
 async function getProduit(id_produit) {
-    return await fetch("https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/getProduit.php", {
+    return await fetch("http://localhost/SAE-4.01/serveur/api/getProduit.php", {
         method: "POST",
         body: new URLSearchParams({
             id_prod: id_produit,

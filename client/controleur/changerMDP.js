@@ -60,7 +60,7 @@ function ConfirmerMDP(mdpOK) {
   const confimation = document.getElementById("confirmation");
 
   if (motDePasse.value === confimation.value && mdpOK) {
-    fetch("https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/changerMDP.php", {
+    fetch("http://localhost/SAE-4.01/serveur/api/changerMDP.php", {
       method: "POST",
       body: new URLSearchParams({
         "id_us": cookieValue,

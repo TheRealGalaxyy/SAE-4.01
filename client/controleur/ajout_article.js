@@ -37,7 +37,7 @@ async function envoyerInformationForm() {
   if (verifierInformationForm(nom, prix)) {
     try {
       const reponse = await fetch(
-        "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/newProduit.php",
+        "http://localhost/SAE-4.01/serveur/api/newProduit.php",
         {
           method: "POST",
           headers: {

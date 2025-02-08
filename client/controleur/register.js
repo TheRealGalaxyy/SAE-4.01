@@ -108,7 +108,7 @@ function register() {
 
     const user = { nom: values[0], prenom: values[1], login: values[2], mdp: values[3], mel: values[4], date_naiss: values[5] }
     console.log(user);
-    fetch('https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/newUser.php', {
+    fetch('http://localhost/SAE-4.01/serveur/api/newUser.php', {
             method: 'POST',
             body: new URLSearchParams({
                 nom: user.nom,
@@ -124,7 +124,7 @@ function register() {
             console.log(data);
             if (data.status == 'success') {
                 // L'Authentification a réussi
-                fetch('https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/connexion.php', {
+                fetch('http://localhost/SAE-4.01/serveur/api/connexion.php', {
                     method: 'POST',
                     body: new URLSearchParams({
                         login: user.login,
