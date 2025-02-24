@@ -214,7 +214,7 @@ function imprimerSelectionTaille(produits) {
 function imprimerProduit(produit) {
 
     let path = produit.path_img ?
-        "https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/img/articles/" + produit.path_img :
+        "http://localhost/SAE-4.01/SAE_401/serveur/img/articles/" + produit.path_img :
         "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
     //console.log(path)
     const prod_affiche = document.createElement("produit-detail");
