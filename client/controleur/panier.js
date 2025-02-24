@@ -45,7 +45,7 @@ function delButton(id) {
         const id_tail = e.target.id.split("|")[2];
         // console.log(e.target.id)
         // console.log(id_prod, id_col, id_tail);
-        fetch("https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/delPanier.php", {
+        fetch("http://localhost/SAE-4.01/serveur/api/delPanier.php", {
             method: "POST",
             body: new URLSearchParams({
                 id_us: id_us,
@@ -98,7 +98,7 @@ function modifButton(id) {
         // console.log("qte_pan",qte_pan);
         // console.log("new_id_col",new_id_col);
         // console.log("new_id_tail",new_id_tail);
-        fetch("https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/setPanier.php", {
+        fetch("http://localhost/SAE-4.01/serveur/api/setPanier.php", {
             method: "POST",
             body: new URLSearchParams({
                 id_us: id_us,
@@ -156,7 +156,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
         //console.log(panier)
     panierDiv.innerHTML = `
 
-        <center><img id="img${id}" src="https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/img/articles/${panier.path_img}" alt="image du produit"></center>
+        <center><img id="img${id}" src="http://localhost/SAE-4.01/serveur/img/articles/${panier.path_img}" alt="image du produit"></center>
         <p>${panier.nom_prod}</p>
         <div id="select">
             <select  id="couleur${id}"></select>
@@ -183,7 +183,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
             response.json().then(BDDproduit => {
                 BDDproduit.data.forEach((element) => {
                     if (element.nom_col === e.target.value) {
-                        document.getElementById(`img${id}`).src = `https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/img/articles/${element.path_img}`
+                        document.getElementById(`img${id}`).src = `http://localhost/SAE-4.01/serveur/img/articles/${element.path_img}`
                     }
                 })
             })
@@ -238,7 +238,7 @@ async function appelPanier() {
 }
 
 document.getElementById("clear").addEventListener("click", () => {
-    fetch("https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/clearPanier.php", {
+    fetch("http://localhost/SAE-4.01/serveur/api/clearPanier.php", {
         method: "POST",
         body: new URLSearchParams({
             id_us: id_us,
@@ -256,7 +256,7 @@ document.getElementById("clear").addEventListener("click", () => {
 });
 
 document.getElementById("payer").addEventListener("click", () => {
-    fetch("https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/payer.php", {
+    fetch("http://localhost/SAE-4.01/serveur/api/payer.php", {
         method: "POST",
         body: new URLSearchParams({
             id_us: id_us,
@@ -265,7 +265,7 @@ document.getElementById("payer").addEventListener("click", () => {
         reponse.json().then((data) => {
             if (data.status == "success") {
                 console.log("paiement réussi");
-                fetch("https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/clearPanier.php", {
+                fetch("http://localhost/SAE-4.01/serveur/api/clearPanier.php", {
                     method: "POST",
                     body: new URLSearchParams({
                         id_us: id_us,

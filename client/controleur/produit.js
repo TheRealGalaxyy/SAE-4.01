@@ -246,7 +246,7 @@ function boutonCommander(id_produit) {
                 couleurSelect.options[couleurSelect.selectedIndex].value;
             // console.log(nbCommandee, tailleID, couleurID)
             // console.log(JSON.stringify({ id_cl: 3, id_prod: id_produit, id_taille: tailleID, couleur: couleurID, qte_pan: nbCommandee }))
-            fetch("https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/newPanier.php", {
+            fetch("http://localhost/SAE-4.01/serveur/api/newPanier.php", {
                     method: "POST",
                     body: new URLSearchParams({
                         id_us: cookieValue,
