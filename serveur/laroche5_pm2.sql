@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procédures
 --
-CREATE DEFINER=`laroche5_appli`@`%` PROCEDURE `DELETE_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  NO SQL BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `DELETE_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  NO SQL BEGIN
 
 DECLARE v_id_prod_existe, v_id_us_existe BOOLEAN;
 
@@ -41,7 +41,7 @@ END IF;
 
 END$$
 
-CREATE DEFINER=`laroche5_appli`@`%` PROCEDURE `id_cat_existe` (IN `v_id_cat` INT, OUT `v_id_cat_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_cat_existe` (IN `v_id_cat` INT, OUT `v_id_cat_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_cat_invalide CONDITION FOR SQLSTATE "45004";
 DECLARE error_message VARCHAR(80);
@@ -56,7 +56,7 @@ END IF;
 
 END$$
 
-CREATE DEFINER=`laroche5_appli`@`%` PROCEDURE `id_col_existe` (IN `v_id_col` INT, OUT `v_id_col_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_col_existe` (IN `v_id_col` INT, OUT `v_id_col_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_col_invalide CONDITION FOR SQLSTATE "45002";
 DECLARE error_message VARCHAR(80);
@@ -71,7 +71,7 @@ END IF;
 
 END$$
 
-CREATE DEFINER=`laroche5_appli`@`%` PROCEDURE `id_com_existe` (IN `v_id_com` INT, OUT `v_id_com_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_com_existe` (IN `v_id_com` INT, OUT `v_id_com_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_com_invalide CONDITION FOR SQLSTATE "45005";
 DECLARE error_message VARCHAR(80);
@@ -86,7 +86,7 @@ END IF;
 
 END$$
 
-CREATE DEFINER=`laroche5_appli`@`%` PROCEDURE `id_perm_existe` (IN `v_id_perm` INT, OUT `v_id_perm_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_perm_existe` (IN `v_id_perm` INT, OUT `v_id_perm_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_perm_invalide CONDITION FOR SQLSTATE "45007";
 DECLARE error_message VARCHAR(80);
@@ -101,7 +101,7 @@ END IF;
 
 END$$
 
-CREATE DEFINER=`laroche5_appli`@`%` PROCEDURE `id_prod_existe` (IN `v_id_prod` INT, OUT `v_id_prod_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_prod_existe` (IN `v_id_prod` INT, OUT `v_id_prod_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_prod_invalide CONDITION FOR SQLSTATE "45001";
 DECLARE error_message VARCHAR(80);
@@ -116,7 +116,7 @@ END IF;
 
 END$$
 
-CREATE DEFINER=`laroche5_appli`@`%` PROCEDURE `id_tail_existe` (IN `v_id_tail` INT, OUT `v_id_tail_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_tail_existe` (IN `v_id_tail` INT, OUT `v_id_tail_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_tail_invalide CONDITION FOR SQLSTATE "45003";
 DECLARE error_message VARCHAR(80);
@@ -131,7 +131,7 @@ END IF;
 
 END$$
 
-CREATE DEFINER=`laroche5_appli`@`%` PROCEDURE `id_us_existe` (IN `v_id_us` INT, OUT `v_id_us_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_us_existe` (IN `v_id_us` INT, OUT `v_id_us_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_us_invalide CONDITION FOR SQLSTATE "45006";
 DECLARE error_message VARCHAR(80);
@@ -146,7 +146,7 @@ END IF;
 
 END$$
 
-CREATE DEFINER=`laroche5_appli`@`%` PROCEDURE `INSERT_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  DETERMINISTIC NO SQL BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `INSERT_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  DETERMINISTIC NO SQL BEGIN
 
 INSERT INTO FAVORI
 (id_prod, id_us)
@@ -155,7 +155,7 @@ VALUES
 
 END$$
 
-CREATE DEFINER=`laroche5_appli`@`%` PROCEDURE `login_non_existe` (IN `v_login` VARCHAR(20), OUT `v_login_non_existe` BOOLEAN)  NO SQL BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `login_non_existe` (IN `v_login` VARCHAR(20), OUT `v_login_non_existe` BOOLEAN)  NO SQL BEGIN
 
 DECLARE v_login_invalide CONDITION FOR SQLSTATE "45018";
 DECLARE error_message VARCHAR(80);
@@ -170,7 +170,7 @@ END IF;
 
 END$$
 
-CREATE DEFINER=`laroche5_appli`@`%` PROCEDURE `verifier_date` (IN `v_date` DATE, OUT `v_date_conforme` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `verifier_date` (IN `v_date` DATE, OUT `v_date_conforme` BOOLEAN)   BEGIN
 
 DECLARE v_date_superieure CONDITION FOR SQLSTATE "45101";
 DECLARE v_date_inferieure CONDITION FOR SQLSTATE "45102";
@@ -202,7 +202,7 @@ SET v_date_conforme := TRUE;
 
 END$$
 
-CREATE DEFINER=`laroche5_appli`@`%` PROCEDURE `verifier_prix` (IN `v_prix` FLOAT, OUT `v_prix_correct` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `verifier_prix` (IN `v_prix` FLOAT, OUT `v_prix_correct` BOOLEAN)   BEGIN
 
 DECLARE v_prix_negatif CONDITION FOR SQLSTATE "45103";
 DECLARE error_message VARCHAR(80);
@@ -219,7 +219,7 @@ SET v_prix_correct := TRUE;
 
 END$$
 
-CREATE DEFINER=`laroche5_appli`@`%` PROCEDURE `verifier_qte` (IN `v_qte` INT, OUT `v_qte_correcte` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `verifier_qte` (IN `v_qte` INT, OUT `v_qte_correcte` BOOLEAN)   BEGIN
 
 DECLARE v_qte_negative CONDITION FOR SQLSTATE "45104";
 DECLARE error_message VARCHAR(80);
@@ -1042,7 +1042,7 @@ DELIMITER ;
 --
 DROP TABLE IF EXISTS `SELECT_COMMANDES`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`laroche5_appli`@`%` SQL SECURITY DEFINER VIEW `SELECT_COMMANDES`  AS SELECT `C`.`id_com` AS `id_com`, `C`.`id_us` AS `id_us`, `DC`.`id_prod` AS `id_prod`, `DC`.`id_col` AS `id_col`, `DC`.`id_tail` AS `id_tail`, `C`.`date_com` AS `date_com`, `DC`.`qte_com` AS `qte_com`, `DC`.`prix_total` AS `prix_total` FROM (((`COMMANDE` `C` join `DETAIL_COM` `DC` on(`DC`.`id_com` = `C`.`id_com`)) join `COULEUR` `CO` on(`DC`.`id_col` = `CO`.`id_col`)) join `TAILLE` `T` on(`DC`.`id_tail` = `T`.`id_tail`)) ORDER BY `C`.`id_us` ASC, `C`.`id_com` ASC, `DC`.`id_prod` ASC, `DC`.`id_col` ASC, `DC`.`id_tail` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=CURRENT_USER SQL SECURITY DEFINER VIEW `SELECT_COMMANDES`  AS SELECT `C`.`id_com` AS `id_com`, `C`.`id_us` AS `id_us`, `DC`.`id_prod` AS `id_prod`, `DC`.`id_col` AS `id_col`, `DC`.`id_tail` AS `id_tail`, `C`.`date_com` AS `date_com`, `DC`.`qte_com` AS `qte_com`, `DC`.`prix_total` AS `prix_total` FROM (((`COMMANDE` `C` join `DETAIL_COM` `DC` on(`DC`.`id_com` = `C`.`id_com`)) join `COULEUR` `CO` on(`DC`.`id_col` = `CO`.`id_col`)) join `TAILLE` `T` on(`DC`.`id_tail` = `T`.`id_tail`)) ORDER BY `C`.`id_us` ASC, `C`.`id_com` ASC, `DC`.`id_prod` ASC, `DC`.`id_col` ASC, `DC`.`id_tail` ASC ;
 
 -- --------------------------------------------------------
 
@@ -1051,7 +1051,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`laroche5_appli`@`%` SQL SECURITY DEFINER VIE
 --
 DROP TABLE IF EXISTS `SELECT_PANIERS`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`laroche5_appli`@`%` SQL SECURITY DEFINER VIEW `SELECT_PANIERS`  AS SELECT `PA`.`id_us` AS `id_us`, `P`.`id_prod` AS `id_prod`, `P`.`nom_prod` AS `nom_prod`, `P`.`id_cat` AS `id_cat`, `P`.`nom_cat` AS `nom_cat`, `P`.`id_col` AS `id_col`, `P`.`nom_col` AS `nom_col`, `P`.`id_tail` AS `id_tail`, `P`.`path_img` AS `path_img`, `P`.`prix_unit` AS `prix_unit`, `PA`.`qte_pan` AS `qte_pan`, `PA`.`qte_pan`* `P`.`prix_unit` AS `prix_total` FROM (`PANIER` `PA` join (select `SELECT_PRODUITS`.`id_prod` AS `id_prod`,`SELECT_PRODUITS`.`nom_prod` AS `nom_prod`,`SELECT_PRODUITS`.`id_cat` AS `id_cat`,`SELECT_PRODUITS`.`nom_cat` AS `nom_cat`,`SELECT_PRODUITS`.`id_col` AS `id_col`,`SELECT_PRODUITS`.`nom_col` AS `nom_col`,`SELECT_PRODUITS`.`id_tail` AS `id_tail`,`SELECT_PRODUITS`.`nom_tail` AS `nom_tail`,`SELECT_PRODUITS`.`path_img` AS `path_img`,`SELECT_PRODUITS`.`prix_unit` AS `prix_unit` from `SELECT_PRODUITS`) `P` on((`PA`.`id_prod`,`PA`.`id_col`,`PA`.`id_tail`) = (`P`.`id_prod`,`P`.`id_col`,`P`.`id_tail`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=CURRENT_USER SQL SECURITY DEFINER VIEW `SELECT_PANIERS`  AS SELECT `PA`.`id_us` AS `id_us`, `P`.`id_prod` AS `id_prod`, `P`.`nom_prod` AS `nom_prod`, `P`.`id_cat` AS `id_cat`, `P`.`nom_cat` AS `nom_cat`, `P`.`id_col` AS `id_col`, `P`.`nom_col` AS `nom_col`, `P`.`id_tail` AS `id_tail`, `P`.`path_img` AS `path_img`, `P`.`prix_unit` AS `prix_unit`, `PA`.`qte_pan` AS `qte_pan`, `PA`.`qte_pan`* `P`.`prix_unit` AS `prix_total` FROM (`PANIER` `PA` join (select `SELECT_PRODUITS`.`id_prod` AS `id_prod`,`SELECT_PRODUITS`.`nom_prod` AS `nom_prod`,`SELECT_PRODUITS`.`id_cat` AS `id_cat`,`SELECT_PRODUITS`.`nom_cat` AS `nom_cat`,`SELECT_PRODUITS`.`id_col` AS `id_col`,`SELECT_PRODUITS`.`nom_col` AS `nom_col`,`SELECT_PRODUITS`.`id_tail` AS `id_tail`,`SELECT_PRODUITS`.`nom_tail` AS `nom_tail`,`SELECT_PRODUITS`.`path_img` AS `path_img`,`SELECT_PRODUITS`.`prix_unit` AS `prix_unit` from `SELECT_PRODUITS`) `P` on((`PA`.`id_prod`,`PA`.`id_col`,`PA`.`id_tail`) = (`P`.`id_prod`,`P`.`id_col`,`P`.`id_tail`))) ;
 
 -- --------------------------------------------------------
 
@@ -1060,7 +1060,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`laroche5_appli`@`%` SQL SECURITY DEFINER VIE
 --
 DROP TABLE IF EXISTS `SELECT_PRODUITS`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`laroche5_appli`@`%` SQL SECURITY DEFINER VIEW `SELECT_PRODUITS`  AS SELECT `P`.`id_prod` AS `id_prod`, `P`.`nom_prod` AS `nom_prod`, `P`.`description` AS `description`, `CA`.`id_cat` AS `id_cat`, `CA`.`nom_cat` AS `nom_cat`, `CO`.`id_col` AS `id_col`, `CO`.`nom_col` AS `nom_col`, `T`.`id_tail` AS `id_tail`, `T`.`nom_tail` AS `nom_tail`, `CP`.`path_img` AS `path_img`, round((`P`.`prix_base` + coalesce(`CP`.`diff_prix_col`,0) + coalesce(`TP`.`diff_prix_tail`,0)) * 1.2,2) AS `prix_unit` FROM (((((`PRODUIT` `P` left join `COL_PROD` `CP` on(`CP`.`id_prod` = `P`.`id_prod`)) left join `TAIL_PROD` `TP` on(`TP`.`id_prod` = `P`.`id_prod`)) join `CATEGORIE` `CA` on(`CA`.`id_cat` = `P`.`id_cat`)) left join `COULEUR` `CO` on(`CO`.`id_col` = `CP`.`id_col`)) left join `TAILLE` `T` on(`T`.`id_tail` = `TP`.`id_tail`)) ORDER BY `P`.`nom_prod` ASC, `CA`.`nom_cat` ASC, `CO`.`nom_col` ASC, `T`.`nom_tail` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=CURRENT_USER SQL SECURITY DEFINER VIEW `SELECT_PRODUITS`  AS SELECT `P`.`id_prod` AS `id_prod`, `P`.`nom_prod` AS `nom_prod`, `P`.`description` AS `description`, `CA`.`id_cat` AS `id_cat`, `CA`.`nom_cat` AS `nom_cat`, `CO`.`id_col` AS `id_col`, `CO`.`nom_col` AS `nom_col`, `T`.`id_tail` AS `id_tail`, `T`.`nom_tail` AS `nom_tail`, `CP`.`path_img` AS `path_img`, round((`P`.`prix_base` + coalesce(`CP`.`diff_prix_col`,0) + coalesce(`TP`.`diff_prix_tail`,0)) * 1.2,2) AS `prix_unit` FROM (((((`PRODUIT` `P` left join `COL_PROD` `CP` on(`CP`.`id_prod` = `P`.`id_prod`)) left join `TAIL_PROD` `TP` on(`TP`.`id_prod` = `P`.`id_prod`)) join `CATEGORIE` `CA` on(`CA`.`id_cat` = `P`.`id_cat`)) left join `COULEUR` `CO` on(`CO`.`id_col` = `CP`.`id_col`)) left join `TAILLE` `T` on(`T`.`id_tail` = `TP`.`id_tail`)) ORDER BY `P`.`nom_prod` ASC, `CA`.`nom_cat` ASC, `CO`.`nom_col` ASC, `T`.`nom_tail` ASC ;
 
 -- --------------------------------------------------------
 
@@ -1069,7 +1069,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`laroche5_appli`@`%` SQL SECURITY DEFINER VIE
 --
 DROP TABLE IF EXISTS `SELECT_USERS`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`laroche5_appli`@`%` SQL SECURITY DEFINER VIEW `SELECT_USERS`  AS SELECT `U`.`id_us` AS `id_us`, `U`.`nom_us` AS `nom_us`, `U`.`prenom_us` AS `prenom_us`, `U`.`mel` AS `mel`, `U`.`date_naiss` AS `date_naiss`, `U`.`login` AS `login`, `U`.`mdp` AS `mdp`, `U`.`salt` AS `salt`, `P`.`id_perm` AS `id_perm`, `P`.`nom_perm` AS `nom_perm` FROM (`USER` `U` join `PERMISSION` `P` on(`P`.`id_perm` = `U`.`id_perm`)) ORDER BY `P`.`id_perm` ASC, `U`.`nom_us` ASC, `U`.`prenom_us` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=CURRENT_USER SQL SECURITY DEFINER VIEW `SELECT_USERS`  AS SELECT `U`.`id_us` AS `id_us`, `U`.`nom_us` AS `nom_us`, `U`.`prenom_us` AS `prenom_us`, `U`.`mel` AS `mel`, `U`.`date_naiss` AS `date_naiss`, `U`.`login` AS `login`, `U`.`mdp` AS `mdp`, `U`.`salt` AS `salt`, `P`.`id_perm` AS `id_perm`, `P`.`nom_perm` AS `nom_perm` FROM (`USER` `U` join `PERMISSION` `P` on(`P`.`id_perm` = `U`.`id_perm`)) ORDER BY `P`.`id_perm` ASC, `U`.`nom_us` ASC, `U`.`prenom_us` ASC ;
 
 --
 -- Index pour les tables déchargées
