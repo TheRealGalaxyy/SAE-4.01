@@ -1,0 +1,162 @@
+[
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xhdpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xhdpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "io.cordova.hellocordova.app-debug-23:/mipmap-xxhdpi-v26_ic_launcher.xml.flat",
+        "source": "io.cordova.hellocordova.app-main-25:/mipmap-xxhdpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "io.cordova.hellocordova.app-debug-23:/drawable_ic_cdv_splashscreen.xml.flat",
+        "source": "io.cordova.hellocordova.app-main-25:/drawable/ic_cdv_splashscreen.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xhdpi-v26_ic_launcher_monochrome.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xhdpi-v26\\ic_launcher_monochrome.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xxhdpi-v26_ic_launcher_monochrome.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xxhdpi-v26\\ic_launcher_monochrome.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-mdpi-v26_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-mdpi-v26\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-ldpi-v26_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-ldpi-v26\\ic_launcher_background.png"
+    },
+    {
+        "merged": "io.cordova.hellocordova.app-debug-23:/xml_cdv_core_file_provider_paths.xml.flat",
+        "source": "io.cordova.hellocordova.app-main-25:/xml/cdv_core_file_provider_paths.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-hdpi-v26_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-hdpi-v26\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-hdpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-hdpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xhdpi-v26_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xhdpi-v26\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-mdpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-mdpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xxxhdpi-v26_ic_launcher_monochrome.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xxxhdpi-v26\\ic_launcher_monochrome.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-ldpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-ldpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-mdpi-v26_ic_launcher_monochrome.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-mdpi-v26\\ic_launcher_monochrome.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xxxhdpi-v26_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xxxhdpi-v26\\ic_launcher_background.png"
+    },
+    {
+        "merged": "io.cordova.hellocordova.app-debug-23:/mipmap-xhdpi-v26_ic_launcher.xml.flat",
+        "source": "io.cordova.hellocordova.app-main-25:/mipmap-xhdpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-ldpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-ldpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xxhdpi-v26_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xxhdpi-v26\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "io.cordova.hellocordova.app-debug-23:/mipmap-ldpi-v26_ic_launcher.xml.flat",
+        "source": "io.cordova.hellocordova.app-main-25:/mipmap-ldpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-ldpi-v26_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-ldpi-v26\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-mdpi-v26_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-mdpi-v26\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xxxhdpi-v26_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xxxhdpi-v26\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xhdpi-v26_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xhdpi-v26\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\drawable_ic_cdv_splashscreen.xml.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\drawable\\ic_cdv_splashscreen.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xxhdpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xxhdpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-hdpi-v26_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-hdpi-v26\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xxxhdpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xxxhdpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-hdpi-v26_ic_launcher_monochrome.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-hdpi-v26\\ic_launcher_monochrome.png"
+    },
+    {
+        "merged": "io.cordova.hellocordova.app-debug-23:/mipmap-mdpi-v26_ic_launcher.xml.flat",
+        "source": "io.cordova.hellocordova.app-main-25:/mipmap-mdpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\xml_config.xml.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\xml\\config.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xxhdpi-v26_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xxhdpi-v26\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "io.cordova.hellocordova.app-debug-23:/mipmap-hdpi-v26_ic_launcher.xml.flat",
+        "source": "io.cordova.hellocordova.app-main-25:/mipmap-hdpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "io.cordova.hellocordova.app-debug-23:/mipmap-xxxhdpi-v26_ic_launcher.xml.flat",
+        "source": "io.cordova.hellocordova.app-main-25:/mipmap-xxxhdpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\xml_cdv_core_file_provider_paths.xml.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\xml\\cdv_core_file_provider_paths.xml"
+    },
+    {
+        "merged": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-debug-23:\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\theos\\.gradle\\daemon\\8.7\\io.cordova.hellocordova.app-main-25:\\mipmap-xxxhdpi\\ic_launcher.png"
+    }
+]
