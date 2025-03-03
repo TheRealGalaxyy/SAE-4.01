@@ -39,20 +39,20 @@
 26    </queries>
 27
 28    <permission
-28-->[androidx.core:core:1.9.0] C:\Users\theos\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+28-->[androidx.core:core:1.9.0] C:\Users\Tom\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
 29        android:name="io.cordova.hellocordova.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-29-->[androidx.core:core:1.9.0] C:\Users\theos\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+29-->[androidx.core:core:1.9.0] C:\Users\Tom\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
 30        android:protectionLevel="signature" />
-30-->[androidx.core:core:1.9.0] C:\Users\theos\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+30-->[androidx.core:core:1.9.0] C:\Users\Tom\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
 31
 32    <uses-permission android:name="io.cordova.hellocordova.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-32-->[androidx.core:core:1.9.0] C:\Users\theos\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
-32-->[androidx.core:core:1.9.0] C:\Users\theos\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+32-->[androidx.core:core:1.9.0] C:\Users\Tom\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+32-->[androidx.core:core:1.9.0] C:\Users\Tom\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 33
 34    <application
 34-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:5:5-15:19
 35        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-35-->[androidx.core:core:1.9.0] C:\Users\theos\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+35-->[androidx.core:core:1.9.0] C:\Users\Tom\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
 36        android:debuggable="true"
 37        android:extractNativeLibs="false"
 38        android:hardwareAccelerated="true"
@@ -109,25 +109,25 @@
 64-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:13:75-127
 65        </provider>
 66        <provider
-66-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+66-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
 67            android:name="androidx.startup.InitializationProvider"
-67-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+67-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
 68            android:authorities="io.cordova.hellocordova.androidx-startup"
-68-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+68-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
 69            android:exported="false" >
-69-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+69-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
 70            <meta-data
-70-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+70-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
 71                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-71-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+71-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
 72                android:value="androidx.startup" />
-72-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+72-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
 73            <meta-data
-73-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\theos\.gradle\caches\transforms-4\be267c37a3516875aadc94c5172ad79a\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+73-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Tom\.gradle\caches\transforms-4\be267c37a3516875aadc94c5172ad79a\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
 74                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-74-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\theos\.gradle\caches\transforms-4\be267c37a3516875aadc94c5172ad79a\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+74-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Tom\.gradle\caches\transforms-4\be267c37a3516875aadc94c5172ad79a\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
 75                android:value="androidx.startup" />
-75-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\theos\.gradle\caches\transforms-4\be267c37a3516875aadc94c5172ad79a\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+75-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Tom\.gradle\caches\transforms-4\be267c37a3516875aadc94c5172ad79a\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
 76        </provider>
 77    </application>
 78
