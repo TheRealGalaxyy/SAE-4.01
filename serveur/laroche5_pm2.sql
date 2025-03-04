@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 04 mars 2025 à 21:28
+-- Généré le : mar. 04 mars 2025 à 21:42
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -189,8 +189,8 @@ DECLARE error_message VARCHAR(80);
 SELECT TRIM(v_mail) IN (SELECT mel FROM USER) INTO v_mail_non_existe;
 
 IF v_mail_non_existe <> 0 THEN
-    SET error_message := CONCAT("Erreur 45018 : Le mail", v_mail, " existe déjà");
-    SIGNAL v_mail_invalide SET MYSQL_ERRNO = "45018",
+    SET error_message := CONCAT("Erreur 45019 : Le mail ", v_mail, " existe déjà");
+    SIGNAL v_mail_invalide SET MYSQL_ERRNO = "45019",
     MESSAGE_TEXT = error_message;
 END IF;
 
@@ -1088,10 +1088,13 @@ DROP TRIGGER IF EXISTS `USER_BEFORE_INSERT`;
 DELIMITER $$
 CREATE TRIGGER `USER_BEFORE_INSERT` BEFORE INSERT ON `user` FOR EACH ROW BEGIN
 
-DECLARE v_id_perm_existe, v_login_non_existe, v_date_conforme BOOLEAN;
+DECLARE v_id_perm_existe, v_login_non_existe, v_date_conforme,
+v_mail_non_existe BOOLEAN;
 
 CALL id_perm_existe(NEW.id_perm, v_id_perm_existe);
 CALL login_non_existe(NEW.login, v_login_non_existe);
+CALL mail_non_existe(NEW.mel,
+v_mail_non_existe);
 CALL verifier_date(NEW.date_naiss, v_date_conforme);
 
 END
