@@ -52,28 +52,33 @@ document.getElementById("mdp").addEventListener("input", (e) => {
 		testNb.test(valeurTester);
 	console.log(mdpOK);
 
-	if (testLg.test(valeurTester)) mdpErreurs[0].style.color = "green";
+	if (testLg.test(valeurTester)) mdpErreurs[0].style.display = "none";
 	else {
+		mdpErreurs[0].style.display = "block";
 		mdpErreurs[0].style.color = "red";
 	}
 
-	if (testMaj.test(valeurTester)) mdpErreurs[1].style.color = "green";
+	if (testMaj.test(valeurTester)) mdpErreurs[1].style.display = "none";
 	else {
+		mdpErreurs[1].style.display = "block";
 		mdpErreurs[1].style.color = "red";
 	}
 
-	if (testMin.test(valeurTester)) mdpErreurs[2].style.color = "green";
+	if (testMin.test(valeurTester)) mdpErreurs[2].style.display = "none";
 	else {
+		mdpErreurs[2].style.display = "block";
 		mdpErreurs[2].style.color = "red";
 	}
 
-	if (testCar.test(valeurTester)) mdpErreurs[3].style.color = "green";
+	if (testCar.test(valeurTester)) mdpErreurs[3].style.display = "none";
 	else {
+		mdpErreurs[3].style.display = "block";
 		mdpErreurs[3].style.color = "red";
 	}
 
-	if (testNb.test(valeurTester)) mdpErreurs[4].style.color = "green";
+	if (testNb.test(valeurTester)) mdpErreurs[4].style.display = "none";
 	else {
+		mdpErreurs[4].style.display = "block";
 		mdpErreurs[4].style.color = "red";
 	}
 });
