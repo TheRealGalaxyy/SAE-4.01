@@ -286,7 +286,8 @@ document.getElementById("clear").addEventListener("click", () => {
   });
 });
 
-function payer() {
+// Attach payer to the window object
+window.payer = function () {
   fetch("http://localhost/SAE-4.01/serveur/api/payer.php", {
     method: "POST",
     body: new URLSearchParams({
@@ -317,7 +318,7 @@ function payer() {
       }
     });
   });
-}
+};
 
 const id_us = cookieValue; // A changer en cookieValue
 
