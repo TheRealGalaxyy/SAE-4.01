@@ -68,6 +68,7 @@ document.getElementById("nouveauMdp").addEventListener("input", (e) => {
 function ConfirmerMDP(mdpOK) {
 	const motDePasse = document.getElementById("nouveauMdp");
 	const confimation = document.getElementById("confirmation");
+	const confirmationErreur = document.getElementById("confirmationErreur");
 
 	if (motDePasse.value === confimation.value && mdpOK) {
 		fetch("http://localhost/SAE-4.01/serveur/api/changerMDP.php", {
@@ -88,7 +89,9 @@ function ConfirmerMDP(mdpOK) {
 			});
 		});
 	} else {
-		alert("Les mots de passe ne correspondent pas");
+		confirmationErreur.style.display = "block";
+		confirmationErreur.style.color = "red";
+		//alert("Les mots de passe ne correspondent pas");
 	}
 }
 
