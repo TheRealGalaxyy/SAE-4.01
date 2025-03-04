@@ -41,15 +41,13 @@
       <button id="payer" class="footer form_button">Payer</button>
       <button
         type="button"
-        class="btn btn-success"
+        class="footer form_button"
         data-toggle="modal"
         data-target="#exampleModal"
-        id="payer"
       >
-        Launch demo modal
+        Payer (modal(e))
       </button>
     </div>
-    <!-- Button trigger modal -->
 
     <!-- Modal -->
     <div
@@ -84,7 +82,8 @@
                       purchase_units: [
                         {
                           amount: {
-                            value: "10.00",
+                            value:
+                              document.getElementById("prixTotal").textContent,
                           },
                         },
                       ],
