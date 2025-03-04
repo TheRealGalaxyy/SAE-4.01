@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 04 mars 2025 à 21:42
+-- Généré le : mar. 04 mars 2025 à 22:17
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -25,6 +25,24 @@ DELIMITER $$
 --
 -- Procédures
 --
+DROP PROCEDURE IF EXISTS `age_valide`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `age_valide` (IN `v_date_naiss` DATE)   BEGIN
+
+DECLARE v_age_invalide CONDITION FOR SQLSTATE "45020";
+DECLARE error_message VARCHAR(80);
+DECLARE v_age INT;
+
+
+SELECT  floor(DATEDIFF(NOW() , v_date_naiss)/365) INTO v_age;
+
+IF v_age < 16 THEN
+    SET error_message := CONCAT("Erreur 45020 : vous devez avoir au moins 16 ans pour vous inscrire");
+    SIGNAL v_age_invalide SET MYSQL_ERRNO = "45020",
+    MESSAGE_TEXT = error_message;
+END IF;
+
+END$$
+
 DROP PROCEDURE IF EXISTS `DELETE_FAVORI`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `DELETE_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  NO SQL BEGIN
 
@@ -1066,7 +1084,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `salt` varchar(20) NOT NULL,
   `id_perm` int NOT NULL,
   PRIMARY KEY (`id_us`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `user`
@@ -1076,10 +1094,7 @@ INSERT INTO `user` (`id_us`, `nom_us`, `prenom_us`, `mel`, `date_naiss`, `login`
 (7, 'admin', 'admin', 'admin@gmail.com', '2010-10-10', 'admin', 'skD7MyPRpfvsM', 'sk#@u%Q)-V}2^)gpSK&X', 1),
 (11, 'Falschenbuhl', 'Rémi', 'remi.falschenbuhl@yahoo.fr', '2003-12-04', 'remiF', 'rOo9.RCDnsGfY', 'rOyJG[>IW$;,8LZmi=<n', 2),
 (16, 'Philippe', 'Kévin', 'kph@gmail.com', '2003-12-04', 'new', '9l9KCmTBMCeDo', '9l;hSW*EN)S rm.j$/p1', 2),
-(18, 'Laroche', 'Pierre', 'laroche5@univ-lorraine.fr', '1991-02-24', 'laroche5', 'Mw6FchtZ8zKKY', 'MwU86#P?T8LneEO#|~GG', 2),
-(19, 'sabat', 'romain', 'perdupain@gmail.com', '2025-02-24', 'ami1@exemple.com', '5dzy7p6VdrOE2', '5dv,M2uEzv>[dv$5#@R@', 2),
-(20, 'ok', 'bahnon', 'ok@gmail.com', '2025-02-26', 'test', '7j2XkdmQ5ZYaM', '7j\\wV=?w#$2?GM]7<n&p', 2),
-(21, 'e', 'e', 'ok@gmail.com', '2025-02-26', 'test2', '/Bd42FR2lNvos', '/BTE:*F\\J)g?sH>r{=h5', 2);
+(18, 'Laroche', 'Pierre', 'laroche5@univ-lorraine.fr', '1991-02-24', 'laroche5', 'Mw6FchtZ8zKKY', 'MwU86#P?T8LneEO#|~GG', 2);
 
 --
 -- Déclencheurs `user`
