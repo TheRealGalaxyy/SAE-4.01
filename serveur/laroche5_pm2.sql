@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : devbdd.iutmetz.univ-lorraine.fr
--- Généré le : mer. 05 avr. 2023 à 22:20
--- Version du serveur : 10.3.38-MariaDB
--- Version de PHP : 8.2.4
+-- Hôte : 127.0.0.1:3306
+-- Généré le : mar. 04 mars 2025 à 21:42
+-- Version du serveur : 9.1.0
+-- Version de PHP : 8.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,7 +25,8 @@ DELIMITER $$
 --
 -- Procédures
 --
-CREATE DEFINER=CURRENT_USER PROCEDURE `DELETE_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  NO SQL BEGIN
+DROP PROCEDURE IF EXISTS `DELETE_FAVORI`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DELETE_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  NO SQL BEGIN
 
 DECLARE v_id_prod_existe, v_id_us_existe BOOLEAN;
 
@@ -41,7 +42,8 @@ END IF;
 
 END$$
 
-CREATE DEFINER=CURRENT_USER PROCEDURE `id_cat_existe` (IN `v_id_cat` INT, OUT `v_id_cat_existe` BOOLEAN)   BEGIN
+DROP PROCEDURE IF EXISTS `id_cat_existe`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `id_cat_existe` (IN `v_id_cat` INT, OUT `v_id_cat_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_cat_invalide CONDITION FOR SQLSTATE "45004";
 DECLARE error_message VARCHAR(80);
@@ -56,7 +58,8 @@ END IF;
 
 END$$
 
-CREATE DEFINER=CURRENT_USER PROCEDURE `id_col_existe` (IN `v_id_col` INT, OUT `v_id_col_existe` BOOLEAN)   BEGIN
+DROP PROCEDURE IF EXISTS `id_col_existe`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `id_col_existe` (IN `v_id_col` INT, OUT `v_id_col_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_col_invalide CONDITION FOR SQLSTATE "45002";
 DECLARE error_message VARCHAR(80);
@@ -71,7 +74,8 @@ END IF;
 
 END$$
 
-CREATE DEFINER=CURRENT_USER PROCEDURE `id_com_existe` (IN `v_id_com` INT, OUT `v_id_com_existe` BOOLEAN)   BEGIN
+DROP PROCEDURE IF EXISTS `id_com_existe`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `id_com_existe` (IN `v_id_com` INT, OUT `v_id_com_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_com_invalide CONDITION FOR SQLSTATE "45005";
 DECLARE error_message VARCHAR(80);
@@ -86,7 +90,8 @@ END IF;
 
 END$$
 
-CREATE DEFINER=CURRENT_USER PROCEDURE `id_perm_existe` (IN `v_id_perm` INT, OUT `v_id_perm_existe` BOOLEAN)   BEGIN
+DROP PROCEDURE IF EXISTS `id_perm_existe`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `id_perm_existe` (IN `v_id_perm` INT, OUT `v_id_perm_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_perm_invalide CONDITION FOR SQLSTATE "45007";
 DECLARE error_message VARCHAR(80);
@@ -101,7 +106,8 @@ END IF;
 
 END$$
 
-CREATE DEFINER=CURRENT_USER PROCEDURE `id_prod_existe` (IN `v_id_prod` INT, OUT `v_id_prod_existe` BOOLEAN)   BEGIN
+DROP PROCEDURE IF EXISTS `id_prod_existe`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `id_prod_existe` (IN `v_id_prod` INT, OUT `v_id_prod_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_prod_invalide CONDITION FOR SQLSTATE "45001";
 DECLARE error_message VARCHAR(80);
@@ -116,7 +122,8 @@ END IF;
 
 END$$
 
-CREATE DEFINER=CURRENT_USER PROCEDURE `id_tail_existe` (IN `v_id_tail` INT, OUT `v_id_tail_existe` BOOLEAN)   BEGIN
+DROP PROCEDURE IF EXISTS `id_tail_existe`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `id_tail_existe` (IN `v_id_tail` INT, OUT `v_id_tail_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_tail_invalide CONDITION FOR SQLSTATE "45003";
 DECLARE error_message VARCHAR(80);
@@ -131,7 +138,8 @@ END IF;
 
 END$$
 
-CREATE DEFINER=CURRENT_USER PROCEDURE `id_us_existe` (IN `v_id_us` INT, OUT `v_id_us_existe` BOOLEAN)   BEGIN
+DROP PROCEDURE IF EXISTS `id_us_existe`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `id_us_existe` (IN `v_id_us` INT, OUT `v_id_us_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_us_invalide CONDITION FOR SQLSTATE "45006";
 DECLARE error_message VARCHAR(80);
@@ -146,7 +154,8 @@ END IF;
 
 END$$
 
-CREATE DEFINER=CURRENT_USER PROCEDURE `INSERT_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  DETERMINISTIC NO SQL BEGIN
+DROP PROCEDURE IF EXISTS `INSERT_FAVORI`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `INSERT_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  DETERMINISTIC NO SQL BEGIN
 
 INSERT INTO FAVORI
 (id_prod, id_us)
@@ -155,12 +164,13 @@ VALUES
 
 END$$
 
-CREATE DEFINER=CURRENT_USER PROCEDURE `login_non_existe` (IN `v_login` VARCHAR(20), OUT `v_login_non_existe` BOOLEAN)  NO SQL BEGIN
+DROP PROCEDURE IF EXISTS `login_non_existe`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `login_non_existe` (IN `v_login` VARCHAR(20), OUT `v_login_non_existe` BOOLEAN)  NO SQL BEGIN
 
 DECLARE v_login_invalide CONDITION FOR SQLSTATE "45018";
 DECLARE error_message VARCHAR(80);
 
-SELECT v_login IN (SELECT login FROM USER) INTO v_login_non_existe;
+SELECT TRIM(v_login) IN (SELECT login FROM USER) INTO v_login_non_existe;
 
 IF v_login_non_existe <> 0 THEN
     SET error_message := CONCAT("Erreur 45018 : Le login ", v_login, " existe déjà");
@@ -170,7 +180,24 @@ END IF;
 
 END$$
 
-CREATE DEFINER=CURRENT_USER PROCEDURE `verifier_date` (IN `v_date` DATE, OUT `v_date_conforme` BOOLEAN)   BEGIN
+DROP PROCEDURE IF EXISTS `mail_non_existe`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `mail_non_existe` (IN `v_mail` VARCHAR(100), OUT `v_mail_non_existe` BOOLEAN)   BEGIN
+
+DECLARE v_mail_invalide CONDITION FOR SQLSTATE "45019";
+DECLARE error_message VARCHAR(80);
+
+SELECT TRIM(v_mail) IN (SELECT mel FROM USER) INTO v_mail_non_existe;
+
+IF v_mail_non_existe <> 0 THEN
+    SET error_message := CONCAT("Erreur 45019 : Le mail ", v_mail, " existe déjà");
+    SIGNAL v_mail_invalide SET MYSQL_ERRNO = "45019",
+    MESSAGE_TEXT = error_message;
+END IF;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `verifier_date`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verifier_date` (IN `v_date` DATE, OUT `v_date_conforme` BOOLEAN)   BEGIN
 
 DECLARE v_date_superieure CONDITION FOR SQLSTATE "45101";
 DECLARE v_date_inferieure CONDITION FOR SQLSTATE "45102";
@@ -202,7 +229,8 @@ SET v_date_conforme := TRUE;
 
 END$$
 
-CREATE DEFINER=CURRENT_USER PROCEDURE `verifier_prix` (IN `v_prix` FLOAT, OUT `v_prix_correct` BOOLEAN)   BEGIN
+DROP PROCEDURE IF EXISTS `verifier_prix`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verifier_prix` (IN `v_prix` FLOAT, OUT `v_prix_correct` BOOLEAN)   BEGIN
 
 DECLARE v_prix_negatif CONDITION FOR SQLSTATE "45103";
 DECLARE error_message VARCHAR(80);
@@ -219,7 +247,8 @@ SET v_prix_correct := TRUE;
 
 END$$
 
-CREATE DEFINER=CURRENT_USER PROCEDURE `verifier_qte` (IN `v_qte` INT, OUT `v_qte_correcte` BOOLEAN)   BEGIN
+DROP PROCEDURE IF EXISTS `verifier_qte`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verifier_qte` (IN `v_qte` INT, OUT `v_qte_correcte` BOOLEAN)   BEGIN
 
 DECLARE v_qte_negative CONDITION FOR SQLSTATE "45104";
 DECLARE error_message VARCHAR(80);
@@ -241,19 +270,21 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `CATEGORIE`
+-- Structure de la table `categorie`
 --
 
-CREATE TABLE `CATEGORIE` (
-  `id_cat` int(11) NOT NULL,
-  `nom_cat` varchar(30) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+DROP TABLE IF EXISTS `categorie`;
+CREATE TABLE IF NOT EXISTS `categorie` (
+  `id_cat` int NOT NULL AUTO_INCREMENT,
+  `nom_cat` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_cat`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `CATEGORIE`
+-- Déchargement des données de la table `categorie`
 --
 
-INSERT INTO `CATEGORIE` (`id_cat`, `nom_cat`) VALUES
+INSERT INTO `categorie` (`id_cat`, `nom_cat`) VALUES
 (1, 'Bonnet'),
 (2, 'Pull'),
 (3, 'Gants'),
@@ -264,21 +295,23 @@ INSERT INTO `CATEGORIE` (`id_cat`, `nom_cat`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `COL_PROD`
+-- Structure de la table `col_prod`
 --
 
-CREATE TABLE `COL_PROD` (
-  `id_prod` int(11) NOT NULL,
-  `id_col` int(11) NOT NULL,
+DROP TABLE IF EXISTS `col_prod`;
+CREATE TABLE IF NOT EXISTS `col_prod` (
+  `id_prod` int NOT NULL,
+  `id_col` int NOT NULL,
   `diff_prix_col` float NOT NULL,
-  `path_img` varchar(34) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `path_img` varchar(34) NOT NULL,
+  PRIMARY KEY (`id_prod`,`id_col`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `COL_PROD`
+-- Déchargement des données de la table `col_prod`
 --
 
-INSERT INTO `COL_PROD` (`id_prod`, `id_col`, `diff_prix_col`, `path_img`) VALUES
+INSERT INTO `col_prod` (`id_prod`, `id_col`, `diff_prix_col`, `path_img`) VALUES
 (1, 2, 0, 'bonnet noel rouge.jpg'),
 (1, 16, 1, 'bonnetNoelDoré.jpg'),
 (2, 2, 0, 'BonnetMocheRouge.jpeg'),
@@ -340,10 +373,11 @@ INSERT INTO `COL_PROD` (`id_prod`, `id_col`, `diff_prix_col`, `path_img`) VALUES
 (15, 2, 0, 'pere_noel.png');
 
 --
--- Déclencheurs `COL_PROD`
+-- Déclencheurs `col_prod`
 --
+DROP TRIGGER IF EXISTS `COL_PROD_BEFORE_INSERT`;
 DELIMITER $$
-CREATE TRIGGER `COL_PROD_BEFORE_INSERT` BEFORE INSERT ON `COL_PROD` FOR EACH ROW BEGIN
+CREATE TRIGGER `COL_PROD_BEFORE_INSERT` BEFORE INSERT ON `col_prod` FOR EACH ROW BEGIN
 
 DECLARE v_id_prod_existe, v_id_col_existe, v_prix_correct BOOLEAN;
 
@@ -354,8 +388,9 @@ CALL verifier_prix(NEW.diff_prix_col, v_prix_correct);
 END
 $$
 DELIMITER ;
+DROP TRIGGER IF EXISTS `COL_PROD_BEFORE_UPDATE`;
 DELIMITER $$
-CREATE TRIGGER `COL_PROD_BEFORE_UPDATE` BEFORE UPDATE ON `COL_PROD` FOR EACH ROW BEGIN
+CREATE TRIGGER `COL_PROD_BEFORE_UPDATE` BEFORE UPDATE ON `col_prod` FOR EACH ROW BEGIN
 
 DECLARE v_id_prod_existe, v_id_col_existe, v_prix_correct BOOLEAN;
 
@@ -370,20 +405,22 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `COMMANDE`
+-- Structure de la table `commande`
 --
 
-CREATE TABLE `COMMANDE` (
-  `id_com` int(11) NOT NULL,
+DROP TABLE IF EXISTS `commande`;
+CREATE TABLE IF NOT EXISTS `commande` (
+  `id_com` int NOT NULL AUTO_INCREMENT,
   `date_com` date NOT NULL,
-  `id_us` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `id_us` int NOT NULL,
+  PRIMARY KEY (`id_com`)
+) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `COMMANDE`
+-- Déchargement des données de la table `commande`
 --
 
-INSERT INTO `COMMANDE` (`id_com`, `date_com`, `id_us`) VALUES
+INSERT INTO `commande` (`id_com`, `date_com`, `id_us`) VALUES
 (54, '2023-04-05', 11),
 (55, '2023-04-05', 11),
 (56, '2023-04-05', 11),
@@ -399,10 +436,11 @@ INSERT INTO `COMMANDE` (`id_com`, `date_com`, `id_us`) VALUES
 (66, '2023-04-05', 18);
 
 --
--- Déclencheurs `COMMANDE`
+-- Déclencheurs `commande`
 --
+DROP TRIGGER IF EXISTS `COMMANDE_BEFORE_INSERT`;
 DELIMITER $$
-CREATE TRIGGER `COMMANDE_BEFORE_INSERT` BEFORE INSERT ON `COMMANDE` FOR EACH ROW BEGIN
+CREATE TRIGGER `COMMANDE_BEFORE_INSERT` BEFORE INSERT ON `commande` FOR EACH ROW BEGIN
 
 DECLARE v_id_us_existe, v_date_conforme BOOLEAN;
 
@@ -412,8 +450,9 @@ CALL verifier_date(NEW.date_com, v_date_conforme);
 END
 $$
 DELIMITER ;
+DROP TRIGGER IF EXISTS `COMMANDE_BEFORE_UPDATE`;
 DELIMITER $$
-CREATE TRIGGER `COMMANDE_BEFORE_UPDATE` BEFORE UPDATE ON `COMMANDE` FOR EACH ROW BEGIN
+CREATE TRIGGER `COMMANDE_BEFORE_UPDATE` BEFORE UPDATE ON `commande` FOR EACH ROW BEGIN
 
 DECLARE v_id_us_existe, v_date_conforme BOOLEAN;
 
@@ -427,19 +466,21 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `COULEUR`
+-- Structure de la table `couleur`
 --
 
-CREATE TABLE `COULEUR` (
-  `id_col` int(11) NOT NULL,
-  `nom_col` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+DROP TABLE IF EXISTS `couleur`;
+CREATE TABLE IF NOT EXISTS `couleur` (
+  `id_col` int NOT NULL AUTO_INCREMENT,
+  `nom_col` varchar(20) NOT NULL,
+  PRIMARY KEY (`id_col`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `COULEUR`
+-- Déchargement des données de la table `couleur`
 --
 
-INSERT INTO `COULEUR` (`id_col`, `nom_col`) VALUES
+INSERT INTO `couleur` (`id_col`, `nom_col`) VALUES
 (1, 'Jaune'),
 (2, 'Rouge'),
 (3, 'Vert'),
@@ -461,23 +502,25 @@ INSERT INTO `COULEUR` (`id_col`, `nom_col`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `DETAIL_COM`
+-- Structure de la table `detail_com`
 --
 
-CREATE TABLE `DETAIL_COM` (
-  `id_com` int(11) NOT NULL,
-  `id_prod` int(11) NOT NULL,
-  `id_col` int(11) NOT NULL,
-  `id_tail` int(11) NOT NULL,
-  `qte_com` int(11) NOT NULL,
-  `prix_total` float NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+DROP TABLE IF EXISTS `detail_com`;
+CREATE TABLE IF NOT EXISTS `detail_com` (
+  `id_com` int NOT NULL,
+  `id_prod` int NOT NULL,
+  `id_col` int NOT NULL,
+  `id_tail` int NOT NULL,
+  `qte_com` int NOT NULL,
+  `prix_total` float NOT NULL,
+  PRIMARY KEY (`id_com`,`id_prod`,`id_col`,`id_tail`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `DETAIL_COM`
+-- Déchargement des données de la table `detail_com`
 --
 
-INSERT INTO `DETAIL_COM` (`id_com`, `id_prod`, `id_col`, `id_tail`, `qte_com`, `prix_total`) VALUES
+INSERT INTO `detail_com` (`id_com`, `id_prod`, `id_col`, `id_tail`, `qte_com`, `prix_total`) VALUES
 (53, 8, 5, 12, 1, 15.6),
 (53, 15, 2, 17, 50, 0),
 (53, 3, 2, 4, 9, 162),
@@ -537,10 +580,11 @@ INSERT INTO `DETAIL_COM` (`id_com`, `id_prod`, `id_col`, `id_tail`, `qte_com`, `
 (66, 12, 16, 1, 1, 8.4);
 
 --
--- Déclencheurs `DETAIL_COM`
+-- Déclencheurs `detail_com`
 --
+DROP TRIGGER IF EXISTS `DETAIL_COM_BEFORE_INSERT`;
 DELIMITER $$
-CREATE TRIGGER `DETAIL_COM_BEFORE_INSERT` BEFORE INSERT ON `DETAIL_COM` FOR EACH ROW BEGIN
+CREATE TRIGGER `DETAIL_COM_BEFORE_INSERT` BEFORE INSERT ON `detail_com` FOR EACH ROW BEGIN
 
 DECLARE v_id_com_existe, v_id_prod_existe, v_id_col_existe, v_id_tail_existe, v_prix_correct, v_qte_correcte BOOLEAN;
 
@@ -554,8 +598,9 @@ CALL verifier_qte(NEW.qte_com, v_qte_correcte);
 END
 $$
 DELIMITER ;
+DROP TRIGGER IF EXISTS `DETAIL_COM_BEFORE_UPDATE`;
 DELIMITER $$
-CREATE TRIGGER `DETAIL_COM_BEFORE_UPDATE` BEFORE UPDATE ON `DETAIL_COM` FOR EACH ROW BEGIN
+CREATE TRIGGER `DETAIL_COM_BEFORE_UPDATE` BEFORE UPDATE ON `detail_com` FOR EACH ROW BEGIN
 
 DECLARE v_id_com_existe, v_id_prod_existe, v_id_col_existe, v_id_tail_existe, v_prix_correct, v_qte_correcte BOOLEAN;
 
@@ -573,19 +618,21 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `FAVORI`
+-- Structure de la table `favori`
 --
 
-CREATE TABLE `FAVORI` (
-  `id_us` int(11) NOT NULL,
-  `id_prod` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+DROP TABLE IF EXISTS `favori`;
+CREATE TABLE IF NOT EXISTS `favori` (
+  `id_us` int NOT NULL,
+  `id_prod` int NOT NULL,
+  PRIMARY KEY (`id_us`,`id_prod`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `FAVORI`
+-- Déchargement des données de la table `favori`
 --
 
-INSERT INTO `FAVORI` (`id_us`, `id_prod`) VALUES
+INSERT INTO `favori` (`id_us`, `id_prod`) VALUES
 (7, 2),
 (7, 12),
 (11, 1),
@@ -600,10 +647,11 @@ INSERT INTO `FAVORI` (`id_us`, `id_prod`) VALUES
 (18, 12);
 
 --
--- Déclencheurs `FAVORI`
+-- Déclencheurs `favori`
 --
+DROP TRIGGER IF EXISTS `FAVORI_BEFORE_INSERT`;
 DELIMITER $$
-CREATE TRIGGER `FAVORI_BEFORE_INSERT` BEFORE INSERT ON `FAVORI` FOR EACH ROW BEGIN
+CREATE TRIGGER `FAVORI_BEFORE_INSERT` BEFORE INSERT ON `favori` FOR EACH ROW BEGIN
 
 DECLARE v_id_prod_existe, v_id_us_existe BOOLEAN;
 
@@ -613,8 +661,9 @@ CALL id_us_existe(NEW.id_us, v_id_us_existe);
 END
 $$
 DELIMITER ;
+DROP TRIGGER IF EXISTS `FAVORI_BEFORE_UPDATE`;
 DELIMITER $$
-CREATE TRIGGER `FAVORI_BEFORE_UPDATE` BEFORE UPDATE ON `FAVORI` FOR EACH ROW BEGIN
+CREATE TRIGGER `FAVORI_BEFORE_UPDATE` BEFORE UPDATE ON `favori` FOR EACH ROW BEGIN
 
 DECLARE v_id_prod_existe, v_id_us_existe BOOLEAN;
 
@@ -628,22 +677,24 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `PANIER`
+-- Structure de la table `panier`
 --
 
-CREATE TABLE `PANIER` (
-  `id_us` int(11) NOT NULL,
-  `id_prod` int(11) NOT NULL,
-  `id_col` int(11) NOT NULL,
-  `id_tail` int(11) NOT NULL,
-  `qte_pan` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+DROP TABLE IF EXISTS `panier`;
+CREATE TABLE IF NOT EXISTS `panier` (
+  `id_us` int NOT NULL,
+  `id_prod` int NOT NULL,
+  `id_col` int NOT NULL,
+  `id_tail` int NOT NULL,
+  `qte_pan` int NOT NULL,
+  PRIMARY KEY (`id_us`,`id_prod`,`id_col`,`id_tail`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `PANIER`
+-- Déchargement des données de la table `panier`
 --
 
-INSERT INTO `PANIER` (`id_us`, `id_prod`, `id_col`, `id_tail`, `qte_pan`) VALUES
+INSERT INTO `panier` (`id_us`, `id_prod`, `id_col`, `id_tail`, `qte_pan`) VALUES
 (11, 9, 13, 12, 2),
 (16, 2, 2, 17, 1),
 (16, 9, 2, 12, 1),
@@ -661,10 +712,11 @@ INSERT INTO `PANIER` (`id_us`, `id_prod`, `id_col`, `id_tail`, `qte_pan`) VALUES
 (7, 15, 2, 11, 14);
 
 --
--- Déclencheurs `PANIER`
+-- Déclencheurs `panier`
 --
+DROP TRIGGER IF EXISTS `PANIER_BEFORE_INSERT`;
 DELIMITER $$
-CREATE TRIGGER `PANIER_BEFORE_INSERT` BEFORE INSERT ON `PANIER` FOR EACH ROW BEGIN
+CREATE TRIGGER `PANIER_BEFORE_INSERT` BEFORE INSERT ON `panier` FOR EACH ROW BEGIN
 
 DECLARE v_id_us_existe, v_id_prod_existe, v_id_col_existe, v_id_tail_existe, v_qte_correcte BOOLEAN;
 
@@ -677,8 +729,9 @@ CALL verifier_qte(NEW.qte_pan, v_qte_correcte);
 END
 $$
 DELIMITER ;
+DROP TRIGGER IF EXISTS `PANIER_BEFORE_UPDATE`;
 DELIMITER $$
-CREATE TRIGGER `PANIER_BEFORE_UPDATE` BEFORE UPDATE ON `PANIER` FOR EACH ROW BEGIN
+CREATE TRIGGER `PANIER_BEFORE_UPDATE` BEFORE UPDATE ON `panier` FOR EACH ROW BEGIN
 
 DECLARE v_id_us_existe, v_id_prod_existe, v_id_col_existe, v_id_tail_existe, v_qte_correcte BOOLEAN;
 
@@ -695,42 +748,46 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `PERMISSION`
+-- Structure de la table `permission`
 --
 
-CREATE TABLE `PERMISSION` (
-  `id_perm` int(11) NOT NULL,
+DROP TABLE IF EXISTS `permission`;
+CREATE TABLE IF NOT EXISTS `permission` (
+  `id_perm` int NOT NULL AUTO_INCREMENT,
   `nom_perm` varchar(15) NOT NULL,
-  `num_grade` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `num_grade` int NOT NULL,
+  PRIMARY KEY (`id_perm`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `PERMISSION`
+-- Déchargement des données de la table `permission`
 --
 
-INSERT INTO `PERMISSION` (`id_perm`, `nom_perm`, `num_grade`) VALUES
+INSERT INTO `permission` (`id_perm`, `nom_perm`, `num_grade`) VALUES
 (1, 'Administrateur', 0),
 (2, 'Client', 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `PRODUIT`
+-- Structure de la table `produit`
 --
 
-CREATE TABLE `PRODUIT` (
-  `id_prod` int(11) NOT NULL,
+DROP TABLE IF EXISTS `produit`;
+CREATE TABLE IF NOT EXISTS `produit` (
+  `id_prod` int NOT NULL AUTO_INCREMENT,
   `nom_prod` varchar(50) NOT NULL,
   `description` varchar(700) NOT NULL,
   `prix_base` float NOT NULL,
-  `id_cat` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `id_cat` int NOT NULL,
+  PRIMARY KEY (`id_prod`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `PRODUIT`
+-- Déchargement des données de la table `produit`
 --
 
-INSERT INTO `PRODUIT` (`id_prod`, `nom_prod`, `description`, `prix_base`, `id_cat`) VALUES
+INSERT INTO `produit` (`id_prod`, `nom_prod`, `description`, `prix_base`, `id_cat`) VALUES
 (1, 'Bonnet du père noël', 'Un bonnet du père noël classique, bien pour se déguiser et apporter la bonne ambiance.', 5, 1),
 (2, 'Bonnet moche de noël', 'Un bonnet pas très beau, mais qui fait l\'affaire pour se réchauffer', 4, 1),
 (3, 'Pull de rennes', 'Un pull avec un rennes dessus, un indémodable', 15, 2),
@@ -748,10 +805,11 @@ INSERT INTO `PRODUIT` (`id_prod`, `nom_prod`, `description`, `prix_base`, `id_ca
 (15, 'Le père noël', 'Un père noël à la mode, visiblement trop cool pour ce monde. La légende dit qu\'il fait trembler internet lui-même. Il est si fort qu\'il a pu se battre contre Chuck Norris et Rambo en même temps et il a gagné tout en distribuant ses cadeaux. Il est tellement puissant qu\'on ne peut pas lui attribuer de prix. Et si on ne peut pas lui attribuer de prix, c\'est que c\'est gratuit.', 0, 6);
 
 --
--- Déclencheurs `PRODUIT`
+-- Déclencheurs `produit`
 --
+DROP TRIGGER IF EXISTS `PRODUIT_BEFORE_INSERT`;
 DELIMITER $$
-CREATE TRIGGER `PRODUIT_BEFORE_INSERT` BEFORE INSERT ON `PRODUIT` FOR EACH ROW BEGIN
+CREATE TRIGGER `PRODUIT_BEFORE_INSERT` BEFORE INSERT ON `produit` FOR EACH ROW BEGIN
 
 DECLARE v_id_cat_existe, v_prix_correct BOOLEAN;
 
@@ -761,8 +819,9 @@ CALL verifier_prix(NEW.prix_base, v_prix_correct);
 END
 $$
 DELIMITER ;
+DROP TRIGGER IF EXISTS `PRODUIT_BEFORE_UPDATE`;
 DELIMITER $$
-CREATE TRIGGER `PRODUIT_BEFORE_UPDATE` BEFORE UPDATE ON `PRODUIT` FOR EACH ROW BEGIN
+CREATE TRIGGER `PRODUIT_BEFORE_UPDATE` BEFORE UPDATE ON `produit` FOR EACH ROW BEGIN
 
 DECLARE v_id_cat_existe, v_prix_correct BOOLEAN;
 
@@ -776,69 +835,73 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Doublure de structure pour la vue `SELECT_COMMANDES`
+-- Doublure de structure pour la vue `select_commandes`
 -- (Voir ci-dessous la vue réelle)
 --
-CREATE TABLE `SELECT_COMMANDES` (
-`id_com` int(11)
-,`id_us` int(11)
-,`id_prod` int(11)
-,`id_col` int(11)
-,`id_tail` int(11)
+DROP VIEW IF EXISTS `select_commandes`;
+CREATE TABLE IF NOT EXISTS `select_commandes` (
+`id_com` int
+,`id_us` int
+,`id_prod` int
+,`id_col` int
+,`id_tail` int
 ,`date_com` date
-,`qte_com` int(11)
+,`qte_com` int
 ,`prix_total` float
 );
 
 -- --------------------------------------------------------
 
 --
--- Doublure de structure pour la vue `SELECT_PANIERS`
+-- Doublure de structure pour la vue `select_paniers`
 -- (Voir ci-dessous la vue réelle)
 --
-CREATE TABLE `SELECT_PANIERS` (
-`id_us` int(11)
-,`id_prod` int(11)
+DROP VIEW IF EXISTS `select_paniers`;
+CREATE TABLE IF NOT EXISTS `select_paniers` (
+`id_us` int
+,`id_prod` int
 ,`nom_prod` varchar(50)
-,`id_cat` int(11)
+,`id_cat` int
 ,`nom_cat` varchar(30)
-,`id_col` int(11)
+,`id_col` int
 ,`nom_col` varchar(20)
-,`id_tail` int(11)
+,`id_tail` int
 ,`path_img` varchar(34)
-,`prix_unit` double(19,2)
-,`qte_pan` int(11)
-,`prix_total` double(19,2)
+,`prix_unit` double
+,`qte_pan` int
+,`prix_total` double
 );
 
 -- --------------------------------------------------------
 
 --
--- Doublure de structure pour la vue `SELECT_PRODUITS`
+-- Doublure de structure pour la vue `select_produits`
 -- (Voir ci-dessous la vue réelle)
 --
-CREATE TABLE `SELECT_PRODUITS` (
-`id_prod` int(11)
+DROP VIEW IF EXISTS `select_produits`;
+CREATE TABLE IF NOT EXISTS `select_produits` (
+`id_prod` int
 ,`nom_prod` varchar(50)
 ,`description` varchar(700)
-,`id_cat` int(11)
+,`id_cat` int
 ,`nom_cat` varchar(30)
-,`id_col` int(11)
+,`id_col` int
 ,`nom_col` varchar(20)
-,`id_tail` int(11)
+,`id_tail` int
 ,`nom_tail` varchar(13)
 ,`path_img` varchar(34)
-,`prix_unit` double(19,2)
+,`prix_unit` double
 );
 
 -- --------------------------------------------------------
 
 --
--- Doublure de structure pour la vue `SELECT_USERS`
+-- Doublure de structure pour la vue `select_users`
 -- (Voir ci-dessous la vue réelle)
 --
-CREATE TABLE `SELECT_USERS` (
-`id_us` int(11)
+DROP VIEW IF EXISTS `select_users`;
+CREATE TABLE IF NOT EXISTS `select_users` (
+`id_us` int
 ,`nom_us` varchar(30)
 ,`prenom_us` varchar(20)
 ,`mel` varchar(100)
@@ -846,27 +909,29 @@ CREATE TABLE `SELECT_USERS` (
 ,`login` varchar(20)
 ,`mdp` varchar(255)
 ,`salt` varchar(20)
-,`id_perm` int(11)
+,`id_perm` int
 ,`nom_perm` varchar(15)
 );
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `TAILLE`
+-- Structure de la table `taille`
 --
 
-CREATE TABLE `TAILLE` (
-  `id_tail` int(11) NOT NULL,
+DROP TABLE IF EXISTS `taille`;
+CREATE TABLE IF NOT EXISTS `taille` (
+  `id_tail` int NOT NULL AUTO_INCREMENT,
   `nom_tail` varchar(13) NOT NULL,
-  `id_cat` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `id_cat` int NOT NULL,
+  PRIMARY KEY (`id_tail`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `TAILLE`
+-- Déchargement des données de la table `taille`
 --
 
-INSERT INTO `TAILLE` (`id_tail`, `nom_tail`, `id_cat`) VALUES
+INSERT INTO `taille` (`id_tail`, `nom_tail`, `id_cat`) VALUES
 (1, 'XS', 0),
 (2, 'S', 0),
 (3, 'M', 0),
@@ -888,20 +953,22 @@ INSERT INTO `TAILLE` (`id_tail`, `nom_tail`, `id_cat`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `TAIL_PROD`
+-- Structure de la table `tail_prod`
 --
 
-CREATE TABLE `TAIL_PROD` (
-  `id_prod` int(11) NOT NULL,
-  `id_tail` int(11) NOT NULL,
-  `diff_prix_tail` float NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+DROP TABLE IF EXISTS `tail_prod`;
+CREATE TABLE IF NOT EXISTS `tail_prod` (
+  `id_prod` int NOT NULL,
+  `id_tail` int NOT NULL,
+  `diff_prix_tail` float NOT NULL,
+  PRIMARY KEY (`id_prod`,`id_tail`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `TAIL_PROD`
+-- Déchargement des données de la table `tail_prod`
 --
 
-INSERT INTO `TAIL_PROD` (`id_prod`, `id_tail`, `diff_prix_tail`) VALUES
+INSERT INTO `tail_prod` (`id_prod`, `id_tail`, `diff_prix_tail`) VALUES
 (3, 5, 0),
 (3, 4, 0),
 (3, 3, 0),
@@ -952,10 +1019,11 @@ INSERT INTO `TAIL_PROD` (`id_prod`, `id_tail`, `diff_prix_tail`) VALUES
 (15, 11, 0);
 
 --
--- Déclencheurs `TAIL_PROD`
+-- Déclencheurs `tail_prod`
 --
+DROP TRIGGER IF EXISTS `TAIL_PROD_BEFORE_INSERT`;
 DELIMITER $$
-CREATE TRIGGER `TAIL_PROD_BEFORE_INSERT` BEFORE INSERT ON `TAIL_PROD` FOR EACH ROW BEGIN
+CREATE TRIGGER `TAIL_PROD_BEFORE_INSERT` BEFORE INSERT ON `tail_prod` FOR EACH ROW BEGIN
 
 DECLARE v_id_prod_existe, v_id_tail_existe, v_prix_correct BOOLEAN;
 
@@ -966,8 +1034,9 @@ CALL verifier_prix(NEW.diff_prix_tail, v_prix_correct);
 END
 $$
 DELIMITER ;
+DROP TRIGGER IF EXISTS `TAIL_PROD_BEFORE_UPDATE`;
 DELIMITER $$
-CREATE TRIGGER `TAIL_PROD_BEFORE_UPDATE` BEFORE UPDATE ON `TAIL_PROD` FOR EACH ROW BEGIN
+CREATE TRIGGER `TAIL_PROD_BEFORE_UPDATE` BEFORE UPDATE ON `tail_prod` FOR EACH ROW BEGIN
 
 DECLARE v_id_prod_existe, v_id_tail_existe, v_prix_correct BOOLEAN;
 
@@ -982,11 +1051,12 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `USER`
+-- Structure de la table `user`
 --
 
-CREATE TABLE `USER` (
-  `id_us` int(11) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `id_us` int NOT NULL AUTO_INCREMENT,
   `nom_us` varchar(30) NOT NULL,
   `prenom_us` varchar(20) NOT NULL,
   `mel` varchar(100) NOT NULL,
@@ -994,36 +1064,45 @@ CREATE TABLE `USER` (
   `login` varchar(20) NOT NULL,
   `mdp` varchar(255) NOT NULL,
   `salt` varchar(20) NOT NULL,
-  `id_perm` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `id_perm` int NOT NULL,
+  PRIMARY KEY (`id_us`)
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `USER`
+-- Déchargement des données de la table `user`
 --
 
-INSERT INTO `USER` (`id_us`, `nom_us`, `prenom_us`, `mel`, `date_naiss`, `login`, `mdp`, `salt`, `id_perm`) VALUES
+INSERT INTO `user` (`id_us`, `nom_us`, `prenom_us`, `mel`, `date_naiss`, `login`, `mdp`, `salt`, `id_perm`) VALUES
 (7, 'admin', 'admin', 'admin@gmail.com', '2010-10-10', 'admin', 'skD7MyPRpfvsM', 'sk#@u%Q)-V}2^)gpSK&X', 1),
 (11, 'Falschenbuhl', 'Rémi', 'remi.falschenbuhl@yahoo.fr', '2003-12-04', 'remiF', 'rOo9.RCDnsGfY', 'rOyJG[>IW$;,8LZmi=<n', 2),
 (16, 'Philippe', 'Kévin', 'kph@gmail.com', '2003-12-04', 'new', '9l9KCmTBMCeDo', '9l;hSW*EN)S rm.j$/p1', 2),
-(18, 'Laroche', 'Pierre', 'laroche5@univ-lorraine.fr', '1991-02-24', 'laroche5', 'Mw6FchtZ8zKKY', 'MwU86#P?T8LneEO#|~GG', 2);
+(18, 'Laroche', 'Pierre', 'laroche5@univ-lorraine.fr', '1991-02-24', 'laroche5', 'Mw6FchtZ8zKKY', 'MwU86#P?T8LneEO#|~GG', 2),
+(19, 'sabat', 'romain', 'perdupain@gmail.com', '2025-02-24', 'ami1@exemple.com', '5dzy7p6VdrOE2', '5dv,M2uEzv>[dv$5#@R@', 2),
+(20, 'ok', 'bahnon', 'ok@gmail.com', '2025-02-26', 'test', '7j2XkdmQ5ZYaM', '7j\\wV=?w#$2?GM]7<n&p', 2),
+(21, 'e', 'e', 'ok@gmail.com', '2025-02-26', 'test2', '/Bd42FR2lNvos', '/BTE:*F\\J)g?sH>r{=h5', 2);
 
 --
--- Déclencheurs `USER`
+-- Déclencheurs `user`
 --
+DROP TRIGGER IF EXISTS `USER_BEFORE_INSERT`;
 DELIMITER $$
-CREATE TRIGGER `USER_BEFORE_INSERT` BEFORE INSERT ON `USER` FOR EACH ROW BEGIN
+CREATE TRIGGER `USER_BEFORE_INSERT` BEFORE INSERT ON `user` FOR EACH ROW BEGIN
 
-DECLARE v_id_perm_existe, v_login_non_existe, v_date_conforme BOOLEAN;
+DECLARE v_id_perm_existe, v_login_non_existe, v_date_conforme,
+v_mail_non_existe BOOLEAN;
 
 CALL id_perm_existe(NEW.id_perm, v_id_perm_existe);
 CALL login_non_existe(NEW.login, v_login_non_existe);
+CALL mail_non_existe(NEW.mel,
+v_mail_non_existe);
 CALL verifier_date(NEW.date_naiss, v_date_conforme);
 
 END
 $$
 DELIMITER ;
+DROP TRIGGER IF EXISTS `USER_BEFORE_UPDATE`;
 DELIMITER $$
-CREATE TRIGGER `USER_BEFORE_UPDATE` BEFORE UPDATE ON `USER` FOR EACH ROW BEGIN
+CREATE TRIGGER `USER_BEFORE_UPDATE` BEFORE UPDATE ON `user` FOR EACH ROW BEGIN
 
 DECLARE v_id_perm_existe, v_login_non_existe, v_date_conforme BOOLEAN;
 
@@ -1038,160 +1117,42 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la vue `SELECT_COMMANDES`
+-- Structure de la vue `select_commandes`
 --
-DROP TABLE IF EXISTS `SELECT_COMMANDES`;
+DROP TABLE IF EXISTS `select_commandes`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=CURRENT_USER SQL SECURITY DEFINER VIEW `SELECT_COMMANDES`  AS SELECT `C`.`id_com` AS `id_com`, `C`.`id_us` AS `id_us`, `DC`.`id_prod` AS `id_prod`, `DC`.`id_col` AS `id_col`, `DC`.`id_tail` AS `id_tail`, `C`.`date_com` AS `date_com`, `DC`.`qte_com` AS `qte_com`, `DC`.`prix_total` AS `prix_total` FROM (((`COMMANDE` `C` join `DETAIL_COM` `DC` on(`DC`.`id_com` = `C`.`id_com`)) join `COULEUR` `CO` on(`DC`.`id_col` = `CO`.`id_col`)) join `TAILLE` `T` on(`DC`.`id_tail` = `T`.`id_tail`)) ORDER BY `C`.`id_us` ASC, `C`.`id_com` ASC, `DC`.`id_prod` ASC, `DC`.`id_col` ASC, `DC`.`id_tail` ASC ;
-
--- --------------------------------------------------------
-
---
--- Structure de la vue `SELECT_PANIERS`
---
-DROP TABLE IF EXISTS `SELECT_PANIERS`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=CURRENT_USER SQL SECURITY DEFINER VIEW `SELECT_PANIERS`  AS SELECT `PA`.`id_us` AS `id_us`, `P`.`id_prod` AS `id_prod`, `P`.`nom_prod` AS `nom_prod`, `P`.`id_cat` AS `id_cat`, `P`.`nom_cat` AS `nom_cat`, `P`.`id_col` AS `id_col`, `P`.`nom_col` AS `nom_col`, `P`.`id_tail` AS `id_tail`, `P`.`path_img` AS `path_img`, `P`.`prix_unit` AS `prix_unit`, `PA`.`qte_pan` AS `qte_pan`, `PA`.`qte_pan`* `P`.`prix_unit` AS `prix_total` FROM (`PANIER` `PA` join (select `SELECT_PRODUITS`.`id_prod` AS `id_prod`,`SELECT_PRODUITS`.`nom_prod` AS `nom_prod`,`SELECT_PRODUITS`.`id_cat` AS `id_cat`,`SELECT_PRODUITS`.`nom_cat` AS `nom_cat`,`SELECT_PRODUITS`.`id_col` AS `id_col`,`SELECT_PRODUITS`.`nom_col` AS `nom_col`,`SELECT_PRODUITS`.`id_tail` AS `id_tail`,`SELECT_PRODUITS`.`nom_tail` AS `nom_tail`,`SELECT_PRODUITS`.`path_img` AS `path_img`,`SELECT_PRODUITS`.`prix_unit` AS `prix_unit` from `SELECT_PRODUITS`) `P` on((`PA`.`id_prod`,`PA`.`id_col`,`PA`.`id_tail`) = (`P`.`id_prod`,`P`.`id_col`,`P`.`id_tail`))) ;
+DROP VIEW IF EXISTS `select_commandes`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_commandes`  AS SELECT `c`.`id_com` AS `id_com`, `c`.`id_us` AS `id_us`, `dc`.`id_prod` AS `id_prod`, `dc`.`id_col` AS `id_col`, `dc`.`id_tail` AS `id_tail`, `c`.`date_com` AS `date_com`, `dc`.`qte_com` AS `qte_com`, `dc`.`prix_total` AS `prix_total` FROM (((`commande` `c` join `detail_com` `dc` on((`dc`.`id_com` = `c`.`id_com`))) join `couleur` `co` on((`dc`.`id_col` = `co`.`id_col`))) join `taille` `t` on((`dc`.`id_tail` = `t`.`id_tail`))) ORDER BY `c`.`id_us` ASC, `c`.`id_com` ASC, `dc`.`id_prod` ASC, `dc`.`id_col` ASC, `dc`.`id_tail` ASC ;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la vue `SELECT_PRODUITS`
+-- Structure de la vue `select_paniers`
 --
-DROP TABLE IF EXISTS `SELECT_PRODUITS`;
+DROP TABLE IF EXISTS `select_paniers`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=CURRENT_USER SQL SECURITY DEFINER VIEW `SELECT_PRODUITS`  AS SELECT `P`.`id_prod` AS `id_prod`, `P`.`nom_prod` AS `nom_prod`, `P`.`description` AS `description`, `CA`.`id_cat` AS `id_cat`, `CA`.`nom_cat` AS `nom_cat`, `CO`.`id_col` AS `id_col`, `CO`.`nom_col` AS `nom_col`, `T`.`id_tail` AS `id_tail`, `T`.`nom_tail` AS `nom_tail`, `CP`.`path_img` AS `path_img`, round((`P`.`prix_base` + coalesce(`CP`.`diff_prix_col`,0) + coalesce(`TP`.`diff_prix_tail`,0)) * 1.2,2) AS `prix_unit` FROM (((((`PRODUIT` `P` left join `COL_PROD` `CP` on(`CP`.`id_prod` = `P`.`id_prod`)) left join `TAIL_PROD` `TP` on(`TP`.`id_prod` = `P`.`id_prod`)) join `CATEGORIE` `CA` on(`CA`.`id_cat` = `P`.`id_cat`)) left join `COULEUR` `CO` on(`CO`.`id_col` = `CP`.`id_col`)) left join `TAILLE` `T` on(`T`.`id_tail` = `TP`.`id_tail`)) ORDER BY `P`.`nom_prod` ASC, `CA`.`nom_cat` ASC, `CO`.`nom_col` ASC, `T`.`nom_tail` ASC ;
+DROP VIEW IF EXISTS `select_paniers`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_paniers`  AS SELECT `pa`.`id_us` AS `id_us`, `p`.`id_prod` AS `id_prod`, `p`.`nom_prod` AS `nom_prod`, `p`.`id_cat` AS `id_cat`, `p`.`nom_cat` AS `nom_cat`, `p`.`id_col` AS `id_col`, `p`.`nom_col` AS `nom_col`, `p`.`id_tail` AS `id_tail`, `p`.`path_img` AS `path_img`, `p`.`prix_unit` AS `prix_unit`, `pa`.`qte_pan` AS `qte_pan`, (`pa`.`qte_pan` * `p`.`prix_unit`) AS `prix_total` FROM (`panier` `pa` join (select `select_produits`.`id_prod` AS `id_prod`,`select_produits`.`nom_prod` AS `nom_prod`,`select_produits`.`id_cat` AS `id_cat`,`select_produits`.`nom_cat` AS `nom_cat`,`select_produits`.`id_col` AS `id_col`,`select_produits`.`nom_col` AS `nom_col`,`select_produits`.`id_tail` AS `id_tail`,`select_produits`.`nom_tail` AS `nom_tail`,`select_produits`.`path_img` AS `path_img`,`select_produits`.`prix_unit` AS `prix_unit` from `select_produits`) `p` on(((`pa`.`id_prod` = `p`.`id_prod`) and (`pa`.`id_col` = `p`.`id_col`) and (`pa`.`id_tail` = `p`.`id_tail`)))) ;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la vue `SELECT_USERS`
+-- Structure de la vue `select_produits`
 --
-DROP TABLE IF EXISTS `SELECT_USERS`;
+DROP TABLE IF EXISTS `select_produits`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=CURRENT_USER SQL SECURITY DEFINER VIEW `SELECT_USERS`  AS SELECT `U`.`id_us` AS `id_us`, `U`.`nom_us` AS `nom_us`, `U`.`prenom_us` AS `prenom_us`, `U`.`mel` AS `mel`, `U`.`date_naiss` AS `date_naiss`, `U`.`login` AS `login`, `U`.`mdp` AS `mdp`, `U`.`salt` AS `salt`, `P`.`id_perm` AS `id_perm`, `P`.`nom_perm` AS `nom_perm` FROM (`USER` `U` join `PERMISSION` `P` on(`P`.`id_perm` = `U`.`id_perm`)) ORDER BY `P`.`id_perm` ASC, `U`.`nom_us` ASC, `U`.`prenom_us` ASC ;
+DROP VIEW IF EXISTS `select_produits`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_produits`  AS SELECT `p`.`id_prod` AS `id_prod`, `p`.`nom_prod` AS `nom_prod`, `p`.`description` AS `description`, `ca`.`id_cat` AS `id_cat`, `ca`.`nom_cat` AS `nom_cat`, `co`.`id_col` AS `id_col`, `co`.`nom_col` AS `nom_col`, `t`.`id_tail` AS `id_tail`, `t`.`nom_tail` AS `nom_tail`, `cp`.`path_img` AS `path_img`, round((((`p`.`prix_base` + coalesce(`cp`.`diff_prix_col`,0)) + coalesce(`tp`.`diff_prix_tail`,0)) * 1.2),2) AS `prix_unit` FROM (((((`produit` `p` left join `col_prod` `cp` on((`cp`.`id_prod` = `p`.`id_prod`))) left join `tail_prod` `tp` on((`tp`.`id_prod` = `p`.`id_prod`))) join `categorie` `ca` on((`ca`.`id_cat` = `p`.`id_cat`))) left join `couleur` `co` on((`co`.`id_col` = `cp`.`id_col`))) left join `taille` `t` on((`t`.`id_tail` = `tp`.`id_tail`))) ORDER BY `p`.`nom_prod` ASC, `ca`.`nom_cat` ASC, `co`.`nom_col` ASC, `t`.`nom_tail` ASC ;
 
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `CATEGORIE`
---
-ALTER TABLE `CATEGORIE`
-  ADD PRIMARY KEY (`id_cat`);
+-- --------------------------------------------------------
 
 --
--- Index pour la table `COL_PROD`
+-- Structure de la vue `select_users`
 --
-ALTER TABLE `COL_PROD`
-  ADD PRIMARY KEY (`id_prod`,`id_col`);
+DROP TABLE IF EXISTS `select_users`;
 
---
--- Index pour la table `COMMANDE`
---
-ALTER TABLE `COMMANDE`
-  ADD PRIMARY KEY (`id_com`);
-
---
--- Index pour la table `COULEUR`
---
-ALTER TABLE `COULEUR`
-  ADD PRIMARY KEY (`id_col`);
-
---
--- Index pour la table `DETAIL_COM`
---
-ALTER TABLE `DETAIL_COM`
-  ADD PRIMARY KEY (`id_com`,`id_prod`,`id_col`,`id_tail`);
-
---
--- Index pour la table `FAVORI`
---
-ALTER TABLE `FAVORI`
-  ADD PRIMARY KEY (`id_us`,`id_prod`);
-
---
--- Index pour la table `PANIER`
---
-ALTER TABLE `PANIER`
-  ADD PRIMARY KEY (`id_us`,`id_prod`,`id_col`,`id_tail`);
-
---
--- Index pour la table `PERMISSION`
---
-ALTER TABLE `PERMISSION`
-  ADD PRIMARY KEY (`id_perm`);
-
---
--- Index pour la table `PRODUIT`
---
-ALTER TABLE `PRODUIT`
-  ADD PRIMARY KEY (`id_prod`);
-
---
--- Index pour la table `TAILLE`
---
-ALTER TABLE `TAILLE`
-  ADD PRIMARY KEY (`id_tail`);
-
---
--- Index pour la table `TAIL_PROD`
---
-ALTER TABLE `TAIL_PROD`
-  ADD PRIMARY KEY (`id_prod`,`id_tail`);
-
---
--- Index pour la table `USER`
---
-ALTER TABLE `USER`
-  ADD PRIMARY KEY (`id_us`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `CATEGORIE`
---
-ALTER TABLE `CATEGORIE`
-  MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT pour la table `COMMANDE`
---
-ALTER TABLE `COMMANDE`
-  MODIFY `id_com` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
-
---
--- AUTO_INCREMENT pour la table `COULEUR`
---
-ALTER TABLE `COULEUR`
-  MODIFY `id_col` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT pour la table `PERMISSION`
---
-ALTER TABLE `PERMISSION`
-  MODIFY `id_perm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT pour la table `PRODUIT`
---
-ALTER TABLE `PRODUIT`
-  MODIFY `id_prod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT pour la table `TAILLE`
---
-ALTER TABLE `TAILLE`
-  MODIFY `id_tail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT pour la table `USER`
---
-ALTER TABLE `USER`
-  MODIFY `id_us` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+DROP VIEW IF EXISTS `select_users`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_users`  AS SELECT `u`.`id_us` AS `id_us`, `u`.`nom_us` AS `nom_us`, `u`.`prenom_us` AS `prenom_us`, `u`.`mel` AS `mel`, `u`.`date_naiss` AS `date_naiss`, `u`.`login` AS `login`, `u`.`mdp` AS `mdp`, `u`.`salt` AS `salt`, `p`.`id_perm` AS `id_perm`, `p`.`nom_perm` AS `nom_perm` FROM (`user` `u` join `permission` `p` on((`p`.`id_perm` = `u`.`id_perm`))) ORDER BY `p`.`id_perm` ASC, `u`.`nom_us` ASC, `u`.`prenom_us` ASC ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
