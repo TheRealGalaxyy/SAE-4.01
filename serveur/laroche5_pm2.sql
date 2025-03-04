@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 04 mars 2025 à 22:17
+-- Généré le : mar. 04 mars 2025 à 22:50
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -25,24 +25,6 @@ DELIMITER $$
 --
 -- Procédures
 --
-DROP PROCEDURE IF EXISTS `age_valide`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `age_valide` (IN `v_date_naiss` DATE)   BEGIN
-
-DECLARE v_age_invalide CONDITION FOR SQLSTATE "45020";
-DECLARE error_message VARCHAR(80);
-DECLARE v_age INT;
-
-
-SELECT  floor(DATEDIFF(NOW() , v_date_naiss)/365) INTO v_age;
-
-IF v_age < 16 THEN
-    SET error_message := CONCAT("Erreur 45020 : vous devez avoir au moins 16 ans pour vous inscrire");
-    SIGNAL v_age_invalide SET MYSQL_ERRNO = "45020",
-    MESSAGE_TEXT = error_message;
-END IF;
-
-END$$
-
 DROP PROCEDURE IF EXISTS `DELETE_FAVORI`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `DELETE_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  NO SQL BEGIN
 
@@ -219,7 +201,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `verifier_date` (IN `v_date` DATE, O
 
 DECLARE v_date_superieure CONDITION FOR SQLSTATE "45101";
 DECLARE v_date_inferieure CONDITION FOR SQLSTATE "45102";
+DECLARE v_age_invalide CONDITION FOR SQLSTATE "45020";
 DECLARE error_message VARCHAR(80);
+DECLARE v_age INT;
+
 
 DECLARE v_now, v_1900 DATE;
 
@@ -240,6 +225,15 @@ IF v_date < v_1900 THEN
 
     SET error_message := CONCAT("Erreur 45102 : La date ", v_date, " est trop vieille (< 1900)");
     SIGNAL v_date_inferieure SET MYSQL_ERRNO = "45102",
+    MESSAGE_TEXT = error_message;
+END IF;
+
+SELECT  floor(DATEDIFF(NOW() , v_date)/365) INTO v_age;
+
+IF v_age < 16 THEN
+    SET v_date_conforme := FALSE;
+    SET error_message := CONCAT("Erreur 45020 : vous devez avoir au moins 16 ans pour vous inscrire");
+    SIGNAL v_age_invalide SET MYSQL_ERRNO = "45020",
     MESSAGE_TEXT = error_message;
 END IF;
 
@@ -1084,7 +1078,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `salt` varchar(20) NOT NULL,
   `id_perm` int NOT NULL,
   PRIMARY KEY (`id_us`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `user`
@@ -1111,6 +1105,7 @@ CALL login_non_existe(NEW.login, v_login_non_existe);
 CALL mail_non_existe(NEW.mel,
 v_mail_non_existe);
 CALL verifier_date(NEW.date_naiss, v_date_conforme);
+
 
 END
 $$
