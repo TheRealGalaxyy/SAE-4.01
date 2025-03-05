@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 04 mars 2025 à 22:50
--- Version du serveur : 9.1.0
--- Version de PHP : 8.3.14
+-- Généré le : mer. 05 mars 2025 à 13:34
+-- Version du serveur : 8.3.0
+-- Version de PHP : 8.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -170,27 +170,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `login_non_existe` (IN `v_login` VAR
 DECLARE v_login_invalide CONDITION FOR SQLSTATE "45018";
 DECLARE error_message VARCHAR(80);
 
-SELECT TRIM(v_login) IN (SELECT login FROM USER) INTO v_login_non_existe;
+SELECT v_login IN (SELECT login FROM USER) INTO v_login_non_existe;
 
 IF v_login_non_existe <> 0 THEN
     SET error_message := CONCAT("Erreur 45018 : Le login ", v_login, " existe déjà");
     SIGNAL v_login_invalide SET MYSQL_ERRNO = "45018",
-    MESSAGE_TEXT = error_message;
-END IF;
-
-END$$
-
-DROP PROCEDURE IF EXISTS `mail_non_existe`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mail_non_existe` (IN `v_mail` VARCHAR(100), OUT `v_mail_non_existe` BOOLEAN)   BEGIN
-
-DECLARE v_mail_invalide CONDITION FOR SQLSTATE "45019";
-DECLARE error_message VARCHAR(80);
-
-SELECT TRIM(v_mail) IN (SELECT mel FROM USER) INTO v_mail_non_existe;
-
-IF v_mail_non_existe <> 0 THEN
-    SET error_message := CONCAT("Erreur 45019 : Le mail ", v_mail, " existe déjà");
-    SIGNAL v_mail_invalide SET MYSQL_ERRNO = "45019",
     MESSAGE_TEXT = error_message;
 END IF;
 
@@ -201,10 +185,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `verifier_date` (IN `v_date` DATE, O
 
 DECLARE v_date_superieure CONDITION FOR SQLSTATE "45101";
 DECLARE v_date_inferieure CONDITION FOR SQLSTATE "45102";
-DECLARE v_age_invalide CONDITION FOR SQLSTATE "45020";
 DECLARE error_message VARCHAR(80);
-DECLARE v_age INT;
-
 
 DECLARE v_now, v_1900 DATE;
 
@@ -225,15 +206,6 @@ IF v_date < v_1900 THEN
 
     SET error_message := CONCAT("Erreur 45102 : La date ", v_date, " est trop vieille (< 1900)");
     SIGNAL v_date_inferieure SET MYSQL_ERRNO = "45102",
-    MESSAGE_TEXT = error_message;
-END IF;
-
-SELECT  floor(DATEDIFF(NOW() , v_date)/365) INTO v_age;
-
-IF v_age < 16 THEN
-    SET v_date_conforme := FALSE;
-    SET error_message := CONCAT("Erreur 45020 : vous devez avoir au moins 16 ans pour vous inscrire");
-    SIGNAL v_age_invalide SET MYSQL_ERRNO = "45020",
     MESSAGE_TEXT = error_message;
 END IF;
 
@@ -317,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `col_prod` (
   `diff_prix_col` float NOT NULL,
   `path_img` varchar(34) NOT NULL,
   PRIMARY KEY (`id_prod`,`id_col`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `col_prod`
@@ -328,36 +300,26 @@ INSERT INTO `col_prod` (`id_prod`, `id_col`, `diff_prix_col`, `path_img`) VALUES
 (1, 16, 1, 'bonnetNoelDoré.jpg'),
 (2, 2, 0, 'BonnetMocheRouge.jpeg'),
 (2, 3, 0, 'bonnet moche vert.jpg'),
-(2, 8, 0, 'bonnetMocheMarron.jpg'),
 (2, 5, 0, 'bonnetMocheBlanc.webp'),
+(2, 8, 0, 'bonnetMocheMarron.jpg'),
 (3, 2, 0, 'pull-moche-noel-renne.jpeg'),
 (4, 2, 0, 'pullLaineRouge.jpg'),
 (4, 3, 0, 'pullLaineVert.webp'),
+(4, 6, 0, 'pull_laine_blanc.jpg'),
 (4, 7, 0, 'pullLaineNoir.jpg'),
-(11, 15, 0, 'girlandeMulti.jpg'),
-(11, 2, 0, 'girlandeRouge.jpg'),
-(11, 5, 0, 'girlandeBlanc.jpg'),
-(13, 3, 0, 'sapinPlastiqueVert.jpg'),
-(13, 5, 0, 'sapinPlastiqueBlanc.jpg'),
-(14, 3, 0, 'sapinNaturelVert.jpg'),
-(14, 5, 0, 'sapinNaturelBlanc.jpg'),
-(12, 1, 0, 'bouleNoelJaune.jpg'),
-(12, 2, 0, 'bouleNoelRouge.jpg'),
-(12, 3, 0, 'bouleNoelVert.jpg'),
-(12, 5, 0, 'bouleNoelBlanc.jpg'),
-(12, 16, 0, 'bouleNoelDoré.jpg'),
-(12, 17, 0, 'bouleNoelArgent.jpg'),
 (5, 5, 0, 'gants ski blanc.webp'),
 (5, 6, 0, 'gantSkiGris.webp'),
 (5, 7, 0, 'gantSkiNoir.jpg'),
+(6, 2, 0, 'sousGantRouge.webp'),
+(6, 3, 0, 'sousGantVert.webp'),
 (6, 4, 0, 'sousGantBleu.jpg'),
 (6, 5, 0, 'sousGantBlanc.jpg'),
 (6, 6, 0, 'sousGantGris.webp'),
 (6, 7, 0, 'sous gants noirs.jpg'),
 (6, 9, 0, 'sousGantViolet.webp'),
+(6, 11, 0, 'sousGantCyan.webp'),
+(6, 12, 0, 'sousGantMagenta.webp'),
 (6, 14, 0, 'sousGantTurquoise.webp'),
-(6, 2, 0, 'sousGantRouge.webp'),
-(6, 3, 0, 'sousGantVert.webp'),
 (7, 2, 0, 'gants en laine rouge.jpg'),
 (7, 3, 0, 'gantLaineVert.jpg'),
 (7, 5, 0, 'gantLaineBlanc.webp'),
@@ -378,10 +340,20 @@ INSERT INTO `col_prod` (`id_prod`, `id_col`, `diff_prix_col`, `path_img`) VALUES
 (10, 7, 0, 'chaussetteLaineNoir.jpg'),
 (10, 10, 0, 'chaussetteLaineRose.webp'),
 (10, 12, 0, 'chaussettelaineMagenta.jpg'),
-(6, 11, 0, 'sousGantCyan.webp'),
-(6, 12, 0, 'sousGantMagenta.webp'),
 (10, 15, 0, 'chaussettes laine multicolores.jpg'),
-(4, 6, 0, 'pull_laine_blanc.jpg'),
+(11, 2, 0, 'girlandeRouge.jpg'),
+(11, 5, 0, 'girlandeBlanc.jpg'),
+(11, 15, 0, 'girlandeMulti.jpg'),
+(12, 1, 0, 'bouleNoelJaune.jpg'),
+(12, 2, 0, 'bouleNoelRouge.jpg'),
+(12, 3, 0, 'bouleNoelVert.jpg'),
+(12, 5, 0, 'bouleNoelBlanc.jpg'),
+(12, 16, 0, 'bouleNoelDoré.jpg'),
+(12, 17, 0, 'bouleNoelArgent.jpg'),
+(13, 3, 0, 'sapinPlastiqueVert.jpg'),
+(13, 5, 0, 'sapinPlastiqueBlanc.jpg'),
+(14, 3, 0, 'sapinNaturelVert.jpg'),
+(14, 5, 0, 'sapinNaturelBlanc.jpg'),
 (15, 2, 0, 'pere_noel.png');
 
 --
@@ -426,7 +398,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `date_com` date NOT NULL,
   `id_us` int NOT NULL,
   PRIMARY KEY (`id_com`)
-) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `commande`
@@ -445,7 +417,8 @@ INSERT INTO `commande` (`id_com`, `date_com`, `id_us`) VALUES
 (63, '2023-04-05', 7),
 (64, '2023-04-05', 16),
 (65, '2023-04-05', 18),
-(66, '2023-04-05', 18);
+(66, '2023-04-05', 18),
+(67, '2025-02-25', 7);
 
 --
 -- Déclencheurs `commande`
@@ -589,7 +562,8 @@ INSERT INTO `detail_com` (`id_com`, `id_prod`, `id_col`, `id_tail`, `qte_com`, `
 (64, 12, 1, 3, 5, 48),
 (65, 9, 13, 15, 4, 86.4),
 (66, 5, 7, 1, 1, 12),
-(66, 12, 16, 1, 1, 8.4);
+(66, 12, 16, 1, 1, 8.4),
+(67, 2, 2, 17, 1, 4.8);
 
 --
 -- Déclencheurs `detail_com`
@@ -645,8 +619,6 @@ CREATE TABLE IF NOT EXISTS `favori` (
 --
 
 INSERT INTO `favori` (`id_us`, `id_prod`) VALUES
-(7, 2),
-(7, 12),
 (11, 1),
 (11, 2),
 (11, 7),
@@ -711,17 +683,13 @@ INSERT INTO `panier` (`id_us`, `id_prod`, `id_col`, `id_tail`, `qte_pan`) VALUES
 (16, 2, 2, 17, 1),
 (16, 9, 2, 12, 1),
 (11, 1, 16, 17, 3),
-(7, 1, 16, 17, 3),
 (16, 10, 2, 12, 1),
-(7, 10, 2, 12, 1),
 (18, 12, 1, 3, 1),
 (11, 12, 17, 3, 10),
 (11, 8, 2, 12, 11),
 (11, 15, 2, 11, 10),
 (16, 1, 16, 17, 1),
-(16, 11, 2, 11, 1),
-(7, 11, 2, 9, 1),
-(7, 15, 2, 11, 14);
+(16, 11, 2, 11, 1);
 
 --
 -- Déclencheurs `panier`
@@ -792,6 +760,8 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `description` varchar(700) NOT NULL,
   `prix_base` float NOT NULL,
   `id_cat` int NOT NULL,
+  `sku` varchar(100) DEFAULT NULL,
+  `stock_quantity` int DEFAULT NULL,
   PRIMARY KEY (`id_prod`)
 ) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
@@ -799,22 +769,22 @@ CREATE TABLE IF NOT EXISTS `produit` (
 -- Déchargement des données de la table `produit`
 --
 
-INSERT INTO `produit` (`id_prod`, `nom_prod`, `description`, `prix_base`, `id_cat`) VALUES
-(1, 'Bonnet du père noël', 'Un bonnet du père noël classique, bien pour se déguiser et apporter la bonne ambiance.', 5, 1),
-(2, 'Bonnet moche de noël', 'Un bonnet pas très beau, mais qui fait l\'affaire pour se réchauffer', 4, 1),
-(3, 'Pull de rennes', 'Un pull avec un rennes dessus, un indémodable', 15, 2),
-(4, 'Pull en laine', 'Un pull en laine très sobre, très confortable, très cosy', 30, 2),
-(5, 'Gants de ski', 'Des gants adaptés à tous types de neige, de pluie ou d\'intempéries diverses', 10, 3),
-(6, 'Sous-gants', 'Des sous-gants adaptés au gants de ski, très léger et qui tiennent chaud', 10, 3),
-(7, 'Gants en laine', 'Gants en laine adaptés à n\'importe quel besoin', 11, 3),
-(8, 'Chaussettes du père noël', 'Des chaussettes conviviales pour cacher les cadeaux et mettre près de la cheminée', 13, 4),
-(9, 'Chaussettes hautes', 'Chaussettes idéales pour se maintenir au chaud en toute circonstance', 17, 4),
-(10, 'Chaussettes en laine', 'Des chaussettes classiques mais néanmoins pratiques', 10, 4),
-(11, 'Guirlande lumineuse', 'Une guirlande sympatique pour égayer les réveillons de noël', 30, 5),
-(12, 'Boules de noël', 'Des boules variées à accrocher à votre sapin', 7, 5),
-(13, 'Sapin de Noël en plastique', 'Un sapin de noël passe partout, sans la corvée du ménage', 60, 5),
-(14, 'Sapin de Noël naturel', 'Un sapin de noël naturel, avec les épines qui tombent et la déforestation qui va avec', 70, 5),
-(15, 'Le père noël', 'Un père noël à la mode, visiblement trop cool pour ce monde. La légende dit qu\'il fait trembler internet lui-même. Il est si fort qu\'il a pu se battre contre Chuck Norris et Rambo en même temps et il a gagné tout en distribuant ses cadeaux. Il est tellement puissant qu\'on ne peut pas lui attribuer de prix. Et si on ne peut pas lui attribuer de prix, c\'est que c\'est gratuit.', 0, 6);
+INSERT INTO `produit` (`id_prod`, `nom_prod`, `description`, `prix_base`, `id_cat`, `sku`, `stock_quantity`) VALUES
+(1, 'Bonnet du père noël', 'Un bonnet du père noël classique, bien pour se déguiser et apporter la bonne ambiance.', 5, 1, 'SKU1', 100),
+(2, 'Bonnet moche de noël', 'Un bonnet pas très beau, mais qui fait l\'affaire pour se réchauffer', 4, 1, 'SKU2', 100),
+(3, 'Pull de rennes', 'Un pull avec un rennes dessus, un indémodable', 15, 2, 'SKU3', 50),
+(4, 'Pull en laine', 'Un pull en laine très sobre, très confortable, très cosy', 30, 2, 'SKU4', 50),
+(5, 'Gants de ski', 'Des gants adaptés à tous types de neige, de pluie ou d\'intempéries diverses', 10, 3, 'SKU5', 75),
+(6, 'Sous-gants', 'Des sous-gants adaptés au gants de ski, très léger et qui tiennent chaud', 10, 3, 'SKU6', 75),
+(7, 'Gants en laine', 'Gants en laine adaptés à n\'importe quel besoin', 11, 3, 'SKU7', 75),
+(8, 'Chaussettes du père noël', 'Des chaussettes conviviales pour cacher les cadeaux et mettre près de la cheminée', 13, 4, 'SKU8', 60),
+(9, 'Chaussettes hautes', 'Chaussettes idéales pour se maintenir au chaud en toute circonstance', 17, 4, 'SKU9', 60),
+(10, 'Chaussettes en laine', 'Des chaussettes classiques mais néanmoins pratiques', 10, 4, 'SKU10', 60),
+(11, 'Guirlande lumineuse', 'Une guirlande sympatique pour égayer les réveillons de noël', 30, 5, 'SKU11', 30),
+(12, 'Boules de noël', 'Des boules variées à accrocher à votre sapin', 7, 5, 'SKU12', 30),
+(13, 'Sapin de Noël en plastique', 'Un sapin de noël passe partout, sans la corvée du ménage', 60, 5, 'SKU13', 30),
+(14, 'Sapin de Noël naturel', 'Un sapin de noël naturel, avec les épines qui tombent et la déforestation qui va avec', 70, 5, 'SKU14', 30),
+(15, 'Le père noël', 'Un père noël à la mode, visiblement trop cool pour ce monde. La légende dit qu\'il fait trembler internet lui-même. Il est si fort qu\'il a pu se battre contre Chuck Norris et Rambo en même temps et il a gagné tout en distribuant ses cadeaux. Il est tellement puissant qu\'on ne peut pas lui attribuer de prix. Et si on ne peut pas lui attribuer de prix, c\'est que c\'est gratuit.', 0, 6, 'SKU15', 10);
 
 --
 -- Déclencheurs `produit`
@@ -895,6 +865,8 @@ CREATE TABLE IF NOT EXISTS `select_produits` (
 `id_prod` int
 ,`nom_prod` varchar(50)
 ,`description` varchar(700)
+,`sku` varchar(100)
+,`stock` int
 ,`id_cat` int
 ,`nom_cat` varchar(30)
 ,`id_col` int
@@ -1078,7 +1050,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `salt` varchar(20) NOT NULL,
   `id_perm` int NOT NULL,
   PRIMARY KEY (`id_us`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `user`
@@ -1097,15 +1069,11 @@ DROP TRIGGER IF EXISTS `USER_BEFORE_INSERT`;
 DELIMITER $$
 CREATE TRIGGER `USER_BEFORE_INSERT` BEFORE INSERT ON `user` FOR EACH ROW BEGIN
 
-DECLARE v_id_perm_existe, v_login_non_existe, v_date_conforme,
-v_mail_non_existe BOOLEAN;
+DECLARE v_id_perm_existe, v_login_non_existe, v_date_conforme BOOLEAN;
 
 CALL id_perm_existe(NEW.id_perm, v_id_perm_existe);
 CALL login_non_existe(NEW.login, v_login_non_existe);
-CALL mail_non_existe(NEW.mel,
-v_mail_non_existe);
 CALL verifier_date(NEW.date_naiss, v_date_conforme);
-
 
 END
 $$
@@ -1152,7 +1120,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `select_produits`;
 
 DROP VIEW IF EXISTS `select_produits`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_produits`  AS SELECT `p`.`id_prod` AS `id_prod`, `p`.`nom_prod` AS `nom_prod`, `p`.`description` AS `description`, `ca`.`id_cat` AS `id_cat`, `ca`.`nom_cat` AS `nom_cat`, `co`.`id_col` AS `id_col`, `co`.`nom_col` AS `nom_col`, `t`.`id_tail` AS `id_tail`, `t`.`nom_tail` AS `nom_tail`, `cp`.`path_img` AS `path_img`, round((((`p`.`prix_base` + coalesce(`cp`.`diff_prix_col`,0)) + coalesce(`tp`.`diff_prix_tail`,0)) * 1.2),2) AS `prix_unit` FROM (((((`produit` `p` left join `col_prod` `cp` on((`cp`.`id_prod` = `p`.`id_prod`))) left join `tail_prod` `tp` on((`tp`.`id_prod` = `p`.`id_prod`))) join `categorie` `ca` on((`ca`.`id_cat` = `p`.`id_cat`))) left join `couleur` `co` on((`co`.`id_col` = `cp`.`id_col`))) left join `taille` `t` on((`t`.`id_tail` = `tp`.`id_tail`))) ORDER BY `p`.`nom_prod` ASC, `ca`.`nom_cat` ASC, `co`.`nom_col` ASC, `t`.`nom_tail` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_produits`  AS SELECT `p`.`id_prod` AS `id_prod`, `p`.`nom_prod` AS `nom_prod`, `p`.`description` AS `description`, `p`.`sku` AS `sku`, `p`.`stock_quantity` AS `stock`, `ca`.`id_cat` AS `id_cat`, `ca`.`nom_cat` AS `nom_cat`, `co`.`id_col` AS `id_col`, `co`.`nom_col` AS `nom_col`, `t`.`id_tail` AS `id_tail`, `t`.`nom_tail` AS `nom_tail`, `cp`.`path_img` AS `path_img`, round((((`p`.`prix_base` + coalesce(`cp`.`diff_prix_col`,0)) + coalesce(`tp`.`diff_prix_tail`,0)) * 1.2),2) AS `prix_unit` FROM (((((`produit` `p` left join `col_prod` `cp` on((`cp`.`id_prod` = `p`.`id_prod`))) left join `tail_prod` `tp` on((`tp`.`id_prod` = `p`.`id_prod`))) join `categorie` `ca` on((`ca`.`id_cat` = `p`.`id_cat`))) left join `couleur` `co` on((`co`.`id_col` = `cp`.`id_col`))) left join `taille` `t` on((`t`.`id_tail` = `tp`.`id_tail`))) ORDER BY `p`.`nom_prod` ASC, `ca`.`nom_cat` ASC, `co`.`nom_col` ASC, `t`.`nom_tail` ASC ;
 
 -- --------------------------------------------------------
 

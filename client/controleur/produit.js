@@ -14,25 +14,23 @@ class ProduitDetail extends HTMLElement {
     <style>
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
-        /* display: none; <- Crashes Chrome on hover */
         -webkit-appearance: none;
-        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+        margin: 0;
     }
     input[type=number] {
-        -moz-appearance:textfield; /* Firefox */
-        width: 20px;
+        -moz-appearance:textfield;
+        width: 50px;
         background-color: whitesmoke;
         border: none;
+        text-align: center;
     }
     input[type=button] {
-        text-align: center;
         background-color: whitesmoke;
         color: black;
         border: none;
-        padding: 14px 20px;
+        padding: 10px 20px;
         margin: 8px 0;
         cursor: pointer;
-        text-decoration: none;
         font-size: medium;
         border-radius: 4px;
     }
@@ -46,9 +44,6 @@ class ProduitDetail extends HTMLElement {
         padding: 15px;
     }
     .main_info_prod, .sub_info_prod {
-        /*display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;*/
         display: grid;
         grid-template-columns: repeat(auto-fill, 380px);
         column-gap: 10px;
@@ -61,64 +56,55 @@ class ProduitDetail extends HTMLElement {
             grid-template-columns: none;
         }
     }
-    .img_prod, .desc_prod {
-        vertical-align: top;
-        margin: 5px;
-        max-width: 400px;
-        max-height: 300px;
-    }
     .img_prod {
-        height: auto;
-        width: auto;
-        aspect-ratio: auto;
         max-width: 100%;
         border-radius: 4px;
     }
     #taille, #couleur {
         display: inline-block;
     }
-    p {
-        font-size: 20px;
-        ${/*overflow: scroll;*/""}
-    }
     </style>
     <div class="produitDetail">
         <center><h1>${this.getAttribute("name")}</h1></center>
         <span class="main_info_prod">
-            <center><img class="img_prod" alt="../img/Placeholder.png" src="${this.getAttribute("path_img")}"></center>
+            <center><img class="img_prod" alt="Image produit" src="${this.getAttribute("path_img")}"></center>
             <center><p class="desc_prod">${this.getAttribute("description")}</p></center>
         </span>
         <br>
         <div class="sub_info_prod">
-            <div style="margin-bottom: 15px;">
-                <p>prix : <span id="prix">${this.getAttribute("prix")}</span> €</p>
+            <div>
+                <p>Prix : <span id="prix">${this.getAttribute("prix")}</span> €</p>
+                <p>SKU : <span id="sku">${this.getAttribute("sku")}</span></p>
+                <p>Stock disponible : <span id="stock">${this.getAttribute("stock")} unité</span></p>
                 <div id="taille">Taille : </div>
                 <div id="couleur">Couleur : </div>
             </div>
             <div>
                 <label for="nbrCommande">Quantité :</label>
-                <input type="number" id="nbrCommande" name="nbrCommande" step="1" value="1" size="5" requiered>
+                <input type="number" id="nbrCommande" name="nbrCommande" step="1" value="1" min="1">
                 <p>Prix total : <span id="prix_tot">${this.getAttribute("prix")}</span>€</p>
                 <input type="button" value="Ajouter au panier">
             </div>
         </div>
     </div>
     `;
+
         document.title = this.getAttribute("name") + " - PM2";
 
         const nbrCommande = this.shadowRoot.getElementById("nbrCommande");
+        const prixTotal = this.shadowRoot.getElementById("prix_tot");
+        const stock = parseInt(this.getAttribute("stock"));
 
         nbrCommande.addEventListener("input", (event) => {
-            const prix = this.shadowRoot.getElementById("prix").innerHTML;
-            console.log(prix);
-            const contenu = event.target.value;
-            const prixTotal = this.shadowRoot.getElementById("prix_tot");
-            if (!quantiteCommandeeValide(contenu)) {
+            const prix = parseFloat(this.shadowRoot.getElementById("prix").innerHTML);
+            const contenu = parseInt(event.target.value);
+
+            if (contenu <= 0 || isNaN(contenu) || contenu > stock) {
                 event.target.style.background = "red";
                 prixTotal.innerHTML = prix;
             } else {
                 event.target.style.background = "whitesmoke";
-                prixTotal.innerHTML = Math.round(prix * parseInt(contenu) * 100) / 100;
+                prixTotal.innerHTML = (prix * contenu).toFixed(2);
             }
         });
     }
@@ -137,7 +123,6 @@ async function AfficherProd() {
         )
         .then((reponse) => reponse.json())
         .then((data) => {
-
             imprimerProduit(data.data.filter((produit) => produit.id_col == id_col)[0]);
             imprimerSelectionCouleur(data.data);
             imprimerSelectionTaille(data.data);
@@ -156,7 +141,6 @@ function imprimerSelectionCouleur(produits) {
             couleurs.set(produit["id_col"], produit["nom_col"]);
         }
     });
-    console.log(produits);
     const selecteur = document.createElement("select");
     selecteur.setAttribute("id", "selectCouleur");
     couleurs.forEach((couleur, id) => {
@@ -204,7 +188,6 @@ function imprimerSelectionTaille(produits) {
         const produit = produits.find((produit) => {
             return produit.id_tail == event.target.value
         });
-        console.log(produit);
         const qte = root.querySelector("#nbrCommande").value;
         root.querySelector("#prix").innerHTML = produit.prix_unit * qte;
         root.querySelector("#prix_tot").innerHTML = produit.prix_unit * qte;
@@ -212,11 +195,10 @@ function imprimerSelectionTaille(produits) {
 }
 
 function imprimerProduit(produit) {
+    let path = produit.path_img
+        ? "http://localhost/SAE-4.01/SAE_401/serveur/img/articles/" + produit.path_img
+        : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
-    let path = produit.path_img ?
-        "http://localhost/SAE-4.01/SAE_401/serveur/img/articles/" + produit.path_img :
-        "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
-    //console.log(path)
     const prod_affiche = document.createElement("produit-detail");
     prod_affiche.setAttribute("name", produit.nom_prod);
     prod_affiche.setAttribute("description", produit.description);
@@ -225,6 +207,10 @@ function imprimerProduit(produit) {
     prod_affiche.setAttribute("taille", produit.nom_tail);
     prod_affiche.setAttribute("path_img", path);
     prod_affiche.setAttribute("id", "produit");
+    
+    // Ajout des nouvelles informations
+    prod_affiche.setAttribute("sku", produit.sku);
+    prod_affiche.setAttribute("stock", produit.stock);
     document.querySelector("#detail").appendChild(prod_affiche);
 }
 
