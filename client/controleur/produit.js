@@ -205,7 +205,7 @@ function imprimerProduit(produit) {
     prod_affiche.setAttribute("prix", produit.prix_unit);
     prod_affiche.setAttribute("couleur", produit.nom_col);
     prod_affiche.setAttribute("taille", produit.nom_tail);
-    prod_affiche.setAttribute("path_img", path);
+    prod_affiche.setAttribute("path_img", "../serveur/img/articles/"+produit.path_img);
     prod_affiche.setAttribute("id", "produit");
     
     // Ajout des nouvelles informations

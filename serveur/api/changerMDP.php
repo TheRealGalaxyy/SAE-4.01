@@ -16,7 +16,7 @@ try{
     $res->execute();
     $salt = $res->fetch(PDO::FETCH_ASSOC)["salt"];
 
-    $password = crypt($_POST["mdp"], $salt);
+    $password = password_hash($_POST["mdp"], PASSWORD_BCRYPT);
 
     $query =
     "UPDATE `USER` SET `mdp` = :mdp_us 
