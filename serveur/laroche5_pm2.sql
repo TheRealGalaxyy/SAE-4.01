@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 06 mars 2025 à 14:54
+-- Généré le : jeu. 06 mars 2025 à 19:51
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -398,7 +398,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `date_com` date NOT NULL,
   `id_us` int NOT NULL,
   PRIMARY KEY (`id_com`)
-) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `commande`
@@ -418,8 +418,7 @@ INSERT INTO `commande` (`id_com`, `date_com`, `id_us`) VALUES
 (64, '2023-04-05', 16),
 (65, '2023-04-05', 18),
 (66, '2023-04-05', 18),
-(67, '2025-02-25', 7),
-(68, '2025-03-06', 19);
+(67, '2025-02-25', 7);
 
 --
 -- Déclencheurs `commande`
@@ -564,13 +563,7 @@ INSERT INTO `detail_com` (`id_com`, `id_prod`, `id_col`, `id_tail`, `qte_com`, `
 (65, 9, 13, 15, 4, 86.4),
 (66, 5, 7, 1, 1, 12),
 (66, 12, 16, 1, 1, 8.4),
-(67, 2, 2, 17, 1, 4.8),
-(68, 1, 16, 17, 100, 720),
-(68, 4, 2, 4, 1, 39.6),
-(68, 7, 5, 3, 1, 14.4),
-(68, 9, 2, 12, 1, 20.4),
-(68, 9, 13, 15, 1, 21.6),
-(68, 11, 15, 9, 1, 39.6);
+(67, 2, 2, 17, 1, 4.8);
 
 --
 -- Déclencheurs `detail_com`
@@ -626,11 +619,6 @@ CREATE TABLE IF NOT EXISTS `favori` (
 --
 
 INSERT INTO `favori` (`id_us`, `id_prod`) VALUES
-(7, 1),
-(7, 2),
-(7, 3),
-(7, 5),
-(7, 6),
 (11, 1),
 (11, 2),
 (11, 7),
@@ -640,10 +628,7 @@ INSERT INTO `favori` (`id_us`, `id_prod`) VALUES
 (16, 10),
 (16, 12),
 (18, 8),
-(18, 12),
-(19, 2),
-(19, 3),
-(19, 15);
+(18, 12);
 
 --
 -- Déclencheurs `favori`
@@ -705,9 +690,7 @@ INSERT INTO `panier` (`id_us`, `id_prod`, `id_col`, `id_tail`, `qte_pan`) VALUES
 (11, 15, 2, 11, 10),
 (16, 1, 16, 17, 1),
 (16, 11, 2, 11, 1),
-(7, 2, 2, 17, 1),
-(7, 1, 2, 17, 1),
-(7, 4, 2, 4, 1);
+(7, 1, 2, 17, 1);
 
 --
 -- Déclencheurs `panier`
@@ -788,7 +771,7 @@ CREATE TABLE IF NOT EXISTS `produit` (
 --
 
 INSERT INTO `produit` (`id_prod`, `nom_prod`, `description`, `prix_base`, `id_cat`, `sku`, `stock_quantity`) VALUES
-(1, 'Bonnet du père noël', 'Un bonnet du père noël classique, bien pour se déguiser et apporter la bonne ambiance.', 5, 1, 'SKU1', 100),
+(1, 'Bonnet du père noël', 'Un bonnet du père noël classique, bien pour se déguiser et apporter la bonne ambiance.', 5, 1, 'SKU1', 0),
 (2, 'Bonnet moche de noël', 'Un bonnet pas très beau, mais qui fait l\'affaire pour se réchauffer', 4, 1, 'SKU2', 100),
 (3, 'Pull de rennes', 'Un pull avec un rennes dessus, un indémodable', 15, 2, 'SKU3', 50),
 (4, 'Pull en laine', 'Un pull en laine très sobre, très confortable, très cosy', 30, 2, 'SKU4', 50),
@@ -860,12 +843,14 @@ DROP VIEW IF EXISTS `select_paniers`;
 CREATE TABLE IF NOT EXISTS `select_paniers` (
 `id_us` int
 ,`id_prod` int
+,`stock` int
 ,`nom_prod` varchar(50)
 ,`id_cat` int
 ,`nom_cat` varchar(30)
 ,`id_col` int
 ,`nom_col` varchar(20)
 ,`id_tail` int
+,`nom_tail` varchar(13)
 ,`path_img` varchar(34)
 ,`prix_unit` double
 ,`qte_pan` int
@@ -903,6 +888,16 @@ CREATE TABLE IF NOT EXISTS `select_produits` (
 --
 DROP VIEW IF EXISTS `select_users`;
 CREATE TABLE IF NOT EXISTS `select_users` (
+`id_us` int
+,`nom_us` varchar(30)
+,`prenom_us` varchar(20)
+,`mel` varchar(100)
+,`date_naiss` date
+,`login` varchar(20)
+,`mdp` varchar(255)
+,`salt` varchar(20)
+,`id_perm` int
+,`nom_perm` varchar(15)
 );
 
 -- --------------------------------------------------------
@@ -1055,20 +1050,20 @@ CREATE TABLE IF NOT EXISTS `user` (
   `date_naiss` date NOT NULL,
   `login` varchar(20) NOT NULL,
   `mdp` varchar(255) NOT NULL,
+  `salt` varchar(20) NOT NULL,
   `id_perm` int NOT NULL,
   PRIMARY KEY (`id_us`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id_us`, `nom_us`, `prenom_us`, `mel`, `date_naiss`, `login`, `mdp`, `id_perm`) VALUES
-(7, 'admin', 'admin', 'admin@gmail.com', '2010-10-10', 'admin', '$2y$10$n5Lcn8SdhEO7OGuSq3NzUu6dEmga5jUrjRpoeZkMCy9W258t.PbpW', 1),
-(11, 'Falschenbuhl', 'Rémi', 'remi.falschenbuhl@yahoo.fr', '2003-12-04', 'remiF', 'rOo9.RCDnsGfY', 2),
-(16, 'Philippe', 'Kévin', 'kph@gmail.com', '2003-12-04', 'new', '9l9KCmTBMCeDo', 2),
-(18, 'Laroche', 'Pierre', 'laroche5@univ-lorraine.fr', '1991-02-24', 'laroche5', 'Mw6FchtZ8zKKY', 2),
-(19, 'Nom', 'Prénom', 'mail@gmail.com', '2005-06-15', 'Login', '$2y$10$rdqxsucCliQUmRtcUYknIeRUfyKiskFm97d1wJ1W.Tus/WaY97Fga', 2);
+INSERT INTO `user` (`id_us`, `nom_us`, `prenom_us`, `mel`, `date_naiss`, `login`, `mdp`, `salt`, `id_perm`) VALUES
+(7, 'admin', 'admin', 'admin@gmail.com', '2010-10-10', 'admin', 'skD7MyPRpfvsM', 'sk#@u%Q)-V}2^)gpSK&X', 1),
+(11, 'Falschenbuhl', 'Rémi', 'remi.falschenbuhl@yahoo.fr', '2003-12-04', 'remiF', 'rOo9.RCDnsGfY', 'rOyJG[>IW$;,8LZmi=<n', 2),
+(16, 'Philippe', 'Kévin', 'kph@gmail.com', '2003-12-04', 'new', '9l9KCmTBMCeDo', '9l;hSW*EN)S rm.j$/p1', 2),
+(18, 'Laroche', 'Pierre', 'laroche5@univ-lorraine.fr', '1991-02-24', 'laroche5', 'Mw6FchtZ8zKKY', 'MwU86#P?T8LneEO#|~GG', 2);
 
 --
 -- Déclencheurs `user`
@@ -1118,7 +1113,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `select_paniers`;
 
 DROP VIEW IF EXISTS `select_paniers`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_paniers`  AS SELECT `pa`.`id_us` AS `id_us`, `p`.`id_prod` AS `id_prod`, `p`.`nom_prod` AS `nom_prod`, `p`.`id_cat` AS `id_cat`, `p`.`nom_cat` AS `nom_cat`, `p`.`id_col` AS `id_col`, `p`.`nom_col` AS `nom_col`, `p`.`id_tail` AS `id_tail`, `p`.`path_img` AS `path_img`, `p`.`prix_unit` AS `prix_unit`, `pa`.`qte_pan` AS `qte_pan`, (`pa`.`qte_pan` * `p`.`prix_unit`) AS `prix_total` FROM (`panier` `pa` join (select `select_produits`.`id_prod` AS `id_prod`,`select_produits`.`nom_prod` AS `nom_prod`,`select_produits`.`id_cat` AS `id_cat`,`select_produits`.`nom_cat` AS `nom_cat`,`select_produits`.`id_col` AS `id_col`,`select_produits`.`nom_col` AS `nom_col`,`select_produits`.`id_tail` AS `id_tail`,`select_produits`.`nom_tail` AS `nom_tail`,`select_produits`.`path_img` AS `path_img`,`select_produits`.`prix_unit` AS `prix_unit` from `select_produits`) `p` on(((`pa`.`id_prod` = `p`.`id_prod`) and (`pa`.`id_col` = `p`.`id_col`) and (`pa`.`id_tail` = `p`.`id_tail`)))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_paniers`  AS SELECT `pa`.`id_us` AS `id_us`, `p`.`id_prod` AS `id_prod`, `p`.`stock` AS `stock`, `p`.`nom_prod` AS `nom_prod`, `p`.`id_cat` AS `id_cat`, `p`.`nom_cat` AS `nom_cat`, `p`.`id_col` AS `id_col`, `p`.`nom_col` AS `nom_col`, `p`.`id_tail` AS `id_tail`, `p`.`nom_tail` AS `nom_tail`, `p`.`path_img` AS `path_img`, `p`.`prix_unit` AS `prix_unit`, `pa`.`qte_pan` AS `qte_pan`, (`pa`.`qte_pan` * `p`.`prix_unit`) AS `prix_total` FROM (`panier` `pa` join (select `sp`.`id_prod` AS `id_prod`,`sp`.`nom_prod` AS `nom_prod`,`sp`.`id_cat` AS `id_cat`,`sp`.`nom_cat` AS `nom_cat`,`sp`.`id_col` AS `id_col`,`sp`.`nom_col` AS `nom_col`,`sp`.`id_tail` AS `id_tail`,`sp`.`nom_tail` AS `nom_tail`,`sp`.`path_img` AS `path_img`,`sp`.`prix_unit` AS `prix_unit`,`sp`.`stock` AS `stock` from `select_produits` `sp`) `p` on(((`pa`.`id_prod` = `p`.`id_prod`) and (`pa`.`id_col` = `p`.`id_col`) and (`pa`.`id_tail` = `p`.`id_tail`)))) ;
 
 -- --------------------------------------------------------
 

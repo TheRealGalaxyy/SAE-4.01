@@ -157,7 +157,14 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
   const panierDiv = document.createElement("div");
   panierDiv.classList.add("panierElement");
   const id = `${panier.id_prod}|${panier.id_col}|${panier.id_tail}`;
+  let stockAffiche = "";
+  let ruptureAffiche = "color:red";
   //console.log(panier)
+  if (panier.stock <= 0){
+    stockAffiche = "display:none";
+  } else {
+    ruptureAffiche = "display:none"
+  }
   panierDiv.innerHTML = `
 
         <center><img id="img${id}" src="http://localhost/SAE-4.01/serveur/img/articles/${
@@ -173,6 +180,8 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
             <p id="prix">Prix : ${
               Math.round(panier.prix_unit * qte * 100) / 100
             }€</p>
+            <p id="stock" style="${stockAffiche}">Stock : <span id="stockValue">${panier.stock} unités</p>
+            <p id="rupture" style="${ruptureAffiche}">Stock : RUPTURE DE STOCK</p>
             <div id="button">
                 <button class="mod form_button" id="${id}">Modifier</button>
                 <button class="del form_button" id="${id}">Supprimer</button>
@@ -215,10 +224,13 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
   });
 }
 
+let produitsDansPanier = [];
+
 async function appelPanier() {
   document.getElementById("panier").innerHTML = "";
   document.getElementById("prixTotal").innerHTML = 0;
   getPanier(id_us).then((panier) => {
+    produitsDansPanier = panier.data;
     if (panier.data.length !== 0) {
       document.getElementById("footer").style.display = "block";
     } else {
@@ -319,6 +331,30 @@ window.payer = function () {
     });
   });
 };
+
+document.getElementById("boutonPaiement").addEventListener("click", function (event) {
+  event.preventDefault(); 
+  let panierValide = true;
+
+  produitsDansPanier.forEach(produit => {
+    if (produit.qte_pan <= 0){
+      panierValide = false;
+      alert("La quantité de '" + produit.nom_prod + "' est invalide")
+    } else if (produit.stock <= 0){
+      panierValide = false;
+      alert("La produit '" + produit.nom_prod + "' est en rupture de stock")
+    }else if (produit.stock - produit.qte_pan <= 0 ) {
+      panierValide = false;
+      alert("La quantité de '" + produit.nom_prod + "' est trop élevée par rapport au stock disponible")
+    }
+  });
+  
+  if (panierValide){
+    let modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+    modal.show();
+  }
+  
+});
 
 const id_us = cookieValue; // A changer en cookieValue
 
