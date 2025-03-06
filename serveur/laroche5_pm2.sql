@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 06 mars 2025 à 20:25
--- Version du serveur : 9.1.0
--- Version de PHP : 8.3.14
+-- Généré le : jeu. 06 mars 2025 à 20:31
+-- Version du serveur : 8.3.0
+-- Version de PHP : 8.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -851,14 +851,14 @@ DELIMITER ;
 --
 DROP VIEW IF EXISTS `select_commandes`;
 CREATE TABLE IF NOT EXISTS `select_commandes` (
-`id_com` int
-,`id_us` int
-,`id_prod` int
+`date_com` date
 ,`id_col` int
+,`id_com` int
+,`id_prod` int
 ,`id_tail` int
-,`date_com` date
-,`qte_com` int
+,`id_us` int
 ,`prix_total` float
+,`qte_com` int
 );
 
 -- --------------------------------------------------------
@@ -869,20 +869,20 @@ CREATE TABLE IF NOT EXISTS `select_commandes` (
 --
 DROP VIEW IF EXISTS `select_paniers`;
 CREATE TABLE IF NOT EXISTS `select_paniers` (
-`id_us` int
-,`id_prod` int
-,`stock` int
-,`nom_prod` varchar(50)
-,`id_cat` int
-,`nom_cat` varchar(30)
+`id_cat` int
 ,`id_col` int
-,`nom_col` varchar(20)
+,`id_prod` int
 ,`id_tail` int
+,`id_us` int
+,`nom_cat` varchar(30)
+,`nom_col` varchar(20)
+,`nom_prod` varchar(50)
 ,`nom_tail` varchar(13)
 ,`path_img` varchar(34)
+,`prix_total` double
 ,`prix_unit` double
 ,`qte_pan` int
-,`prix_total` double
+,`stock` int
 );
 
 -- --------------------------------------------------------
@@ -893,19 +893,19 @@ CREATE TABLE IF NOT EXISTS `select_paniers` (
 --
 DROP VIEW IF EXISTS `select_produits`;
 CREATE TABLE IF NOT EXISTS `select_produits` (
-`id_prod` int
-,`nom_prod` varchar(50)
-,`description` varchar(700)
-,`sku` varchar(100)
-,`stock` int
+`description` varchar(700)
 ,`id_cat` int
-,`nom_cat` varchar(30)
 ,`id_col` int
-,`nom_col` varchar(20)
+,`id_prod` int
 ,`id_tail` int
+,`nom_cat` varchar(30)
+,`nom_col` varchar(20)
+,`nom_prod` varchar(50)
 ,`nom_tail` varchar(13)
 ,`path_img` varchar(34)
 ,`prix_unit` double
+,`sku` varchar(100)
+,`stock` int
 );
 
 -- --------------------------------------------------------
@@ -916,16 +916,15 @@ CREATE TABLE IF NOT EXISTS `select_produits` (
 --
 DROP VIEW IF EXISTS `select_users`;
 CREATE TABLE IF NOT EXISTS `select_users` (
-`id_us` int
-,`nom_us` varchar(30)
-,`prenom_us` varchar(20)
-,`mel` varchar(100)
-,`date_naiss` date
+`date_naiss` date
+,`id_perm` int
+,`id_us` int
 ,`login` varchar(20)
 ,`mdp` varchar(255)
-,`salt` varchar(20)
-,`id_perm` int
+,`mel` varchar(100)
 ,`nom_perm` varchar(15)
+,`nom_us` varchar(30)
+,`prenom_us` varchar(20)
 );
 
 -- --------------------------------------------------------
@@ -1078,7 +1077,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   `date_naiss` date NOT NULL,
   `login` varchar(20) NOT NULL,
   `mdp` varchar(255) NOT NULL,
-  `salt` varchar(20) NOT NULL,
   `id_perm` int NOT NULL,
   PRIMARY KEY (`id_us`)
 ) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
@@ -1087,11 +1085,11 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id_us`, `nom_us`, `prenom_us`, `mel`, `date_naiss`, `login`, `mdp`, `salt`, `id_perm`) VALUES
-(7, 'admin', 'admin', 'admin@gmail.com', '2010-10-10', 'admin', 'skD7MyPRpfvsM', 'sk#@u%Q)-V}2^)gpSK&X', 1),
-(11, 'Falschenbuhl', 'Rémi', 'remi.falschenbuhl@yahoo.fr', '2003-12-04', 'remiF', 'rOo9.RCDnsGfY', 'rOyJG[>IW$;,8LZmi=<n', 2),
-(16, 'Philippe', 'Kévin', 'kph@gmail.com', '2003-12-04', 'new', '9l9KCmTBMCeDo', '9l;hSW*EN)S rm.j$/p1', 2),
-(18, 'Laroche', 'Pierre', 'laroche5@univ-lorraine.fr', '1991-02-24', 'laroche5', 'Mw6FchtZ8zKKY', 'MwU86#P?T8LneEO#|~GG', 2);
+INSERT INTO `user` (`id_us`, `nom_us`, `prenom_us`, `mel`, `date_naiss`, `login`, `mdp`, `id_perm`) VALUES
+(7, 'admin', 'admin', 'admin@gmail.com', '2010-10-10', 'admin', 'skD7MyPRpfvsM', 1),
+(11, 'Falschenbuhl', 'Rémi', 'remi.falschenbuhl@yahoo.fr', '2003-12-04', 'remiF', 'rOo9.RCDnsGfY', 2),
+(16, 'Philippe', 'Kévin', 'kph@gmail.com', '2003-12-04', 'new', '9l9KCmTBMCeDo', 2),
+(18, 'Laroche', 'Pierre', 'laroche5@univ-lorraine.fr', '1991-02-24', 'laroche5', 'Mw6FchtZ8zKKY', 2);
 
 --
 -- Déclencheurs `user`
@@ -1165,7 +1163,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `select_users`;
 
 DROP VIEW IF EXISTS `select_users`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_users`  AS SELECT `u`.`id_us` AS `id_us`, `u`.`nom_us` AS `nom_us`, `u`.`prenom_us` AS `prenom_us`, `u`.`mel` AS `mel`, `u`.`date_naiss` AS `date_naiss`, `u`.`login` AS `login`, `u`.`mdp` AS `mdp`, `u`.`salt` AS `salt`, `p`.`id_perm` AS `id_perm`, `p`.`nom_perm` AS `nom_perm` FROM (`user` `u` join `permission` `p` on((`p`.`id_perm` = `u`.`id_perm`))) ORDER BY `p`.`id_perm` ASC, `u`.`nom_us` ASC, `u`.`prenom_us` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_users`  AS SELECT `u`.`id_us` AS `id_us`, `u`.`nom_us` AS `nom_us`, `u`.`prenom_us` AS `prenom_us`, `u`.`mel` AS `mel`, `u`.`date_naiss` AS `date_naiss`, `u`.`login` AS `login`, `u`.`mdp` AS `mdp`, `p`.`id_perm` AS `id_perm`, `p`.`nom_perm` AS `nom_perm` FROM (`user` `u` join `permission` `p` on((`p`.`id_perm` = `u`.`id_perm`))) ORDER BY `p`.`id_perm` ASC, `u`.`nom_us` ASC, `u`.`prenom_us` ASC ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
