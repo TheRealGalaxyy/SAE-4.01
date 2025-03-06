@@ -195,19 +195,24 @@ function imprimerSelectionTaille(produits) {
 }
 
 function imprimerProduit(produit) {
+    let path = produit.path_img
+        ? "http://localhost/SAE-4.01/SAE_401/serveur/img/articles/" + produit.path_img
+        : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
+
     const prod_affiche = document.createElement("produit-detail");
     prod_affiche.setAttribute("name", produit.nom_prod);
     prod_affiche.setAttribute("description", produit.description);
-    prod_affiche.setAttribute("prix", produit.prix_base);
-    prod_affiche.setAttribute("prix_taille", produit.diff_prix_tail || 0);
-    prod_affiche.setAttribute("prix_couleur", produit.diff_prix_col || 0);
+    prod_affiche.setAttribute("prix", produit.prix_unit);
+    prod_affiche.setAttribute("couleur", produit.nom_col);
+    prod_affiche.setAttribute("taille", produit.nom_tail);
     prod_affiche.setAttribute("path_img", "../serveur/img/articles/"+produit.path_img);
-    //console.log(produit.path_img)
+    prod_affiche.setAttribute("id", "produit");
+    
+    // Ajout des nouvelles informations
+    prod_affiche.setAttribute("sku", produit.sku);
+    prod_affiche.setAttribute("stock", produit.stock);
     document.querySelector("#detail").appendChild(prod_affiche);
 }
-
-
-
 
 function boutonCommander(id_produit) {
     const root = document.querySelector("produit-detail").shadowRoot;
