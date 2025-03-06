@@ -69,6 +69,8 @@ export class ProduitGenerique extends HTMLElement {
             </div>
             <p class="name">${this.getAttribute("name")}</p>
             <img class="img_prod" src="${this.getAttribute('path_img')}" alt="${this.getAttribute("path_img")}" />
+            <div class="stock" style="${this.getAttribute('stockAffiche')}" >&nbsp&nbsp${this.getAttribute("stock")} unités restantes</div>
+            <div class="rupture" style="${this.getAttribute('ruptureAffiche')}" >&nbsp&nbspRUPTURE DE STOCK</p>
         </div>
         </a>
         `;
@@ -166,6 +168,14 @@ export function imprimerUnProduit(produit) {
     produitElement.setAttribute("id", produit["id_prod"]);
     produitElement.setAttribute("id_col", produit["id_col"]);
     produitElement.setAttribute("path_img", path);
+    produitElement.setAttribute("stock", produit["stock"]);
+    if (produit["stock"] == 0){
+        produitElement.setAttribute("stockAffiche", "display:none");
+        produitElement.setAttribute("ruptureAffiche", "color:red");
+    } else {
+        produitElement.setAttribute("stockAffiche", "");
+        produitElement.setAttribute("ruptureAffiche", "display:none");
+    }
     // console.log(path);
     return produitElement;
 }
