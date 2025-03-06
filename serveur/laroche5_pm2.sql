@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 06 mars 2025 à 20:31
+-- Généré le : jeu. 06 mars 2025 à 20:42
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -851,14 +851,14 @@ DELIMITER ;
 --
 DROP VIEW IF EXISTS `select_commandes`;
 CREATE TABLE IF NOT EXISTS `select_commandes` (
-`date_com` date
-,`id_col` int
-,`id_com` int
-,`id_prod` int
-,`id_tail` int
+`id_com` int
 ,`id_us` int
-,`prix_total` float
+,`id_prod` int
+,`id_col` int
+,`id_tail` int
+,`date_com` date
 ,`qte_com` int
+,`prix_total` float
 );
 
 -- --------------------------------------------------------
@@ -869,20 +869,20 @@ CREATE TABLE IF NOT EXISTS `select_commandes` (
 --
 DROP VIEW IF EXISTS `select_paniers`;
 CREATE TABLE IF NOT EXISTS `select_paniers` (
-`id_cat` int
-,`id_col` int
+`id_us` int
 ,`id_prod` int
-,`id_tail` int
-,`id_us` int
-,`nom_cat` varchar(30)
-,`nom_col` varchar(20)
+,`stock` int
 ,`nom_prod` varchar(50)
+,`id_cat` int
+,`nom_cat` varchar(30)
+,`id_col` int
+,`nom_col` varchar(20)
+,`id_tail` int
 ,`nom_tail` varchar(13)
 ,`path_img` varchar(34)
-,`prix_total` double
 ,`prix_unit` double
 ,`qte_pan` int
-,`stock` int
+,`prix_total` double
 );
 
 -- --------------------------------------------------------
@@ -893,19 +893,19 @@ CREATE TABLE IF NOT EXISTS `select_paniers` (
 --
 DROP VIEW IF EXISTS `select_produits`;
 CREATE TABLE IF NOT EXISTS `select_produits` (
-`description` varchar(700)
-,`id_cat` int
-,`id_col` int
-,`id_prod` int
-,`id_tail` int
-,`nom_cat` varchar(30)
-,`nom_col` varchar(20)
+`id_prod` int
 ,`nom_prod` varchar(50)
+,`description` varchar(700)
+,`sku` varchar(100)
+,`stock` int
+,`id_cat` int
+,`nom_cat` varchar(30)
+,`id_col` int
+,`nom_col` varchar(20)
+,`id_tail` int
 ,`nom_tail` varchar(13)
 ,`path_img` varchar(34)
 ,`prix_unit` double
-,`sku` varchar(100)
-,`stock` int
 );
 
 -- --------------------------------------------------------
@@ -916,15 +916,15 @@ CREATE TABLE IF NOT EXISTS `select_produits` (
 --
 DROP VIEW IF EXISTS `select_users`;
 CREATE TABLE IF NOT EXISTS `select_users` (
-`date_naiss` date
-,`id_perm` int
-,`id_us` int
-,`login` varchar(20)
-,`mdp` varchar(255)
-,`mel` varchar(100)
-,`nom_perm` varchar(15)
+`id_us` int
 ,`nom_us` varchar(30)
 ,`prenom_us` varchar(20)
+,`mel` varchar(100)
+,`date_naiss` date
+,`login` varchar(20)
+,`mdp` varchar(255)
+,`id_perm` int
+,`nom_perm` varchar(15)
 );
 
 -- --------------------------------------------------------
@@ -1086,7 +1086,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id_us`, `nom_us`, `prenom_us`, `mel`, `date_naiss`, `login`, `mdp`, `id_perm`) VALUES
-(7, 'admin', 'admin', 'admin@gmail.com', '2010-10-10', 'admin', 'skD7MyPRpfvsM', 1),
+(7, 'admin', 'admin', 'admin@gmail.com', '2005-03-14', 'admin', '$2y$10$dTT23nTVJfEUkp.9stMO8.W6ynbfnPTEyMkTdtolpbv7RRTefpxAe', 1),
 (11, 'Falschenbuhl', 'Rémi', 'remi.falschenbuhl@yahoo.fr', '2003-12-04', 'remiF', 'rOo9.RCDnsGfY', 2),
 (16, 'Philippe', 'Kévin', 'kph@gmail.com', '2003-12-04', 'new', '9l9KCmTBMCeDo', 2),
 (18, 'Laroche', 'Pierre', 'laroche5@univ-lorraine.fr', '1991-02-24', 'laroche5', 'Mw6FchtZ8zKKY', 2);
