@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 06 mars 2025 à 20:17
+-- Généré le : jeu. 06 mars 2025 à 20:25
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -170,7 +170,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `login_non_existe` (IN `v_login` VAR
 DECLARE v_login_invalide CONDITION FOR SQLSTATE "45018";
 DECLARE error_message VARCHAR(80);
 
-SELECT v_login IN (SELECT login FROM USER) INTO v_login_non_existe;
+SELECT TRIM(v_login) IN (SELECT login FROM USER) INTO v_login_non_existe;
 
 IF v_login_non_existe <> 0 THEN
     SET error_message := CONCAT("Erreur 45018 : Le login ", v_login, " existe déjà");
