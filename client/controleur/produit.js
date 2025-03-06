@@ -133,7 +133,7 @@ async function AfficherProd() {
 }
 
 function quantiteCommandeeValide(qtte,stock) {
-    return !(parseInt(stock) - parseInt(qtte) <= 0 || parseInt(qtte) <= 0 || isNaN(parseInt(qtte)));
+    return !(parseInt(stock) - parseInt(qtte) < 0 || parseInt(qtte) <= 0 || isNaN(parseInt(qtte)));
 }
 
 function imprimerSelectionCouleur(produits) {

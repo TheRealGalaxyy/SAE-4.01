@@ -343,7 +343,7 @@ document.getElementById("boutonPaiement").addEventListener("click", function (ev
     } else if (produit.stock <= 0){
       panierValide = false;
       alert("La produit '" + produit.nom_prod + "' est en rupture de stock")
-    }else if (produit.stock - produit.qte_pan <= 0 ) {
+    }else if (produit.stock - produit.qte_pan < 0 ) {
       panierValide = false;
       alert("La quantité de '" + produit.nom_prod + "' est trop élevée par rapport au stock disponible")
     }
