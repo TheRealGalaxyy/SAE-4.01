@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 06 mars 2025 à 19:51
--- Version du serveur : 8.3.0
--- Version de PHP : 8.2.18
+-- Généré le : jeu. 06 mars 2025 à 20:17
+-- Version du serveur : 9.1.0
+-- Version de PHP : 8.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -180,12 +180,31 @@ END IF;
 
 END$$
 
+DROP PROCEDURE IF EXISTS `mail_non_existe`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `mail_non_existe` (IN `v_mail` VARCHAR(100), OUT `v_mail_non_existe` BOOLEAN)   BEGIN
+
+DECLARE v_mail_invalide CONDITION FOR SQLSTATE "45019";
+DECLARE error_message VARCHAR(80);
+
+SELECT TRIM(v_mail) IN (SELECT mel FROM USER) INTO v_mail_non_existe;
+
+IF v_mail_non_existe <> 0 THEN
+    SET error_message := CONCAT("Erreur 45019 : Le mail ", v_mail, " existe déjà");
+    SIGNAL v_mail_invalide SET MYSQL_ERRNO = "45019",
+    MESSAGE_TEXT = error_message;
+END IF;
+
+END$$
+
 DROP PROCEDURE IF EXISTS `verifier_date`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `verifier_date` (IN `v_date` DATE, OUT `v_date_conforme` BOOLEAN)   BEGIN
 
 DECLARE v_date_superieure CONDITION FOR SQLSTATE "45101";
 DECLARE v_date_inferieure CONDITION FOR SQLSTATE "45102";
+DECLARE v_age_invalide CONDITION FOR SQLSTATE "45020";
 DECLARE error_message VARCHAR(80);
+DECLARE v_age INT;
+
 
 DECLARE v_now, v_1900 DATE;
 
@@ -206,6 +225,15 @@ IF v_date < v_1900 THEN
 
     SET error_message := CONCAT("Erreur 45102 : La date ", v_date, " est trop vieille (< 1900)");
     SIGNAL v_date_inferieure SET MYSQL_ERRNO = "45102",
+    MESSAGE_TEXT = error_message;
+END IF;
+
+SELECT  floor(DATEDIFF(NOW() , v_date)/365) INTO v_age;
+
+IF v_age < 16 THEN
+    SET v_date_conforme := FALSE;
+    SET error_message := CONCAT("Erreur 45020 : vous devez avoir au moins 16 ans pour vous inscrire");
+    SIGNAL v_age_invalide SET MYSQL_ERRNO = "45020",
     MESSAGE_TEXT = error_message;
 END IF;
 
@@ -1072,11 +1100,15 @@ DROP TRIGGER IF EXISTS `USER_BEFORE_INSERT`;
 DELIMITER $$
 CREATE TRIGGER `USER_BEFORE_INSERT` BEFORE INSERT ON `user` FOR EACH ROW BEGIN
 
-DECLARE v_id_perm_existe, v_login_non_existe, v_date_conforme BOOLEAN;
+DECLARE v_id_perm_existe, v_login_non_existe, v_date_conforme,
+v_mail_non_existe BOOLEAN;
 
 CALL id_perm_existe(NEW.id_perm, v_id_perm_existe);
 CALL login_non_existe(NEW.login, v_login_non_existe);
+CALL mail_non_existe(NEW.mel,
+v_mail_non_existe);
 CALL verifier_date(NEW.date_naiss, v_date_conforme);
+
 
 END
 $$
