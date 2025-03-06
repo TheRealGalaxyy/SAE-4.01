@@ -120,9 +120,9 @@ if (document.querySelector(".recherche")) menuRechercheDeroulant();
 function printFooter() {
   const footer = document.querySelector("#printFooter");
   footer.innerHTML = `
-    <p>Paul Muller Piulls Moches - Site de vente </p>
+    <p>Paul Muller Pulls Moches - Site de vente </p>
     `;
 }
 
 printHeader();
-// printFooter();
+printFooter();
