@@ -281,15 +281,15 @@ function traiterFavori(id_us) {
                 //console.log(checkbox.id.substring(1));
                 if (id_fav.includes(parseInt(checkbox.id.substring(2)))) {
                     checkbox.checked = true;
-                    img.src = "../img/icones/star_plein.png";
+                    img.src = "./img/icones/star_plein.png";
                 };
                 checkbox.addEventListener("click", (event) => {
                     if (event.target.checked === true) {
                         ajouterFavori(event, id_us);
-                        img.src = "../img/icones/star_plein.png";
+                        img.src = "./img/icones/star_plein.png";
                     } else {
                         supprimerFavori(event, id_us);
-                        img.src = "../img/icones/star_vide.png";
+                        img.src = "./img/icones/star_vide.png";
                     }
                 });
                 document
