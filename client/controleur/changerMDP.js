@@ -25,7 +25,7 @@ document.getElementById("nouveauMdp").addEventListener("input", (e) => {
 	let testCar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
 	let testNb = /[0-9]/;
 
-	let valeurTester = document.getElementById("nouveauMdp").value;
+	let valeurTester = document.getElementById("nouveauMdp").value.trim();
 	mdpOK =
 		testLg.test(valeurTester) &&
 		testMaj.test(valeurTester) &&
@@ -68,9 +68,17 @@ document.getElementById("nouveauMdp").addEventListener("input", (e) => {
 function ConfirmerMDP(mdpOK) {
 	const motDePasse = document.getElementById("nouveauMdp");
 	const confimation = document.getElementById("confirmation");
-	const confirmationErreur = document.getElementById("confirmationErreur");
+	const alertConfirmation = document.getElementById("alertConfirmation");
+	const alertErreurApi = document.getElementById("alertErreurApi");
+	const alertMdpNonCorrespondant = document.getElementById(
+		"alertMdpNonCorrespondant"
+	);
 
-	if (motDePasse.value === confimation.value && mdpOK) {
+	alertErreurApi.style.display = "none";
+	alertConfirmation.style.display = "none";
+	alertMdpNonCorrespondant.style.display = "none";
+
+	if (motDePasse.value.trim() === confimation.value.trim() && mdpOK) {
 		fetch("http://localhost/SAE-4.01/serveur/api/changerMDP.php", {
 			method: "POST",
 			body: new URLSearchParams({
@@ -81,17 +89,15 @@ function ConfirmerMDP(mdpOK) {
 			response.json().then((data) => {
 				console.log(data);
 				if (data["status"] === "success") {
-					alert("Votre mot de passe a bien été changé");
-					window.location.href = "accueil.html";
+					alertConfirmation.style.display = "block";
+					setTimeout((window.location.href = "accueil.html"), 3000);
 				} else {
-					alert("Erreur lors du changement de mot de passe");
+					alertErreurApi.style.display = "block";
 				}
 			});
 		});
 	} else {
-		confirmationErreur.style.display = "block";
-		confirmationErreur.style.color = "red";
-		//alert("Les mots de passe ne correspondent pas");
+		alertMdpNonCorrespondant.style.display = "block";
 	}
 }
 
