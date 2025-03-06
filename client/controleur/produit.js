@@ -75,7 +75,8 @@ class ProduitDetail extends HTMLElement {
             <div>
                 <p>Prix : <span id="prix">${this.getAttribute("prix")}</span> €</p>
                 <p>SKU : <span id="sku">${this.getAttribute("sku")}</span></p>
-                <p>Stock disponible : <span id="stock">${this.getAttribute("stock")} unité</span></p>
+                <p style="${this.getAttribute('stockAffiche')}">Stock disponible : <span id="stock">${this.getAttribute("stock")}</span><span> unités</span></p>
+                <p style="${this.getAttribute('ruptureAffiche')}">Stock disponible : <span>RUPTURE DE STOCK</span></p>
                 <div id="taille">Taille : </div>
                 <div id="couleur">Couleur : </div>
             </div>
@@ -90,6 +91,7 @@ class ProduitDetail extends HTMLElement {
     `;
 
         document.title = this.getAttribute("name") + " - PM2";
+        console.log("jure ca marche")
 
         const nbrCommande = this.shadowRoot.getElementById("nbrCommande");
         const prixTotal = this.shadowRoot.getElementById("prix_tot");
@@ -130,8 +132,8 @@ async function AfficherProd() {
         });
 }
 
-function quantiteCommandeeValide(qtte) {
-    return !(parseInt(qtte) <= 0 || isNaN(parseInt(qtte)));
+function quantiteCommandeeValide(qtte,stock) {
+    return !(parseInt(stock) - parseInt(qtte) <= 0 || parseInt(qtte) <= 0 || isNaN(parseInt(qtte)));
 }
 
 function imprimerSelectionCouleur(produits) {
@@ -211,6 +213,14 @@ function imprimerProduit(produit) {
     // Ajout des nouvelles informations
     prod_affiche.setAttribute("sku", produit.sku);
     prod_affiche.setAttribute("stock", produit.stock);
+    // Gere la rupture stock
+    if (produit["stock"] <= 0){
+        prod_affiche.setAttribute("stockAffiche", "display:none");
+        prod_affiche.setAttribute("ruptureAffiche", "color:red");
+    } else {
+        prod_affiche.setAttribute("stockAffiche", "");
+        prod_affiche.setAttribute("ruptureAffiche", "display:none");
+    }
     document.querySelector("#detail").appendChild(prod_affiche);
 }
 
@@ -218,52 +228,43 @@ function boutonCommander(id_produit) {
     const root = document.querySelector("produit-detail").shadowRoot;
 
     const boutton = root.querySelector("input[type=button]");
-    boutton.addEventListener("click", (event) => {
-        const nbCommandee = root.getElementById("nbrCommande").valueAsNumber;
-        if (quantiteCommandeeValide(nbCommandee)) {
-            const tailleSelect = root
-                .getElementById("taille")
-                .querySelector("select");
-            const couleurSelect = root
-                .getElementById("couleur")
-                .querySelector("select");
-            const tailleID = tailleSelect.options[tailleSelect.selectedIndex].value;
-            const couleurID =
-                couleurSelect.options[couleurSelect.selectedIndex].value;
-            // console.log(nbCommandee, tailleID, couleurID)
-            // console.log(JSON.stringify({ id_cl: 3, id_prod: id_produit, id_taille: tailleID, couleur: couleurID, qte_pan: nbCommandee }))
-            fetch("http://localhost/SAE-4.01/serveur/api/newPanier.php", {
-                    method: "POST",
-                    body: new URLSearchParams({
-                        id_us: cookieValue,
-                        id_prod: id,
-                        id_tail: tailleID,
-                        id_col: couleurID,
-                        qte_pan: nbCommandee,
-                    }),
-                })
-                .then((reponse) => {
-                    reponse.json().then((data) => {
-                        if (data.status === "error") {
-                            alert("vous avez déjà ce produit dans votre panier")
-                        } else if (data.status === "success") {
-                            window.location.href = "accueil.html";
-                        }
-                    })
-                })
-                .catch((error) => { console.log(error) });
-        };
-        console.log(nbCommandee, tailleID, couleurID);
-        console.log(
-            JSON.stringify({
-                id_cl: 1,
-                id_prod: id_produit,
-                id_taille: tailleID,
-                couleur: couleurID,
-                qte_pan: nbCommandee,
+boutton.addEventListener("click", (event) => {
+    const nbCommandee = root.getElementById("nbrCommande").valueAsNumber;
+    const stock = root.getElementById("stock").textContent;
+
+    const tailleSelect = root.getElementById("taille").querySelector("select");
+    const couleurSelect = root.getElementById("couleur").querySelector("select");
+    const tailleID = tailleSelect.options[tailleSelect.selectedIndex].value;
+    const couleurID = couleurSelect.options[couleurSelect.selectedIndex].value;
+
+    if (quantiteCommandeeValide(nbCommandee, stock)) {
+        fetch("http://localhost/SAE-4.01/serveur/api/newPanier.php", {
+                method: "POST",
+                body: new URLSearchParams({
+                    id_us: cookieValue,
+                    id_prod: id,
+                    id_tail: tailleID,
+                    id_col: couleurID,
+                    qte_pan: nbCommandee,
+                }),
             })
-        );
-    });
+            .then((reponse) => {
+                reponse.json().then((data) => {
+                    if (data.status === "error") {
+                        alert("Vous avez déjà ce produit dans votre panier");
+                    } else if (data.status === "success") {
+                        window.location.href = "accueil.html";
+                    }
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    } else {
+        alert("La quantité de produit voulant être ajoutée au panier est impossible");
+    }
+});
+
 
 }
 
