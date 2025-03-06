@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 05 mars 2025 à 13:34
+-- Généré le : jeu. 06 mars 2025 à 14:54
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -398,7 +398,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `date_com` date NOT NULL,
   `id_us` int NOT NULL,
   PRIMARY KEY (`id_com`)
-) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `commande`
@@ -418,7 +418,8 @@ INSERT INTO `commande` (`id_com`, `date_com`, `id_us`) VALUES
 (64, '2023-04-05', 16),
 (65, '2023-04-05', 18),
 (66, '2023-04-05', 18),
-(67, '2025-02-25', 7);
+(67, '2025-02-25', 7),
+(68, '2025-03-06', 19);
 
 --
 -- Déclencheurs `commande`
@@ -563,7 +564,13 @@ INSERT INTO `detail_com` (`id_com`, `id_prod`, `id_col`, `id_tail`, `qte_com`, `
 (65, 9, 13, 15, 4, 86.4),
 (66, 5, 7, 1, 1, 12),
 (66, 12, 16, 1, 1, 8.4),
-(67, 2, 2, 17, 1, 4.8);
+(67, 2, 2, 17, 1, 4.8),
+(68, 1, 16, 17, 100, 720),
+(68, 4, 2, 4, 1, 39.6),
+(68, 7, 5, 3, 1, 14.4),
+(68, 9, 2, 12, 1, 20.4),
+(68, 9, 13, 15, 1, 21.6),
+(68, 11, 15, 9, 1, 39.6);
 
 --
 -- Déclencheurs `detail_com`
@@ -619,6 +626,11 @@ CREATE TABLE IF NOT EXISTS `favori` (
 --
 
 INSERT INTO `favori` (`id_us`, `id_prod`) VALUES
+(7, 1),
+(7, 2),
+(7, 3),
+(7, 5),
+(7, 6),
 (11, 1),
 (11, 2),
 (11, 7),
@@ -628,7 +640,10 @@ INSERT INTO `favori` (`id_us`, `id_prod`) VALUES
 (16, 10),
 (16, 12),
 (18, 8),
-(18, 12);
+(18, 12),
+(19, 2),
+(19, 3),
+(19, 15);
 
 --
 -- Déclencheurs `favori`
@@ -689,7 +704,10 @@ INSERT INTO `panier` (`id_us`, `id_prod`, `id_col`, `id_tail`, `qte_pan`) VALUES
 (11, 8, 2, 12, 11),
 (11, 15, 2, 11, 10),
 (16, 1, 16, 17, 1),
-(16, 11, 2, 11, 1);
+(16, 11, 2, 11, 1),
+(7, 2, 2, 17, 1),
+(7, 1, 2, 17, 1),
+(7, 4, 2, 4, 1);
 
 --
 -- Déclencheurs `panier`
@@ -885,16 +903,6 @@ CREATE TABLE IF NOT EXISTS `select_produits` (
 --
 DROP VIEW IF EXISTS `select_users`;
 CREATE TABLE IF NOT EXISTS `select_users` (
-`id_us` int
-,`nom_us` varchar(30)
-,`prenom_us` varchar(20)
-,`mel` varchar(100)
-,`date_naiss` date
-,`login` varchar(20)
-,`mdp` varchar(255)
-,`salt` varchar(20)
-,`id_perm` int
-,`nom_perm` varchar(15)
 );
 
 -- --------------------------------------------------------
@@ -1047,20 +1055,20 @@ CREATE TABLE IF NOT EXISTS `user` (
   `date_naiss` date NOT NULL,
   `login` varchar(20) NOT NULL,
   `mdp` varchar(255) NOT NULL,
-  `salt` varchar(20) NOT NULL,
   `id_perm` int NOT NULL,
   PRIMARY KEY (`id_us`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id_us`, `nom_us`, `prenom_us`, `mel`, `date_naiss`, `login`, `mdp`, `salt`, `id_perm`) VALUES
-(7, 'admin', 'admin', 'admin@gmail.com', '2010-10-10', 'admin', 'skD7MyPRpfvsM', 'sk#@u%Q)-V}2^)gpSK&X', 1),
-(11, 'Falschenbuhl', 'Rémi', 'remi.falschenbuhl@yahoo.fr', '2003-12-04', 'remiF', 'rOo9.RCDnsGfY', 'rOyJG[>IW$;,8LZmi=<n', 2),
-(16, 'Philippe', 'Kévin', 'kph@gmail.com', '2003-12-04', 'new', '9l9KCmTBMCeDo', '9l;hSW*EN)S rm.j$/p1', 2),
-(18, 'Laroche', 'Pierre', 'laroche5@univ-lorraine.fr', '1991-02-24', 'laroche5', 'Mw6FchtZ8zKKY', 'MwU86#P?T8LneEO#|~GG', 2);
+INSERT INTO `user` (`id_us`, `nom_us`, `prenom_us`, `mel`, `date_naiss`, `login`, `mdp`, `id_perm`) VALUES
+(7, 'admin', 'admin', 'admin@gmail.com', '2010-10-10', 'admin', '$2y$10$n5Lcn8SdhEO7OGuSq3NzUu6dEmga5jUrjRpoeZkMCy9W258t.PbpW', 1),
+(11, 'Falschenbuhl', 'Rémi', 'remi.falschenbuhl@yahoo.fr', '2003-12-04', 'remiF', 'rOo9.RCDnsGfY', 2),
+(16, 'Philippe', 'Kévin', 'kph@gmail.com', '2003-12-04', 'new', '9l9KCmTBMCeDo', 2),
+(18, 'Laroche', 'Pierre', 'laroche5@univ-lorraine.fr', '1991-02-24', 'laroche5', 'Mw6FchtZ8zKKY', 2),
+(19, 'Nom', 'Prénom', 'mail@gmail.com', '2005-06-15', 'Login', '$2y$10$rdqxsucCliQUmRtcUYknIeRUfyKiskFm97d1wJ1W.Tus/WaY97Fga', 2);
 
 --
 -- Déclencheurs `user`

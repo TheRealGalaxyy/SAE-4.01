@@ -22,7 +22,7 @@
 
 $json = [];
 $query = "
-SELECT mdp, salt, id_us
+SELECT mdp, id_us
 FROM USER
 WHERE login = :login";
 
@@ -32,9 +32,8 @@ $res->bindParam(':login', $_POST['login']);
 try{
     $res->execute();
     $res = $res->fetch();
-    $mdp = crypt($_POST['mdp'], $res['salt']);
 
-    if($mdp == $res['mdp']){
+    if(password_verify($_POST['mdp'], $res['mdp'])){
         setcookie("id_us", $res['id_us'], 10800 + time());
         $json["id_us"] = $res['id_us'];
         $json["status"] = "success";
