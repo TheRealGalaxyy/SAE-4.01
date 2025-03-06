@@ -34,7 +34,7 @@ class ProduitGenerique extends HTMLElement {
 customElements.define("produit-generique", ProduitGenerique);
 function afficherCategories() {
   return fetch(
-    "http://localhost/SAE-4.01/serveur/api/getCategorie.php"
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getCategorie.php"
   )
     .then((reponse) => console.log(reponse.json()))
     .then((data) => {
@@ -45,7 +45,7 @@ function afficherCategories() {
 
 function afficherTousLesProduits() {
   return fetch(
-    "http://localhost/SAE-4.01/serveur/api/getGenericProduits.php"
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getGenericProduits.php"
   )
     .then((reponse) => reponse.json())
     .then((data) => {
@@ -86,19 +86,20 @@ function produitsCategorie(idCategorie, data) {
   data.forEach((produit) => {
     if (produit.id_cat == idCategorie) dejaSortit.push(produit);
   });
-  return dejaSortit
+  return dejaSortit;
 }
 function imprimerUnProduit(produit) {
-  console.log(produit)
+  console.log(produit);
   let path = produit.path_img
-  ? "http://localhost/SAE-4.01/serveur/img/articles/"+produit.path_img
-  : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
+    ? "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/img/articles/" +
+      produit.path_img
+    : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
   produitElement = document.createElement("produit-generique");
   produitElement.setAttribute("name", produit["nom_prod"]);
   produitElement.setAttribute("prix", produit["prix_unit"]);
   produitElement.setAttribute("id", produit["id_prod"]);
   produitElement.setAttribute("img_path", produit["img_path"]);
-  
+
   document.querySelector(".produits").appendChild(produitElement);
 }
 
@@ -136,7 +137,7 @@ function imprimerTousLesProduits(produits) {
 
 async function getFavori(id_us) {
   return await fetch(
-    "http://localhost/SAE-4.01/serveur/api/getFavori.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getFavori.php",
     {
       method: "POST",
       body: new URLSearchParams({
@@ -150,7 +151,7 @@ async function getFavori(id_us) {
 
 function ajouterFavori(event, id_us) {
   fetch(
-    "http://localhost/SAE-4.01/serveur/api/newFavori.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/newFavori.php",
     {
       method: "POST",
       body: new URLSearchParams({
@@ -163,7 +164,7 @@ function ajouterFavori(event, id_us) {
 
 function supprimerFavorites(event, id_us) {
   fetch(
-    "http://localhost/SAE-4.01/serveur/api/delFavori.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/delFavori.php",
     {
       method: "POST",
       body: new URLSearchParams({
@@ -174,8 +175,7 @@ function supprimerFavorites(event, id_us) {
   ).catch((error) => console.log(error));
 }
 
-function traiterFavori(id_us)
-{
+function traiterFavori(id_us) {
   const id_fav = [];
   getFavori(id_us).then((data) => {
     data.forEach((fav) => {
