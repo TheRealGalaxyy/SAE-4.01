@@ -5,7 +5,7 @@ async function getCommande(id_com) { //Fonction qui récupère les données de l
         id_us: cookieValue, //Remplacer par 3 pour tester
         id_com: id_com,
     });
-    const response = await fetch("http://localhost/SAE-4.01/serveur/api/getCommande.php", { method: "POST", body });
+    const response = await fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/getCommande.php", { method: "POST", body });
     const { data } = await response.json();
     //console.log(data);
     return data;
@@ -37,7 +37,7 @@ function afficherLesProduits(produits) { //Fonction qui affiche les produits com
         // console.log("Path :",path_img);
         const produitDiv = document.createElement('div');
         produitDiv.classList.add('produit');
-        let path = path_img ? "http://localhost/SAE-4.01/serveur/img/articles/" + path_img : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
+        let path = path_img ? "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/img/articles/" + path_img : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
         let prix = prix_unit * qte_com;
 
         produitDiv.innerHTML = `

@@ -85,9 +85,9 @@ function afficherTousLesProduits() {
     const couleur = urlParams.get("idCouleur");
 
     const produitGenerique =
-        "http://localhost/SAE-4.01/serveur/api/getGenericProduits.php";
+        "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/getGenericProduits.php";
     const produitComplet =
-        "http://localhost/SAE-4.01/serveur/api/getProduits.php";
+        "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/getProduits.php";
     const url = taille || couleur ? produitComplet : produitGenerique;
 
     return fetch(url)
@@ -153,7 +153,7 @@ function produitsTaille(idTaille, data) {
 export function imprimerUnProduit(produit) {
 
     let path = produit["path_img"] ?
-        "http://localhost/SAE-4.01/serveur/img/articles/" + produit["path_img"] :
+        "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/img/articles/" + produit["path_img"] :
         "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
     // console.log(produit)
     let produitElement = document.createElement("produit-generique");
@@ -240,7 +240,7 @@ function imprimerTousLesProduits(produits) {
 
 async function getFavori(id_us) {
     return await fetch(
-            "http://localhost/SAE-4.01/serveur/api/getFavori.php", {
+            "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/getFavori.php", {
                 method: "POST",
                 body: new URLSearchParams({
                     id_us: id_us,
@@ -253,7 +253,7 @@ async function getFavori(id_us) {
 
 function ajouterFavori(event, id_us) {
     fetch(
-        "http://localhost/SAE-4.01/serveur/api/newFavori.php", {
+        "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/newFavori.php", {
             method: "POST",
             body: new URLSearchParams({
                 id_us: id_us,
@@ -265,7 +265,7 @@ function ajouterFavori(event, id_us) {
 
 function supprimerFavori(event, id_us) {
     fetch(
-        "http://localhost/SAE-4.01/serveur/api/delFavori.php", {
+        "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/delFavori.php", {
             method: "POST",
             body: new URLSearchParams({
                 id_us: id_us,

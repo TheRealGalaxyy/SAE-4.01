@@ -115,7 +115,7 @@ class ProduitDetail extends HTMLElement {
 customElements.define("produit-detail", ProduitDetail);
 async function AfficherProd() {
     return fetch(
-            "http://localhost/SAE-4.01/serveur/api/getProduit.php", {
+            "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/getProduit.php", {
                 method: "POST",
 
                 body: new URLSearchParams({
@@ -162,7 +162,7 @@ function imprimerSelectionCouleur(produits) {
             return produit.id_col == id;
         });
         let path = produit.path_img ?
-            "http://localhost/SAE-4.01/serveur/img/articles/" + produit.path_img :
+            "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/img/articles/" + produit.path_img :
             "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
         root.querySelector("img").setAttribute("src", path);
         //root.setAttribute("prix", produit.prix_unit);
@@ -198,7 +198,7 @@ function imprimerSelectionTaille(produits) {
 
 function imprimerProduit(produit) {
     let path = produit.path_img
-        ? "http://localhost/SAE-4.01/SAE_401/serveur/img/articles/" + produit.path_img
+        ? "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/SAE_401/serveur/img/articles/" + produit.path_img
         : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
     const prod_affiche = document.createElement("produit-detail");
@@ -238,7 +238,7 @@ boutton.addEventListener("click", (event) => {
     const couleurID = couleurSelect.options[couleurSelect.selectedIndex].value;
 
     if (quantiteCommandeeValide(nbCommandee, stock)) {
-        fetch("http://localhost/SAE-4.01/serveur/api/newPanier.php", {
+        fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/newPanier.php", {
                 method: "POST",
                 body: new URLSearchParams({
                     id_us: cookieValue,

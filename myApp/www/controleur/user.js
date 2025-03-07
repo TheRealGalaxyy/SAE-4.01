@@ -23,7 +23,7 @@ async function printUser() {
 
 async function getUser() {
   return fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getUser.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/getUser.php",
     {
       method: "POST",
 

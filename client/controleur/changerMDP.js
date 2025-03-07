@@ -79,7 +79,7 @@ function ConfirmerMDP(mdpOK) {
 	alertMdpNonCorrespondant.style.display = "none";
 
 	if (motDePasse.value.trim() === confimation.value.trim() && mdpOK) {
-		fetch("http://localhost/SAE-4.01/serveur/api/changerMDP.php", {
+		fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/changerMDP.php", {
 			method: "POST",
 			body: new URLSearchParams({
 				id_us: cookieValue,

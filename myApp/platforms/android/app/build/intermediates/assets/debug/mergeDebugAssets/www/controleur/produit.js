@@ -135,7 +135,7 @@ class ProduitDetail extends HTMLElement {
 customElements.define("produit-detail", ProduitDetail);
 async function AfficherProd() {
   return fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getProduit.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/getProduit.php",
     {
       method: "POST",
 
@@ -188,7 +188,7 @@ function imprimerSelectionCouleur(produits) {
       return produit.id_col == id;
     });
     let path = produit.path_img
-      ? "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/img/articles/" +
+      ? "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/img/articles/" +
         produit.path_img
       : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
     root.querySelector("img").setAttribute("src", path);

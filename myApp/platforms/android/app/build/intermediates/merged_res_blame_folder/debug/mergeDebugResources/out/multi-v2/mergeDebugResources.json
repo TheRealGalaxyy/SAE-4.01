@@ -2522,7 +2522,7 @@
             "outputFile": "io.cordova.hellocordova.app-debug-23:/values_values.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\wamp64\\www\\SAE-4.01\\myApp\\platforms\\android\\app\\src\\main\\res\\values\\strings.xml",
+                    "source": "C:\\wamp64\\www\\SAE-4.01_Tag1\\myApp\\platforms\\android\\app\\src\\main\\res\\values\\strings.xml",
                     "from": {
                         "startLines": "4,2,3",
                         "startColumns": "4,4,4",
@@ -2558,7 +2558,7 @@
                     }
                 },
                 {
-                    "source": "C:\\wamp64\\www\\SAE-4.01\\myApp\\platforms\\android\\app\\src\\main\\res\\values\\themes.xml",
+                    "source": "C:\\wamp64\\www\\SAE-4.01_Tag1\\myApp\\platforms\\android\\app\\src\\main\\res\\values\\themes.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -2630,7 +2630,7 @@
                     }
                 },
                 {
-                    "source": "C:\\wamp64\\www\\SAE-4.01\\myApp\\platforms\\android\\app\\src\\main\\res\\values\\colors.xml",
+                    "source": "C:\\wamp64\\www\\SAE-4.01_Tag1\\myApp\\platforms\\android\\app\\src\\main\\res\\values\\colors.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

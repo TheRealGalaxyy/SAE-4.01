@@ -10,7 +10,7 @@ const id_us = cookieValue; // A changer en cookieValue
 
 async function getFavori(id_us) {
   return await fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getFavori.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/getFavori.php",
     {
       method: "POST",
       body: new URLSearchParams({
@@ -46,7 +46,7 @@ function btn() {
       //console.log("ptdr mais c'est quoi ce truc");
       // console.log(event.target.id);
       fetch(
-        "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/delFavori.php",
+        "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/delFavori.php",
         {
           method: "POST",
           body: new URLSearchParams({
@@ -72,7 +72,7 @@ getFavori(id_us).then(() => {
 
 document.getElementById("clear").addEventListener("click", () => {
   fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/clearFavori.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/clearFavori.php",
     {
       method: "POST",
       body: new URLSearchParams({

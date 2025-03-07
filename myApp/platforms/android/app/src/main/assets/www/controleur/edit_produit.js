@@ -59,7 +59,7 @@ async function getInfoProd(id_prod) {
   if (!id_prod) return;
 
   return await fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getProduit.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/getProduit.php",
     {
       method: "POST",
 
@@ -74,7 +74,7 @@ async function printCouleurs(infos_prod) {
   const div = document.getElementById("col");
 
   const json = await fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getCouleurs.php"
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/getCouleurs.php"
   ).then((reponse) => reponse.json());
 
   const data = json.data;
@@ -107,7 +107,7 @@ async function printTailles(infos_prod) {
   const div = document.getElementById("tail");
 
   const json = await fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getTailles.php"
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/getTailles.php"
   ).then((reponse) => reponse.json());
 
   const data = json.data;
@@ -134,7 +134,7 @@ async function printOptionCat(id_cat) {
   const select = document.getElementById("cat");
 
   const json = await fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getCategories.php"
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/getCategories.php"
   ).then((reponse) => reponse.json());
 
   const data = json.data;
@@ -153,7 +153,7 @@ async function printOptionCat(id_cat) {
 
 function ajouterProd(infos_prod) {
   fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/ajoutProduit.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/ajoutProduit.php",
     {
       method: "POST",
 

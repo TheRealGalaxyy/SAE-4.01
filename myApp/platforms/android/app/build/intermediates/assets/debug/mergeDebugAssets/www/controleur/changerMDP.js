@@ -66,7 +66,7 @@ function ConfirmerMDP(mdpOK) {
 
   if (motDePasse.value === confimation.value && mdpOK) {
     fetch(
-      "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/changerMDP.php",
+      "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/changerMDP.php",
       {
         method: "POST",
         body: new URLSearchParams({

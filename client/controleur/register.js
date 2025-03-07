@@ -126,7 +126,7 @@ function register() {
 		date_naiss: values[5],
 	};
 	console.log(user);
-	fetch("http://localhost/SAE-4.01/serveur/api/newUser.php", {
+	fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/newUser.php", {
 		method: "POST",
 		body: new URLSearchParams({
 			nom: user.nom,
@@ -142,7 +142,7 @@ function register() {
 			console.log(data);
 			if (data.status == "success") {
 				// L'Authentification a réussi
-				fetch("http://localhost/SAE-4.01/serveur/api/connexion.php", {
+				fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/connexion.php", {
 					method: "POST",
 					body: new URLSearchParams({
 						login: user.login,
