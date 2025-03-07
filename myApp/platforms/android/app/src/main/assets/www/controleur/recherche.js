@@ -107,16 +107,23 @@ boutonRechercher.addEventListener("click", (e) => {
 });
 
 function rechercher() {
+  let params = new URLSearchParams();
+
+  if (barreRecherche.value.trim() !== "") {
+    params.append("search", traiterChaine(barreRecherche));
+  }
+  if (selectCategorie.value !== "") {
+    params.append("idCategorie", selectCategorie.value);
+  }
+  if (selectCouleur.value !== "") {
+    params.append("idCouleur", selectCouleur.value);
+  }
+  if (selectTaille.value !== "") {
+    params.append("idTaille", selectTaille.value);
+  }
+
   window.location.href =
-    window.location.href.split("?")[0] +
-    "?search=" +
-    traiterChaine(barreRecherche) +
-    "&idCategorie=" +
-    selectCategorie.value +
-    "&idCouleur=" +
-    selectCouleur.value +
-    "&idTaille=" +
-    selectTaille.value;
+    window.location.href.split("?")[0] + "?" + params.toString();
 }
 
 function fetchSpecification(select, url, default_name, searchParam) {

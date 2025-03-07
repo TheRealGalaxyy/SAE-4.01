@@ -1,7 +1,7 @@
 import { cookieValue } from "./function.js";
 
 if (cookieValue === undefined) {
-  window.location.href = "accueil.html"; //Si le cookie est vide, l'utilisateur n'est pas connecté donc on retourne à l'accueil.
+    window.location.href = 'accueil.html'; //Si le cookie est vide, l'utilisateur n'est pas connecté donc on retourne à l'accueil.
 }
 
 function recupererInformationForm() {
@@ -46,7 +46,7 @@ async function envoyerInformationForm() {
           body: JSON.stringify({
             nom_prod: nom,
             prix_base: prix,
-            id_cat: 1,
+            id_cat:1
             //^ la categorie de produit est encore entrée en dur, je changerais ca dès que j'aurais la page de création de produit donc vite
           }),
         }
@@ -57,7 +57,7 @@ async function envoyerInformationForm() {
 
       if (data.status === "success") {
         printHeader();
-        alert("jure ca marche");
+        alert("jure ca marche")
         //window.location.href = "accueil.html";
       } else {
         // Echec
@@ -68,7 +68,7 @@ async function envoyerInformationForm() {
         }, 4000);
       }
     } catch (error) {
-      /* msgErreur.innerHTML = "Une erreur serveur est survenu.";
+     /* msgErreur.innerHTML = "Une erreur serveur est survenu.";
       msgErreur.style.display = "block";
       setTimeout(() => {
         msgErreur.style.display = "none";

@@ -10,124 +10,124 @@
 10        android:targetSdkVersion="34" />
 11
 12    <supports-screens
-12-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:5-191
+12-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:5-191
 13        android:anyDensity="true"
-13-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:23-48
+13-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:23-48
 14        android:largeScreens="true"
-14-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:49-76
+14-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:49-76
 15        android:normalScreens="true"
-15-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:77-105
+15-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:77-105
 16        android:resizeable="true"
-16-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:106-131
+16-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:106-131
 17        android:smallScreens="true"
-17-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:132-159
+17-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:132-159
 18        android:xlargeScreens="true" />
-18-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:160-188
+18-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:3:160-188
 19
 20    <uses-permission android:name="android.permission.INTERNET" />
-20-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:4:5-67
-20-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:4:22-64
+20-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:4:5-67
+20-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:4:22-64
 21
 22    <queries>
-22-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:16:5-20:15
+22-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:16:5-20:15
 23        <intent>
-23-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:17:9-19:18
+23-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:17:9-19:18
 24            <action android:name="android.media.action.IMAGE_CAPTURE" />
-24-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:18:13-73
-24-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:18:21-70
+24-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:18:13-73
+24-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:18:21-70
 25        </intent>
 26    </queries>
 27
 28    <permission
-28-->[androidx.core:core:1.9.0] C:\Users\Tom\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+28-->[androidx.core:core:1.9.0] C:\Users\theos\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
 29        android:name="io.cordova.hellocordova.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-29-->[androidx.core:core:1.9.0] C:\Users\Tom\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+29-->[androidx.core:core:1.9.0] C:\Users\theos\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
 30        android:protectionLevel="signature" />
-30-->[androidx.core:core:1.9.0] C:\Users\Tom\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+30-->[androidx.core:core:1.9.0] C:\Users\theos\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
 31
 32    <uses-permission android:name="io.cordova.hellocordova.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-32-->[androidx.core:core:1.9.0] C:\Users\Tom\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
-32-->[androidx.core:core:1.9.0] C:\Users\Tom\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+32-->[androidx.core:core:1.9.0] C:\Users\theos\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+32-->[androidx.core:core:1.9.0] C:\Users\theos\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 33
 34    <application
-34-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:5:5-15:19
+34-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:5:5-15:19
 35        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-35-->[androidx.core:core:1.9.0] C:\Users\Tom\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+35-->[androidx.core:core:1.9.0] C:\Users\theos\.gradle\caches\transforms-4\935f0b2011a42b1f4580a29b15bc8c15\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
 36        android:debuggable="true"
 37        android:extractNativeLibs="false"
 38        android:hardwareAccelerated="true"
-38-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:5:18-52
+38-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:5:18-52
 39        android:icon="@mipmap/ic_launcher"
-39-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:5:53-87
+39-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:5:53-87
 40        android:label="@string/app_name"
-40-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:5:88-120
+40-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:5:88-120
 41        android:supportsRtl="true" >
-41-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:5:121-147
+41-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:5:121-147
 42        <activity
-42-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:9-11:20
+42-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:9-11:20
 43            android:name="io.cordova.hellocordova.MainActivity"
-43-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:229-256
+43-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:229-256
 44            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
-44-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:19-135
+44-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:19-135
 45            android:exported="true"
-45-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:136-159
+45-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:136-159
 46            android:label="@string/activity_name"
-46-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:160-197
+46-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:160-197
 47            android:launchMode="singleTop"
-47-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:198-228
+47-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:198-228
 48            android:theme="@style/Theme.App.SplashScreen"
-48-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:257-302
+48-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:257-302
 49            android:windowSoftInputMode="adjustResize" >
-49-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:303-345
+49-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:6:303-345
 50            <intent-filter android:label="@string/launcher_name" >
-50-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:7:13-10:29
-50-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:7:28-65
+50-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:7:13-10:29
+50-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:7:28-65
 51                <action android:name="android.intent.action.MAIN" />
-51-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:8:17-69
-51-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:8:25-66
+51-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:8:17-69
+51-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:8:25-66
 52
 53                <category android:name="android.intent.category.LAUNCHER" />
-53-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:9:17-77
-53-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:9:27-74
+53-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:9:17-77
+53-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:9:27-74
 54            </intent-filter>
 55        </activity>
 56
 57        <provider
 58            android:name="androidx.core.content.FileProvider"
-58-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:12:141-190
+58-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:12:141-190
 59            android:authorities="io.cordova.hellocordova.cdv.core.file.provider"
-59-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:12:19-80
+59-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:12:19-80
 60            android:exported="false"
-60-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:12:81-105
+60-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:12:81-105
 61            android:grantUriPermissions="true" >
-61-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:12:106-140
+61-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:12:106-140
 62            <meta-data
-62-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:13:13-130
+62-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:13:13-130
 63                android:name="android.support.FILE_PROVIDER_PATHS"
-63-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:13:24-74
+63-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:13:24-74
 64                android:resource="@xml/cdv_core_file_provider_paths" />
-64-->C:\wamp64\www\SAE-4.01_Tag1\myApp\platforms\android\app\src\main\AndroidManifest.xml:13:75-127
+64-->C:\wamp64\www\SAE-4.01\myApp\platforms\android\app\src\main\AndroidManifest.xml:13:75-127
 65        </provider>
 66        <provider
-66-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+66-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
 67            android:name="androidx.startup.InitializationProvider"
-67-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+67-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
 68            android:authorities="io.cordova.hellocordova.androidx-startup"
-68-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+68-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
 69            android:exported="false" >
-69-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+69-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
 70            <meta-data
-70-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+70-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
 71                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-71-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+71-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
 72                android:value="androidx.startup" />
-72-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Tom\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+72-->[androidx.emoji2:emoji2:1.2.0] C:\Users\theos\.gradle\caches\transforms-4\235ce041e3654214bab3d160a72ea481\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
 73            <meta-data
-73-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Tom\.gradle\caches\transforms-4\be267c37a3516875aadc94c5172ad79a\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+73-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\theos\.gradle\caches\transforms-4\be267c37a3516875aadc94c5172ad79a\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
 74                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-74-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Tom\.gradle\caches\transforms-4\be267c37a3516875aadc94c5172ad79a\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+74-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\theos\.gradle\caches\transforms-4\be267c37a3516875aadc94c5172ad79a\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
 75                android:value="androidx.startup" />
-75-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Tom\.gradle\caches\transforms-4\be267c37a3516875aadc94c5172ad79a\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+75-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\theos\.gradle\caches\transforms-4\be267c37a3516875aadc94c5172ad79a\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
 76        </provider>
 77    </application>
 78

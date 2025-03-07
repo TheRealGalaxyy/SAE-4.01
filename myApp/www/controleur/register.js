@@ -24,8 +24,9 @@ document.getElementById("mel").addEventListener("input", (e) => {
 	let msgErreurMail = document.getElementById("melErreur");
 	melOK = mel_conforme.test(document.getElementById("mel").value);
 
-	if (melOK) msgErreurMail.style.color = "green";
+	if (melOK) msgErreurMail.style.display = "none";
 	else {
+		msgErreurMail.style.display = "block";
 		msgErreurMail.style.color = "red";
 		msgErreurMail.innerHTML = "Adresse mail non conforme";
 	}
@@ -51,28 +52,33 @@ document.getElementById("mdp").addEventListener("input", (e) => {
 		testNb.test(valeurTester);
 	console.log(mdpOK);
 
-	if (testLg.test(valeurTester)) mdpErreurs[0].style.color = "green";
+	if (testLg.test(valeurTester)) mdpErreurs[0].style.display = "none";
 	else {
+		mdpErreurs[0].style.display = "block";
 		mdpErreurs[0].style.color = "red";
 	}
 
-	if (testMaj.test(valeurTester)) mdpErreurs[1].style.color = "green";
+	if (testMaj.test(valeurTester)) mdpErreurs[1].style.display = "none";
 	else {
+		mdpErreurs[1].style.display = "block";
 		mdpErreurs[1].style.color = "red";
 	}
 
-	if (testMin.test(valeurTester)) mdpErreurs[2].style.color = "green";
+	if (testMin.test(valeurTester)) mdpErreurs[2].style.display = "none";
 	else {
+		mdpErreurs[2].style.display = "block";
 		mdpErreurs[2].style.color = "red";
 	}
 
-	if (testCar.test(valeurTester)) mdpErreurs[3].style.color = "green";
+	if (testCar.test(valeurTester)) mdpErreurs[3].style.display = "none";
 	else {
+		mdpErreurs[3].style.display = "block";
 		mdpErreurs[3].style.color = "red";
 	}
 
-	if (testNb.test(valeurTester)) mdpErreurs[4].style.color = "green";
+	if (testNb.test(valeurTester)) mdpErreurs[4].style.display = "none";
 	else {
+		mdpErreurs[4].style.display = "block";
 		mdpErreurs[4].style.color = "red";
 	}
 });
@@ -120,35 +126,29 @@ function register() {
 		date_naiss: values[5],
 	};
 	console.log(user);
-	fetch(
-		"https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/newUser.php",
-		{
-			method: "POST",
-			body: new URLSearchParams({
-				nom: user.nom,
-				prenom: user.prenom,
-				login: user.login,
-				mdp: user.mdp,
-				mel: user.mel,
-				date_naiss: user.date_naiss,
-			}),
-		}
-	)
+	fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/newUser.php", {
+		method: "POST",
+		body: new URLSearchParams({
+			nom: user.nom,
+			prenom: user.prenom,
+			login: user.login,
+			mdp: user.mdp,
+			mel: user.mel,
+			date_naiss: user.date_naiss,
+		}),
+	})
 		.then((response) => response.json())
 		.then((data) => {
 			console.log(data);
 			if (data.status == "success") {
 				// L'Authentification a réussi
-				fetch(
-					"https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/connexion.php",
-					{
-						method: "POST",
-						body: new URLSearchParams({
-							login: user.login,
-							mdp: user.mdp,
-						}),
-					}
-				).then((response) =>
+				fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/connexion.php", {
+					method: "POST",
+					body: new URLSearchParams({
+						login: user.login,
+						mdp: user.mdp,
+					}),
+				}).then((response) =>
 					response.json().then((data) => {
 						let date_expiration = new Date();
 						date_expiration.setTime(

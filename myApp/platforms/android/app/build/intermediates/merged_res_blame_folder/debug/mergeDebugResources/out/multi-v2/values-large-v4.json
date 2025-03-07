@@ -4,7 +4,7 @@
             "outputFile": "io.cordova.hellocordova.app-mergeDebugResources-21:/values-large-v4/values-large-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Tom\\.gradle\\caches\\transforms-4\\03d10d25bdf91f1e03a4061a4963807b\\transformed\\appcompat-1.6.1\\res\\values-large-v4\\values-large-v4.xml",
+                    "source": "C:\\Users\\theos\\.gradle\\caches\\transforms-4\\03d10d25bdf91f1e03a4061a4963807b\\transformed\\appcompat-1.6.1\\res\\values-large-v4\\values-large-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",
