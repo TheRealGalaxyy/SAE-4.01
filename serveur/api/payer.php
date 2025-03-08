@@ -30,6 +30,24 @@ try{
     $id_com = $res->fetchAll(PDO::FETCH_ASSOC)[0]["id_com"];
     for($i = 0; $i < count($panier); $i++){
 
+        $query = "UPDATE `taille_col_prod` 
+        SET `stock` = `stock` - 1
+        WHERE `taille_col_prod`.`id_prod` = :id_prod 
+        AND `taille_col_prod`.`id_col` = :id_col 
+        AND `taille_col_prod`.`id_taille` = :id_tail;";
+        $res = $db->prepare($query);
+        $res->bindParam(":id_prod", $panier[$i]["id_prod"]);
+        $res->bindParam(":id_col", $panier[$i]["id_col"]);
+        $res->bindParam(":id_tail", $panier[$i]["id_tail"]);
+        $res->execute();
+
+        $query = "UPDATE `produit` 
+        SET `stock_quantity` = `stock_quantity` - 1 
+        WHERE `produit`.`id_prod` = :id_prod;";
+        $res = $db->prepare($query);
+        $res->bindParam(":id_prod", $panier[$i]["id_prod"]);
+        $res->execute();
+
         $query = "SELECT prix_unit
         FROM SELECT_PRODUITS
         WHERE id_prod = :id_prod

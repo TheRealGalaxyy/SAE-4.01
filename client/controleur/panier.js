@@ -294,6 +294,7 @@ window.payer = function () {
 		}),
 	}).then((reponse) => {
 		reponse.json().then((data) => {
+			console.log(data)
 			if (data.status == "success") {
 				console.log("paiement réussi");
 				fetch("http://localhost/SAE-4.01/serveur/api/clearPanier.php", {

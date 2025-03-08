@@ -157,7 +157,6 @@ export function imprimerUnProduit(produit) {
         "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
     // console.log(produit)
     let produitElement = document.createElement("produit-generique");
-    console.log(produit)
     produitElement.classList.add("col-xs-12");
     produitElement.classList.add("col-sm-6");
     produitElement.classList.add("col-md-4");

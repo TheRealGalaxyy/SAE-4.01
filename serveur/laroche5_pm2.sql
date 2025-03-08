@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 08 mars 2025 à 17:53
+-- Généré le : sam. 08 mars 2025 à 21:56
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -426,7 +426,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `date_com` date NOT NULL,
   `id_us` int NOT NULL,
   PRIMARY KEY (`id_com`)
-) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `commande`
@@ -446,7 +446,10 @@ INSERT INTO `commande` (`id_com`, `date_com`, `id_us`) VALUES
 (64, '2023-04-05', 16),
 (65, '2023-04-05', 18),
 (66, '2023-04-05', 18),
-(67, '2025-02-25', 7);
+(67, '2025-02-25', 7),
+(68, '2025-03-08', 7),
+(69, '2025-03-08', 7),
+(70, '2025-03-08', 7);
 
 --
 -- Déclencheurs `commande`
@@ -458,7 +461,7 @@ CREATE TRIGGER `COMMANDE_BEFORE_INSERT` BEFORE INSERT ON `commande` FOR EACH ROW
 DECLARE v_id_us_existe, v_date_conforme BOOLEAN;
 
 CALL id_us_existe(NEW.id_us, v_id_us_existe);
-CALL verifier_date(NEW.date_com, v_date_conforme);
+#CALL verifier_date(NEW.date_com, v_date_conforme);
 
 END
 $$
@@ -470,7 +473,7 @@ CREATE TRIGGER `COMMANDE_BEFORE_UPDATE` BEFORE UPDATE ON `commande` FOR EACH ROW
 DECLARE v_id_us_existe, v_date_conforme BOOLEAN;
 
 CALL id_us_existe(NEW.id_us, v_id_us_existe);
-CALL verifier_date(NEW.date_com, v_date_conforme);
+#CALL verifier_date(NEW.date_com, v_date_conforme);
 
 END
 $$
@@ -591,7 +594,10 @@ INSERT INTO `detail_com` (`id_com`, `id_prod`, `id_col`, `id_tail`, `qte_com`, `
 (65, 9, 13, 15, 4, 86.4),
 (66, 5, 7, 1, 1, 12),
 (66, 12, 16, 1, 1, 8.4),
-(67, 2, 2, 17, 1, 4.8);
+(67, 2, 2, 17, 1, 4.8),
+(68, 1, 2, 17, 1, 6),
+(69, 1, 2, 17, 1, 6),
+(70, 1, 2, 17, 1, 6);
 
 --
 -- Déclencheurs `detail_com`
@@ -717,8 +723,7 @@ INSERT INTO `panier` (`id_us`, `id_prod`, `id_col`, `id_tail`, `qte_pan`) VALUES
 (11, 8, 2, 12, 11),
 (11, 15, 2, 11, 10),
 (16, 1, 16, 17, 1),
-(16, 11, 2, 11, 1),
-(7, 1, 16, 17, 2);
+(16, 11, 2, 11, 1);
 
 --
 -- Déclencheurs `panier`
@@ -799,7 +804,7 @@ CREATE TABLE IF NOT EXISTS `produit` (
 --
 
 INSERT INTO `produit` (`id_prod`, `nom_prod`, `description`, `prix_base`, `id_cat`, `sku`, `stock_quantity`) VALUES
-(1, 'Bonnet du père noël', 'Un bonnet du père noël classique, bien pour se déguiser et apporter la bonne ambiance.', 5, 1, 'SKU1', 51),
+(1, 'Bonnet du père noël', 'Un bonnet du père noël classique, bien pour se déguiser et apporter la bonne ambiance.', 5, 1, 'SKU1', 50),
 (2, 'Bonnet moche de noël', 'Un bonnet pas très beau, mais qui fait l\'affaire pour se réchauffer', 4, 1, 'SKU2', 103),
 (3, 'Pull de rennes', 'Un pull avec un rennes dessus, un indémodable', 15, 2, 'SKU3', 146),
 (4, 'Pull en laine', 'Un pull en laine très sobre, très confortable, très cosy', 30, 2, 'SKU4', 325),
@@ -851,14 +856,14 @@ DELIMITER ;
 --
 DROP VIEW IF EXISTS `select_commandes`;
 CREATE TABLE IF NOT EXISTS `select_commandes` (
-`date_com` date
-,`id_col` int
-,`id_com` int
-,`id_prod` int
-,`id_tail` int
+`id_com` int
 ,`id_us` int
-,`prix_total` float
+,`id_prod` int
+,`id_col` int
+,`id_tail` int
+,`date_com` date
 ,`qte_com` int
+,`prix_total` float
 );
 
 -- --------------------------------------------------------
@@ -869,20 +874,20 @@ CREATE TABLE IF NOT EXISTS `select_commandes` (
 --
 DROP VIEW IF EXISTS `select_paniers`;
 CREATE TABLE IF NOT EXISTS `select_paniers` (
-`id_cat` int
-,`id_col` int
+`id_us` int
 ,`id_prod` int
-,`id_tail` int
-,`id_us` int
-,`nom_cat` varchar(30)
-,`nom_col` varchar(20)
+,`stock` bigint
 ,`nom_prod` varchar(50)
+,`id_cat` int
+,`nom_cat` varchar(30)
+,`id_col` int
+,`nom_col` varchar(20)
+,`id_tail` int
 ,`nom_tail` varchar(13)
 ,`path_img` varchar(34)
-,`prix_total` double
 ,`prix_unit` double
 ,`qte_pan` int
-,`stock` bigint
+,`prix_total` double
 );
 
 -- --------------------------------------------------------
@@ -893,20 +898,20 @@ CREATE TABLE IF NOT EXISTS `select_paniers` (
 --
 DROP VIEW IF EXISTS `select_produits`;
 CREATE TABLE IF NOT EXISTS `select_produits` (
-`description` varchar(700)
-,`id_cat` int
-,`id_col` int
-,`id_prod` int
-,`id_tail` int
-,`nom_cat` varchar(30)
-,`nom_col` varchar(20)
+`id_prod` int
 ,`nom_prod` varchar(50)
-,`nom_tail` varchar(13)
-,`path_img` varchar(34)
-,`prix_unit` double
+,`description` varchar(700)
 ,`sku` varchar(100)
 ,`stock` bigint
 ,`stock_general` int
+,`id_cat` int
+,`nom_cat` varchar(30)
+,`id_col` int
+,`nom_col` varchar(20)
+,`id_tail` int
+,`nom_tail` varchar(13)
+,`path_img` varchar(34)
+,`prix_unit` double
 );
 
 -- --------------------------------------------------------
@@ -917,15 +922,15 @@ CREATE TABLE IF NOT EXISTS `select_produits` (
 --
 DROP VIEW IF EXISTS `select_users`;
 CREATE TABLE IF NOT EXISTS `select_users` (
-`date_naiss` date
-,`id_perm` int
-,`id_us` int
-,`login` varchar(20)
-,`mdp` varchar(255)
-,`mel` varchar(100)
-,`nom_perm` varchar(15)
+`id_us` int
 ,`nom_us` varchar(30)
 ,`prenom_us` varchar(20)
+,`mel` varchar(100)
+,`date_naiss` date
+,`login` varchar(20)
+,`mdp` varchar(255)
+,`id_perm` int
+,`nom_perm` varchar(15)
 );
 
 -- --------------------------------------------------------
@@ -988,7 +993,7 @@ CREATE TABLE IF NOT EXISTS `taille_col_prod` (
 --
 
 INSERT INTO `taille_col_prod` (`id_prod`, `id_col`, `id_taille`, `prix`, `stock`) VALUES
-(1, 2, 17, 5.00, 20),
+(1, 2, 17, 5.00, 19),
 (1, 16, 17, 6.00, 31),
 (2, 2, 17, 4.00, 47),
 (2, 3, 17, 4.00, 41),
@@ -1346,7 +1351,7 @@ DECLARE v_id_perm_existe, v_login_non_existe, v_date_conforme BOOLEAN;
 
 CALL id_perm_existe(NEW.id_perm, v_id_perm_existe);
 #CALL login_non_existe(NEW.login, v_login_non_existe);
-CALL verifier_date(NEW.date_naiss, v_date_conforme);
+#CALL verifier_date(NEW.date_naiss, v_date_conforme);
 
 END
 $$
