@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
 $db_config['SGBD'] = 'mysql';
-$db_config['HOST'] = 'devbdd.iutmetz.univ-lorraine.fr';
-$db_config['DB_NAME'] = 'riese3u_SAE401';
-$db_config['USER'] = 'riese3u_appli';
-$db_config['PASSWORD'] = 'Superphpmyadmin007!';
+$db_config['HOST'] = 'localhost';
+$db_config['DB_NAME'] = 'laroche5_pm2';
+$db_config['USER'] = 'root';
+$db_config['PASSWORD'] = '';
 
 
 try {

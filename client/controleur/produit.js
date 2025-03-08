@@ -176,6 +176,7 @@ function imprimerSelectionCouleur(produits) {
             if (produit.stock <= 0) {
                 root.getElementById("stock").parentElement.style.display = "none";
                 root.getElementById("stock").parentElement.nextElementSibling.style.display = "block";
+                root.getElementById("stock").parentElement.nextElementSibling.style.color = "red";
             } else {
                 root.getElementById("stock").parentElement.style.display = "block";
                 root.getElementById("stock").parentElement.nextElementSibling.style.display = "none";
@@ -218,6 +219,7 @@ function imprimerSelectionTaille(produits) {
             if (produit.stock <= 0) {
                 root.getElementById("stock").parentElement.style.display = "none";
                 root.getElementById("stock").parentElement.nextElementSibling.style.display = "block";
+                root.getElementById("stock").parentElement.nextElementSibling.style.color = "red";
             } else {
                 root.getElementById("stock").parentElement.style.display = "block";
                 root.getElementById("stock").parentElement.nextElementSibling.style.display = "none";
