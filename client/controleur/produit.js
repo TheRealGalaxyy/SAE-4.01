@@ -91,7 +91,6 @@ class ProduitDetail extends HTMLElement {
     `;
 
         document.title = this.getAttribute("name") + " - PM2";
-        console.log("jure ca marche")
 
         const nbrCommande = this.shadowRoot.getElementById("nbrCommande");
         const prixTotal = this.shadowRoot.getElementById("prix_tot");
@@ -115,7 +114,7 @@ class ProduitDetail extends HTMLElement {
 customElements.define("produit-detail", ProduitDetail);
 async function AfficherProd() {
     return fetch(
-            "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/getProduit.php", {
+            "http://localhost/SAE-4.01/serveur/api/getProduit.php", {
                 method: "POST",
 
                 body: new URLSearchParams({
@@ -143,6 +142,7 @@ function imprimerSelectionCouleur(produits) {
             couleurs.set(produit["id_col"], produit["nom_col"]);
         }
     });
+
     const selecteur = document.createElement("select");
     selecteur.setAttribute("id", "selectCouleur");
     couleurs.forEach((couleur, id) => {
@@ -154,20 +154,36 @@ function imprimerSelectionCouleur(produits) {
         option.value = id;
         selecteur.add(option);
     });
+
     const root = document.querySelector("produit-detail").shadowRoot;
     root.getElementById("couleur").appendChild(selecteur);
+
     root.getElementById("selectCouleur").addEventListener("change", (event) => {
         let id = event.target.value;
-        let produit = produits.find((produit) => {
-            return produit.id_col == id;
-        });
-        let path = produit.path_img ?
-            "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/img/articles/" + produit.path_img :
-            "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
-        root.querySelector("img").setAttribute("src", path);
-        //root.setAttribute("prix", produit.prix_unit);
+        let produit = produits.find((p) => p.id_col == id);
+
+        if (produit) {
+            let path = produit.path_img ?
+                "http://localhost/SAE-4.01/serveur/img/articles/" + produit.path_img :
+                "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
+            
+            root.querySelector("img").setAttribute("src", path);
+            root.getElementById("prix").innerHTML = produit.prix_unit;
+            root.getElementById("prix_tot").innerHTML = produit.prix_unit;
+            root.getElementById("stock").innerHTML = produit.stock;
+
+            // Gestion de la rupture de stock
+            if (produit.stock <= 0) {
+                root.getElementById("stock").parentElement.style.display = "none";
+                root.getElementById("stock").parentElement.nextElementSibling.style.display = "block";
+            } else {
+                root.getElementById("stock").parentElement.style.display = "block";
+                root.getElementById("stock").parentElement.nextElementSibling.style.display = "none";
+            }
+        }
     });
 }
+
 
 function imprimerSelectionTaille(produits) {
     let tailles = new Map();
@@ -176,6 +192,7 @@ function imprimerSelectionTaille(produits) {
             tailles.set(produit["id_tail"], produit["nom_tail"]);
         }
     });
+
     const selecteur = document.createElement("select");
     selecteur.setAttribute("id", "selectTaille");
     tailles.forEach((taille, id) => {
@@ -184,21 +201,35 @@ function imprimerSelectionTaille(produits) {
         option.value = id;
         selecteur.add(option);
     });
+
     const root = document.querySelector("produit-detail").shadowRoot;
     root.getElementById("taille").appendChild(selecteur);
+
     root.getElementById("selectTaille").addEventListener("change", (event) => {
-        const produit = produits.find((produit) => {
-            return produit.id_tail == event.target.value
-        });
-        const qte = root.querySelector("#nbrCommande").value;
-        root.querySelector("#prix").innerHTML = produit.prix_unit * qte;
-        root.querySelector("#prix_tot").innerHTML = produit.prix_unit * qte;
+        let produit = produits.find((p) => p.id_tail == event.target.value);
+
+        if (produit) {
+            const qte = root.querySelector("#nbrCommande").value;
+            root.getElementById("prix").innerHTML = produit.prix_unit;
+            root.getElementById("prix_tot").innerHTML = produit.prix_unit * qte;
+            root.getElementById("stock").innerHTML = produit.stock;
+
+            // Gestion de la rupture de stock
+            if (produit.stock <= 0) {
+                root.getElementById("stock").parentElement.style.display = "none";
+                root.getElementById("stock").parentElement.nextElementSibling.style.display = "block";
+            } else {
+                root.getElementById("stock").parentElement.style.display = "block";
+                root.getElementById("stock").parentElement.nextElementSibling.style.display = "none";
+            }
+        }
     });
 }
 
+
 function imprimerProduit(produit) {
     let path = produit.path_img
-        ? "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/SAE_401/serveur/img/articles/" + produit.path_img
+        ? "http://localhost/SAE-4.01/SAE_401/serveur/img/articles/" + produit.path_img
         : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
     const prod_affiche = document.createElement("produit-detail");
@@ -238,7 +269,7 @@ boutton.addEventListener("click", (event) => {
     const couleurID = couleurSelect.options[couleurSelect.selectedIndex].value;
 
     if (quantiteCommandeeValide(nbCommandee, stock)) {
-        fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag1/serveur/api/newPanier.php", {
+        fetch("http://localhost/SAE-4.01/serveur/api/newPanier.php", {
                 method: "POST",
                 body: new URLSearchParams({
                     id_us: cookieValue,
