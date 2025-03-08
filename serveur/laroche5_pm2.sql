@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 08 mars 2025 à 17:34
+-- Généré le : sam. 08 mars 2025 à 17:53
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -718,7 +718,7 @@ INSERT INTO `panier` (`id_us`, `id_prod`, `id_col`, `id_tail`, `qte_pan`) VALUES
 (11, 15, 2, 11, 10),
 (16, 1, 16, 17, 1),
 (16, 11, 2, 11, 1),
-(7, 1, 2, 17, 1);
+(7, 1, 16, 17, 2);
 
 --
 -- Déclencheurs `panier`
@@ -906,6 +906,7 @@ CREATE TABLE IF NOT EXISTS `select_produits` (
 ,`prix_unit` double
 ,`sku` varchar(100)
 ,`stock` bigint
+,`stock_general` int
 );
 
 -- --------------------------------------------------------
@@ -1379,7 +1380,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `select_produits`;
 
 DROP VIEW IF EXISTS `select_produits`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_produits`  AS SELECT `p`.`id_prod` AS `id_prod`, `p`.`nom_prod` AS `nom_prod`, `p`.`description` AS `description`, `p`.`sku` AS `sku`, coalesce(`tcp`.`stock`,0) AS `stock`, `ca`.`id_cat` AS `id_cat`, `ca`.`nom_cat` AS `nom_cat`, `co`.`id_col` AS `id_col`, `co`.`nom_col` AS `nom_col`, `t`.`id_tail` AS `id_tail`, `t`.`nom_tail` AS `nom_tail`, `cp`.`path_img` AS `path_img`, round((((coalesce(`tcp`.`prix`,`p`.`prix_base`) + coalesce(`cp`.`diff_prix_col`,0)) + coalesce(`tp`.`diff_prix_tail`,0)) * 1.2),2) AS `prix_unit` FROM ((((((`produit` `p` left join `col_prod` `cp` on((`cp`.`id_prod` = `p`.`id_prod`))) left join `tail_prod` `tp` on((`tp`.`id_prod` = `p`.`id_prod`))) join `categorie` `ca` on((`ca`.`id_cat` = `p`.`id_cat`))) left join `couleur` `co` on((`co`.`id_col` = `cp`.`id_col`))) left join `taille` `t` on((`t`.`id_tail` = `tp`.`id_tail`))) left join `taille_col_prod` `tcp` on(((`tcp`.`id_prod` = `p`.`id_prod`) and (`tcp`.`id_col` = `co`.`id_col`) and (`tcp`.`id_taille` = `t`.`id_tail`)))) ORDER BY `p`.`nom_prod` ASC, `ca`.`nom_cat` ASC, `co`.`nom_col` ASC, `t`.`nom_tail` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_produits`  AS SELECT `p`.`id_prod` AS `id_prod`, `p`.`nom_prod` AS `nom_prod`, `p`.`description` AS `description`, `p`.`sku` AS `sku`, coalesce(`tcp`.`stock`,0) AS `stock`, `p`.`stock_quantity` AS `stock_general`, `ca`.`id_cat` AS `id_cat`, `ca`.`nom_cat` AS `nom_cat`, `co`.`id_col` AS `id_col`, `co`.`nom_col` AS `nom_col`, `t`.`id_tail` AS `id_tail`, `t`.`nom_tail` AS `nom_tail`, `cp`.`path_img` AS `path_img`, round((((coalesce(`tcp`.`prix`,`p`.`prix_base`) + coalesce(`cp`.`diff_prix_col`,0)) + coalesce(`tp`.`diff_prix_tail`,0)) * 1.2),2) AS `prix_unit` FROM ((((((`produit` `p` left join `col_prod` `cp` on((`cp`.`id_prod` = `p`.`id_prod`))) left join `tail_prod` `tp` on((`tp`.`id_prod` = `p`.`id_prod`))) join `categorie` `ca` on((`ca`.`id_cat` = `p`.`id_cat`))) left join `couleur` `co` on((`co`.`id_col` = `cp`.`id_col`))) left join `taille` `t` on((`t`.`id_tail` = `tp`.`id_tail`))) left join `taille_col_prod` `tcp` on(((`tcp`.`id_prod` = `p`.`id_prod`) and (`tcp`.`id_col` = `co`.`id_col`) and (`tcp`.`id_taille` = `t`.`id_tail`)))) ORDER BY `p`.`nom_prod` ASC, `ca`.`nom_cat` ASC, `co`.`nom_col` ASC, `t`.`nom_tail` ASC ;
 
 -- --------------------------------------------------------
 
