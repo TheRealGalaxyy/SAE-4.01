@@ -176,11 +176,17 @@ async function AfficherProd() {
       imprimerProduit(
         data.data.filter((produit) => produit.id_col == id_col)[0]
       );
-      imprimerSelectionCouleur(data.data);
-      imprimerSelectionTaille(data.data);
-      boutonCommander(
-        data.data.filter((produit) => produit.id_col == id_col)[0].id_prod
-      );
+      setTimeout(() => {
+        imprimerSelectionCouleur(data.data);
+      }, 100); // Attendre 100ms avant d'exécuter la fonction
+      setTimeout(() => {
+        imprimerSelectionTaille(data.data);
+      }, 100); // Attendre 100ms avant d'exécuter la fonction
+      setTimeout(() => {
+        boutonCommander(
+          data.data.filter((produit) => produit.id_col == id_col)[0].id_prod
+        );
+      }, 100); // Attendre 100ms avant d'exécuter la fonction
     });
 }
 
@@ -373,7 +379,7 @@ function boutonCommander(id_produit) {
         .then((reponse) => {
           reponse.json().then((data) => {
             if (data.status === "error") {
-              alert("Vous avez déjà ce produit dans votre panier");
+              alert("Connectez vous pour commencer à commander !");
             } else if (data.status === "success") {
               window.location.href = "accueil.html";
             }
