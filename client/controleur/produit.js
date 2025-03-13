@@ -230,7 +230,7 @@ function imprimerSelectionCouleur(produits) {
         ? "http://localhost/SAE-4.01/serveur/img/articles/" + produit.path_img
         : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
-      root.querySelector("img").setAttribute("src", path);
+      root.querySelector(".img_prod").setAttribute("src", path);
       root.getElementById("prix").innerHTML = produit.prix_unit;
       root.getElementById("prix_tot").innerHTML = produit.prix_unit;
       root.getElementById("stock").innerHTML = produit.stock;
