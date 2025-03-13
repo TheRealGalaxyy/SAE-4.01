@@ -5,17 +5,7 @@ require_once 'header.php';
 
 $json = [];
 
-$query =
-"SELECT salt FROM USER
-WHERE id_us = :id_us";
-
-$res = $db->prepare($query);
-
-$res->bindParam(":id_us", $_POST["id_us"]);
 try{
-    $res->execute();
-    $salt = $res->fetch(PDO::FETCH_ASSOC)["salt"];
-
     $password = password_hash($_POST["mdp"], PASSWORD_BCRYPT);
 
     $query =
