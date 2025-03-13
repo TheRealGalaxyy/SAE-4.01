@@ -5,17 +5,22 @@
     <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
         Apache Cordova Team
     </author>
-    <content src="accueil.html" />
+    <content src="index.html" />
 
     <!-- Autoriser les requêtes réseau -->
     <access origin="https://devweb.iutmetz.univ-lorraine.fr" />
-    <access origin="https://*.univ-lorraine.fr" /> <!-- Optionnel : autoriser tous les sous-domaines -->
+    <access origin="https://*.univ-lorraine.fr" />
 
     <!-- Autoriser la navigation vers des URLs externes -->
     <allow-navigation href="https://devweb.iutmetz.univ-lorraine.fr/*" />
-    <allow-navigation href="https://*.univ-lorraine.fr/*" /> <!-- Optionnel : autoriser tous les sous-domaines -->
+    <allow-navigation href="https://*.univ-lorraine.fr/*" />
 
     <!-- Autoriser les intentions (intents) pour les liens externes -->
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+
+    <!-- Permissions Android -->
+    <platform name="android">
+        <uses-permission android:name="android.permission.INTERNET" />
+    </platform>
 </widget>
