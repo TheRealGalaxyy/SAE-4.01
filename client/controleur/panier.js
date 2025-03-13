@@ -72,6 +72,11 @@ function modifCouleur(id) {
 		.getElementById(`couleur${id}`)
 		.addEventListener("change", (e) => ChangerInfoProd(id, e));
 }
+
+function modifQuantite(id) {
+	const quantite = findId(id, document.querySelectorAll(".qte"));
+	quantite.addEventListener("change", (e) => ChangerInfoProd(id, e));
+}
 //const test = findId(id, document.querySelectorAll(".mod"));
 
 //console.log(test);
@@ -79,8 +84,11 @@ function modifCouleur(id) {
 //test.addEventListener("click", (e) => {
 
 function ChangerInfoProd(id, e) {
-	const id_prod = e.target.id.split("|")[0].split("r")[1];
-	//console.log("e.target = ", e.target.id.split("|")[0].split("r"));
+	let id_prod = e.target.id.split("|")[0];
+	if (id_prod.length > 1) {
+		id_prod = id_prod.split("r")[1];
+	}
+	console.log("e.target = ", e.target.id.split("|")[0]);
 	const id_col = e.target.id.split("|")[1];
 	const id_tail = e.target.id.split("|")[2];
 	const qte_pan = document.getElementById(id).value;
@@ -207,6 +215,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
 
 	delButton(id);
 	modifCouleur(id);
+	modifQuantite(id);
 	rempliSelect(
 		document.getElementById(`couleur${id}`),
 		couleur,
