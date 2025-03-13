@@ -36,12 +36,9 @@ function findId(id, array) {
 
 function delButton(id) {
 	const test = findId(id, document.querySelectorAll(".del"));
-	const quantite = findId(id, document.querySelectorAll(".del"));
-	console.log("id : ", id);
 
-	quantite.addEventListener("click", (e) => {
-		const id_prod = e.target.parent.id.split("|")[0];
-		console.log("id_prod : ", e.target.parent.id.split("|")[0]);
+	test.addEventListener("click", (e) => {
+		const id_prod = e.target.id.split("|")[0];
 		const id_col = e.target.id.split("|")[1];
 		const id_tail = e.target.id.split("|")[2];
 		// console.log(e.target.id)
