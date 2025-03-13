@@ -252,7 +252,7 @@ async function imprimerTousLesProduits(produits) {
 }
 
 
-async function getFavori(id_us) {
+export async function getFavori(id_us) {
     return await fetch(
             "http://localhost/SAE-4.01/serveur/api/getFavori.php", {
                 method: "POST",
@@ -265,7 +265,7 @@ async function getFavori(id_us) {
         .catch((error) => console.log(error));
 }
 
-function ajouterFavori(event, id_us) {
+export function ajouterFavori(event, id_us) {
     fetch(
         "http://localhost/SAE-4.01/serveur/api/newFavori.php", {
             method: "POST",
@@ -277,7 +277,7 @@ function ajouterFavori(event, id_us) {
     ).catch((error) => console.log(error));
 }
 
-function supprimerFavori(event, id_us) {
+export function supprimerFavori(event, id_us) {
     fetch(
         "http://localhost/SAE-4.01/serveur/api/delFavori.php", {
             method: "POST",
