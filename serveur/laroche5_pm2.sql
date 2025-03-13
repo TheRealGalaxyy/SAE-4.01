@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 08 mars 2025 à 21:56
+-- Généré le : jeu. 13 mars 2025 à 11:59
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -932,6 +932,32 @@ CREATE TABLE IF NOT EXISTS `select_users` (
 ,`id_perm` int
 ,`nom_perm` varchar(15)
 );
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `solde`
+--
+
+DROP TABLE IF EXISTS `solde`;
+CREATE TABLE IF NOT EXISTS `solde` (
+  `id_solde` int NOT NULL AUTO_INCREMENT,
+  `id_prod` int NOT NULL,
+  `reduction` decimal(5,2) NOT NULL,
+  `date_deb` date NOT NULL,
+  `date_fin` date NOT NULL,
+  PRIMARY KEY (`id_solde`),
+  KEY `id_prod` (`id_prod`)
+) ;
+
+--
+-- Déchargement des données de la table `solde`
+--
+
+INSERT INTO `solde` (`id_solde`, `id_prod`, `reduction`, `date_deb`, `date_fin`) VALUES
+(1, 1, 20.00, '2025-03-10', '2025-03-12'),
+(2, 2, 15.50, '2025-03-13', '2025-04-15'),
+(3, 3, 30.00, '2025-03-11', '2025-05-10');
 
 -- --------------------------------------------------------
 

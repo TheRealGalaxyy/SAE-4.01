@@ -59,18 +59,26 @@ export class ProduitGenerique extends HTMLElement {
             justify-content: space-between;
             padding: 3%;
         }
+        .solde {
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: red;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+        }
         </style>
         <a href="detail_produit.html?id=${this.getAttribute("id")}&id_col=${this.getAttribute("id_col")}" class="descProduit">
         <div class="descProduit">
             <input type="checkbox" class="checkbox" id="ch${this.getAttribute("id")}">
             <div class="flex">
                 <label for="ch${this.getAttribute("id")}"><img class="etoile" src='img/icones/star_vide.png'/></label>
-                <p class="prix">${this.getAttribute("prix")}€</p>
             </div>
+            <div class="solde" style="${this.getAttribute('soldeAffiche')}">EN SOLDE <span class="solde-valeur">-${this.getAttribute('soldeValeur')}%</span></div>
             <p class="name">${this.getAttribute("name")}</p>
             <img class="img_prod" src="${this.getAttribute('path_img')}" alt="${this.getAttribute("path_img")}" />
             <div class="stock" style="${this.getAttribute('stockAffiche')}" >&nbsp&nbsp${this.getAttribute("stock")} unités restantes</div>
-            <div class="rupture" style="${this.getAttribute('ruptureAffiche')}" >&nbsp&nbspRUPTURE DE STOCK</p>
+            <div class="rupture" style="${this.getAttribute('ruptureAffiche')}" >&nbsp&nbspRUPTURE DE STOCK</div>
         </div>
         </a>
         `;
@@ -150,35 +158,52 @@ function produitsTaille(idTaille, data) {
 }
 
 
-export function imprimerUnProduit(produit) {
+async function imprimerUnProduit(produit) {
+    let path = produit["path_img"]
+        ? "http://localhost/SAE-4.01/serveur/img/articles/" + produit["path_img"]
+        : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
-    let path = produit["path_img"] ?
-        "http://localhost/SAE-4.01/serveur/img/articles/" + produit["path_img"] :
-        "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
-    // console.log(produit)
     let produitElement = document.createElement("produit-generique");
-    produitElement.classList.add("col-xs-12");
-    produitElement.classList.add("col-sm-6");
-    produitElement.classList.add("col-md-4");
-    produitElement.classList.add("col-lg-3");
-    produitElement.classList.add("col-xl-2");
-    produitElement.classList.add("descProduit");
+    produitElement.classList.add("col-xs-12", "col-sm-6", "col-md-4", "col-lg-3", "col-xl-2", "descProduit");
     produitElement.setAttribute("name", produit["nom_prod"]);
-    produitElement.setAttribute("prix", produit["prix_unit"]);
     produitElement.setAttribute("id", produit["id_prod"]);
     produitElement.setAttribute("id_col", produit["id_col"]);
     produitElement.setAttribute("path_img", path);
     produitElement.setAttribute("stock", produit["stock_general"]);
-    if (produit["stock_general"] == 0){
+
+    if (produit["stock_general"] == 0) {
         produitElement.setAttribute("stockAffiche", "display:none");
         produitElement.setAttribute("ruptureAffiche", "color:red");
     } else {
         produitElement.setAttribute("stockAffiche", "");
         produitElement.setAttribute("ruptureAffiche", "display:none");
     }
-    // console.log(path);
+
+    let solde = await getSolde(produit["id_prod"]);
+    if (solde) {
+        produitElement.setAttribute("soldeAffiche", "display:block;");
+        produitElement.setAttribute("soldeValeur", solde);
+    } else {
+        produitElement.setAttribute("soldeAffiche", "display:none");
+    }
+
     return produitElement;
 }
+
+
+async function getSolde(id_prod) {
+    return fetch("http://localhost/SAE-4.01/serveur/api/getSolde.php", {
+        method: "POST",
+        body: new URLSearchParams({ id_prod: id_prod }),
+    })
+    .then(response => response.json())
+    .then(data => data.data.length > 0 ? data.data[0]["reduction"] : null)
+    .catch(error => {
+        console.log(error);
+        return null;
+    });
+}
+
 
 function produitContientMot(produit, mot) {
     return produit.nom_prod
@@ -193,13 +218,14 @@ function produitContientMot(produit, mot) {
         );
 }
 
-function imprimerTousLesProduits(produits) {
+async function imprimerTousLesProduits(produits) {
     const urlParams = new URLSearchParams(window.location.search);
     const recherche = urlParams.get("search");
     const categorie = urlParams.get("idCategorie");
     const taille = urlParams.get("idTaille");
     const couleur = urlParams.get("idCouleur");
     const id_us = cookieValue;
+
     if (recherche) {
         produits = produitsRecherche(recherche, produits);
     }
@@ -213,30 +239,18 @@ function imprimerTousLesProduits(produits) {
         produits = produitsCouleur(couleur, produits);
     }
 
+    produits.sort((a, b) => a.id_prod - b.id_prod);
+
     const listeProd = document.querySelector(".produits");
-    // console.log(produits);
+    listeProd.innerHTML = ""; 
 
-    // produits.forEach((produit) => {
-    //     // console.log(produit);
-    //     let produitElement = document.createElement("produit-generique");
-    //     produitElement.classList.add("col-md-4");
-    //     produitElement.classList.add("col-lg-3");
-    //     produitElement.classList.add("col-sm-6");
-    //     produitElement.classList.add("descProduit");
-    //     produitElement.setAttribute("name", produit["nom_prod"]);
-    //     produitElement.setAttribute("prix", produit["prix_unit"]);
-    //     produitElement.setAttribute("id", produit["id_prod"]);
+    const elements = await Promise.all(produits.map(produit => imprimerUnProduit(produit)));
 
+    elements.forEach(produitElement => listeProd.appendChild(produitElement));
 
-    //     listeProd.appendChild(produitElement);
-    // });
-
-    produits.forEach((produit) => {
-        const produitElement = imprimerUnProduit(produit);
-        document.querySelector(".produits").appendChild(produitElement);
-    });
     traiterFavori(id_us);
 }
+
 
 async function getFavori(id_us) {
     return await fetch(
