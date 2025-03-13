@@ -36,10 +36,12 @@ function findId(id, array) {
 
 function delButton(id) {
 	const test = findId(id, document.querySelectorAll(".del"));
-	//console.log(test)
+	const quantite = findId(id, document.querySelectorAll(".del"));
+	console.log("id : ", id);
 
-	test.addEventListener("click", (e) => {
-		const id_prod = e.target.id.split("|")[0];
+	quantite.addEventListener("click", (e) => {
+		const id_prod = e.target.parent.id.split("|")[0];
+		console.log("id_prod : ", e.target.parent.id.split("|")[0]);
 		const id_col = e.target.id.split("|")[1];
 		const id_tail = e.target.id.split("|")[2];
 		// console.log(e.target.id)
@@ -65,67 +67,75 @@ function delButton(id) {
 	});
 }
 
-function modifButton(id) {
-	const test = findId(id, document.querySelectorAll(".mod"));
+function modifCouleur(id) {
+	document
+		.getElementById(`couleur${id}`)
+		.addEventListener("change", (e) => ChangerInfoProd(id, e));
+}
+//const test = findId(id, document.querySelectorAll(".mod"));
 
-	test.addEventListener("click", (e) => {
-		const id_prod = e.target.id.split("|")[0];
-		const id_col = e.target.id.split("|")[1];
-		const id_tail = e.target.id.split("|")[2];
-		const qte_pan = document.getElementById(id).value;
-		let new_id_col = null;
-		let new_id_tail = null;
+//console.log(test);
+
+//test.addEventListener("click", (e) => {
+
+function ChangerInfoProd(id, e) {
+	const id_prod = e.target.id.split("|")[0].split("r")[1];
+	//console.log("e.target = ", e.target.id.split("|")[0].split("r"));
+	const id_col = e.target.id.split("|")[1];
+	const id_tail = e.target.id.split("|")[2];
+	const qte_pan = document.getElementById(id).value;
+	let new_id_col = null;
+	let new_id_tail = null;
+	document
+		.getElementById(`couleur${id}`)
+		.querySelectorAll("option")
+		.forEach((element) => {
+			if (element.selected) {
+				new_id_col = element.id;
+			}
+		});
+	if (document.getElementById(`taille${id}`) === null) {
+		new_id_tail = 17;
+	} else {
 		document
-			.getElementById(`couleur${id}`)
+			.getElementById(`taille${id}`)
 			.querySelectorAll("option")
 			.forEach((element) => {
 				if (element.selected) {
-					new_id_col = element.id;
+					new_id_tail = element.id;
 				}
 			});
-		if (document.getElementById(`taille${id}`) === null) {
-			new_id_tail = 17;
-		} else {
-			document
-				.getElementById(`taille${id}`)
-				.querySelectorAll("option")
-				.forEach((element) => {
-					if (element.selected) {
-						new_id_tail = element.id;
-					}
-				});
-		}
-		// console.log("id_us",id_us);
-		// console.log("id_prod",id_prod);
-		// console.log("id_col",id_col);
-		// console.log("id_tail",id_tail);
-		// console.log("qte_pan",qte_pan);
-		// console.log("new_id_col",new_id_col);
-		// console.log("new_id_tail",new_id_tail);
-		fetch("http://localhost/SAE-4.01/serveur/api/setPanier.php", {
-			method: "POST",
-			body: new URLSearchParams({
-				id_us: id_us,
-				id_prod: id_prod,
-				id_col: id_col,
-				id_tail: id_tail,
-				qte_pan: qte_pan,
-				new_id_col: new_id_col,
-				new_id_tail: new_id_tail,
-			}),
-		}).then((response) => {
-			response.json().then((json) => {
-				//console.log(json);
-				if (json.status !== "success") {
-					alert("modif échouée");
-					appelPanier();
-					return;
-				}
-
-				console.log("modif réussie");
-				document.getElementById("panier").innerHTML = "";
+	}
+	// console.log("id_us",id_us);
+	// console.log("id_prod",id_prod);
+	// console.log("id_col",id_col);
+	// console.log("id_tail",id_tail);
+	// console.log("qte_pan",qte_pan);
+	// console.log("new_id_col",new_id_col);
+	// console.log("new_id_tail",new_id_tail);
+	fetch("http://localhost/SAE-4.01/serveur/api/setPanier.php", {
+		method: "POST",
+		body: new URLSearchParams({
+			id_us: id_us,
+			id_prod: id_prod,
+			id_col: id_col,
+			id_tail: id_tail,
+			qte_pan: qte_pan,
+			new_id_col: new_id_col,
+			new_id_tail: new_id_tail,
+		}),
+	}).then((response) => {
+		response.json().then((json) => {
+			//console.log(json);
+			if (json.status !== "success") {
+				alert("modif échouée");
 				appelPanier();
-			});
+				return;
+			}
+
+			console.log("modif réussie");
+			document.getElementById("panier").innerHTML = "";
+			appelPanier();
 		});
 	});
 }
@@ -159,6 +169,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
 	const panierDiv = document.createElement("div");
 	panierDiv.classList.add("panierElement");
 	const id = `${panier.id_prod}|${panier.id_col}|${panier.id_tail}`;
+
 	let stockAffiche = "";
 	let ruptureAffiche = "color:red";
 	//console.log(panier)
@@ -195,7 +206,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
 	document.getElementById("panier").appendChild(panierDiv);
 
 	delButton(id);
-	modifButton(id);
+	modifCouleur(id);
 	rempliSelect(
 		document.getElementById(`couleur${id}`),
 		couleur,
@@ -294,7 +305,6 @@ window.payer = function () {
 		}),
 	}).then((reponse) => {
 		reponse.json().then((data) => {
-			console.log(data)
 			if (data.status == "success") {
 				console.log("paiement réussi");
 				fetch("http://localhost/SAE-4.01/serveur/api/clearPanier.php", {
