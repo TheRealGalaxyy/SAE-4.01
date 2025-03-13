@@ -74,18 +74,20 @@ function modifQuantite(id) {
 	const quantite = findId(id, document.querySelectorAll(".qte"));
 	quantite.addEventListener("change", (e) => ChangerInfoProd(id, e));
 }
-//const test = findId(id, document.querySelectorAll(".mod"));
 
-//console.log(test);
-
-//test.addEventListener("click", (e) => {
+function modifTaille(id) {
+	document
+		.getElementById(`taille${id}`)
+		.addEventListener("change", (e) => ChangerInfoProd(id, e));
+}
 
 function ChangerInfoProd(id, e) {
 	let id_prod = e.target.id.split("|")[0];
 	if (id_prod.length > 1) {
-		id_prod = id_prod.split("r")[1];
+		id_prod = id_prod.split("").at(-1);
 	}
-	console.log("e.target = ", e.target.id.split("|")[0]);
+	console.log("e.target = ", e.target.id.split("|"));
+	console.log(id_prod);
 	const id_col = e.target.id.split("|")[1];
 	const id_tail = e.target.id.split("|")[2];
 	const qte_pan = document.getElementById(id).value;
@@ -203,7 +205,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
 	} unités</p>
             <p id="rupture" style="${ruptureAffiche}">Stock : RUPTURE DE STOCK</p>
             <div id="button">
-                <button class="mod form_button" id="${id}">Modifier</button>
+                
                 <button class="del form_button" id="${id}">Supprimer</button>
             </div>
         </center>
@@ -213,6 +215,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
 	delButton(id);
 	modifCouleur(id);
 	modifQuantite(id);
+	modifTaille(id);
 	rempliSelect(
 		document.getElementById(`couleur${id}`),
 		couleur,
