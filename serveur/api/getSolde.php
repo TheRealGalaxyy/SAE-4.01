@@ -7,7 +7,7 @@ $json = [];
 
 $query =
     "SELECT * 
-FROM solde 
+FROM SOLDE 
 WHERE id_prod = :id_prod
 AND CURDATE() BETWEEN date_deb AND date_fin";
 
