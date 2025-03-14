@@ -164,13 +164,16 @@ class ProduitDetail extends HTMLElement {
 
 customElements.define("produit-detail", ProduitDetail);
 async function AfficherProd() {
-  return fetch("http://localhost/SAE-4.01/serveur/api/getProduit.php", {
-    method: "POST",
+  return fetch(
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getProduit.php",
+    {
+      method: "POST",
 
-    body: new URLSearchParams({
-      id_prod: new URLSearchParams(window.location.search).get("id"), // id_prod
-    }),
-  })
+      body: new URLSearchParams({
+        id_prod: new URLSearchParams(window.location.search).get("id"), // id_prod
+      }),
+    }
+  )
     .then((reponse) => reponse.json())
     .then((data) => {
       imprimerProduit(
@@ -227,7 +230,8 @@ function imprimerSelectionCouleur(produits) {
 
     if (produit) {
       let path = produit.path_img
-        ? "http://localhost/SAE-4.01/serveur/img/articles/" + produit.path_img
+        ? "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/img/articles/" +
+          produit.path_img
         : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
       root.querySelector(".img_prod").setAttribute("src", path);
@@ -304,7 +308,7 @@ function imprimerSelectionTaille(produits) {
 
 async function imprimerProduit(produit) {
   let path = produit.path_img
-    ? "http://localhost/SAE-4.01/SAE_401/serveur/img/articles/" +
+    ? "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/SAE_401/serveur/img/articles/" +
       produit.path_img
     : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
@@ -366,21 +370,26 @@ function boutonCommander(id_produit) {
     const couleurID = couleurSelect.options[couleurSelect.selectedIndex].value;
 
     if (quantiteCommandeeValide(nbCommandee, stock)) {
-      fetch("http://localhost/SAE-4.01/serveur/api/newPanier.php", {
-        method: "POST",
-        body: new URLSearchParams({
-          id_us: cookieValue,
-          id_prod: id,
-          id_tail: tailleID,
-          id_col: couleurID,
-          qte_pan: nbCommandee,
-        }),
-      })
+      fetch(
+        "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/newPanier.php",
+        {
+          method: "POST",
+          body: new URLSearchParams({
+            id_us: cookieValue,
+            id_prod: id,
+            id_tail: tailleID,
+            id_col: couleurID,
+            qte_pan: nbCommandee,
+          }),
+        }
+      )
         .then((reponse) => {
           reponse.json().then((data) => {
             if (data.status === "error") {
               if (isConnected()) {
-                alert(`Article déjà dans votre panier !\nVous pouvez toutefois changer votre commande dans la rubrique "Panier"`);
+                alert(
+                  `Article déjà dans votre panier !\nVous pouvez toutefois changer votre commande dans la rubrique "Panier"`
+                );
               } else {
                 alert(`Connectez vous pour commencer à commander !`);
               }

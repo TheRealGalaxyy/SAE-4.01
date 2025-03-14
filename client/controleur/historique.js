@@ -1,59 +1,62 @@
 import { cookieValue, isConnected } from "./function.js";
 
 if (cookieValue === undefined) {
-    window.location.href = 'accueil.html'; //Si le cookie est vide, l'utilisateur n'est pas connecté donc on retourne à l'accueil.
+  window.location.href = "accueil.html"; //Si le cookie est vide, l'utilisateur n'est pas connecté donc on retourne à l'accueil.
 }
 if (!isConnected()) {
-    window.location.href = "accueil.html";
+  window.location.href = "accueil.html";
 } else {
-    affInfos();
+  affInfos();
 }
-async function affInfos() {     //requete API pour récupérer les infos de l'utilisateur
-    const reponse = await fetch(
-        "http://localhost/SAE-4.01/serveur/api/getCommandes.php", {
-            method: "POST",
-            body: new URLSearchParams({
-                id_us: cookieValue, //Remplacer par 3 pour tester
-            }),
-        }
-    );
-
-    const recupDonnees = await reponse.json();
-    //console.log("Message : ",recupDonnees.message);
-    //console.log(recupDonnees);
-    //console.log(cookieValue);
-    const table = document.getElementById('commande');
-
-    if (recupDonnees.status !== "success") {
-        console.log("Erreur, données non récupérées");
-        return;
+async function affInfos() {
+  //requete API pour récupérer les infos de l'utilisateur
+  const reponse = await fetch(
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getCommandes.php",
+    {
+      method: "POST",
+      body: new URLSearchParams({
+        id_us: cookieValue, //Remplacer par 3 pour tester
+      }),
     }
-    if (recupDonnees.data[0] === null || recupDonnees.data[0] === undefined) {  //Si l'utilisateur n'a pas de commande, on affiche un message
-        //console.log("Aucune commande");
-        document.getElementById("commandeVide").innerHTML = "Vous n'avez pas encore passé de commande.";
-        table.style.display = "none";
-        return;
-    }
-    
+  );
 
-    //console.log(recupDonnees.data);
-    recupDonnees.data.forEach(commande => {
-        let ligne = table.insertRow();
+  const recupDonnees = await reponse.json();
+  //console.log("Message : ",recupDonnees.message);
+  //console.log(recupDonnees);
+  //console.log(cookieValue);
+  const table = document.getElementById("commande");
 
-        let dateCommande = ligne.insertCell();
-        let prixCommande = ligne.insertCell();
-        let idCommande = ligne.insertCell();
+  if (recupDonnees.status !== "success") {
+    console.log("Erreur, données non récupérées");
+    return;
+  }
+  if (recupDonnees.data[0] === null || recupDonnees.data[0] === undefined) {
+    //Si l'utilisateur n'a pas de commande, on affiche un message
+    //console.log("Aucune commande");
+    document.getElementById("commandeVide").innerHTML =
+      "Vous n'avez pas encore passé de commande.";
+    table.style.display = "none";
+    return;
+  }
 
-        dateCommande.innerHTML = commande.date_com;
-        prixCommande.innerHTML = commande.prix_total + " €";
+  //console.log(recupDonnees.data);
+  recupDonnees.data.forEach((commande) => {
+    let ligne = table.insertRow();
 
-        let btn = document.createElement("button");
-        btn.textContent = "Détails";
-        btn.classList.add("form_button");
-        btn.addEventListener("click", () => {
-            window.location.href = "historique_detail.html?id_com=" + commande.id_com; //window.location.href = "historique_detail.html?id_com=" + commande.id_com;
-        });
+    let dateCommande = ligne.insertCell();
+    let prixCommande = ligne.insertCell();
+    let idCommande = ligne.insertCell();
 
-        idCommande.appendChild(btn);
+    dateCommande.innerHTML = commande.date_com;
+    prixCommande.innerHTML = commande.prix_total + " €";
+
+    let btn = document.createElement("button");
+    btn.textContent = "Détails";
+    btn.classList.add("form_button");
+    btn.addEventListener("click", () => {
+      window.location.href = "historique_detail.html?id_com=" + commande.id_com; //window.location.href = "historique_detail.html?id_com=" + commande.id_com;
     });
+
+    idCommande.appendChild(btn);
+  });
 }

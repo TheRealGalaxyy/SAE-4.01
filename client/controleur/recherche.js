@@ -32,7 +32,7 @@ boutonRechercher.classList.add("col-sm-12");
 
 async function getInfoProd() {
   return await fetch(
-    "http://localhost/SAE-4.01/serveur/api/getGenericProduits.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getGenericProduits.php",
     {
       method: "POST",
       body: new URLSearchParams({}),
@@ -72,19 +72,19 @@ async function fillMaps() {
 
 fetchSpecification(
   selectCategorie,
-  "http://localhost/SAE-4.01/serveur/api/getCategories.php",
+  "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getCategories.php",
   "Catégorie",
   "idCategorie"
 );
 fetchSpecification(
   selectCouleur,
-  "http://localhost/SAE-4.01/serveur/api/getCouleurs.php",
+  "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getCouleurs.php",
   "Couleur",
   "idCouleur"
 );
 fetchSpecification(
   selectTaille,
-  "http://localhost/SAE-4.01/serveur/api/getTailles.php",
+  "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getTailles.php",
   "Taille",
   "idTaille"
 );
@@ -172,7 +172,7 @@ function traiterChaine(barreRecherche) {
 selectCategorie.addEventListener("change", (e) => {
   e.preventDefault();
   fetch(
-    "http://localhost/SAE-4.01/serveur/api/getProduits.php"
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getProduits.php"
   ).then((reponse) =>
     reponse.json().then((data) => {
       const prod_cat = data.data.filter(
@@ -187,7 +187,7 @@ selectCategorie.addEventListener("change", (e) => {
       couleur = couleur.filter((v, i, a) => a.indexOf(v) === i);
       taille = taille.filter((v, i, a) => a.indexOf(v) === i);
       fetch(
-        "http://localhost/SAE-4.01/serveur/api/getCouleurs.php"
+        "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getCouleurs.php"
       ).then((reponse) =>
         reponse.json().then((data) => {
           const nom_couleur = data.data.filter((couleu) =>
@@ -198,7 +198,7 @@ selectCategorie.addEventListener("change", (e) => {
         })
       );
       fetch(
-        "http://localhost/SAE-4.01/serveur/api/getTailles.php"
+        "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getTailles.php"
       ).then((reponse) =>
         reponse.json().then((data) => {
           const nom_tail = data.data.filter((taill) =>
