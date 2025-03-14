@@ -1,4 +1,4 @@
-import { cookieValue } from "./function.js";
+import { cookieValue, isConnected } from "./function.js";
 import { ajouterFavori, supprimerFavori, getFavori } from "./accueil.js";
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get("id");
@@ -379,7 +379,11 @@ function boutonCommander(id_produit) {
         .then((reponse) => {
           reponse.json().then((data) => {
             if (data.status === "error") {
-              alert("Connectez vous pour commencer à commander !");
+              if (isConnected()) {
+                alert(`Article déjà dans votre panier !\nVous pouvez toutefois changer votre commande dans la rubrique "Panier"`);
+              } else {
+                alert(`Connectez vous pour commencer à commander !`);
+              }
             } else if (data.status === "success") {
               window.location.href = "accueil.html";
             }
