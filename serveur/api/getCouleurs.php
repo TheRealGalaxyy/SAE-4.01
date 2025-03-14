@@ -6,7 +6,7 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"SELECT *
+    "SELECT *
 FROM COULEUR";
 
 $res = $db->prepare($query);
@@ -17,7 +17,7 @@ try {
     $json["message"] = "Sélection réussie";
     $json["data"] = $res->fetchAll(PDO::FETCH_ASSOC);
 
-} catch(Exception $exception) {
+} catch (Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
     $json["data"] = "[]";

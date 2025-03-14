@@ -19,7 +19,7 @@ try {
     $json["message"] = "Insertion réussie";
     $json["data"] = $res->fetchAll(PDO::FETCH_ASSOC);
 
-} catch(Exception $exception) {
+} catch (Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
     $json["data"] = "[]";

@@ -4,7 +4,7 @@ require_once "../bdd/connexion.php";
 require_once 'header.php';
 
 $query =
-"SELECT *
+    "SELECT *
 FROM SELECT_PRODUITS
 GROUP BY id_prod";
 
@@ -16,7 +16,7 @@ try {
     $data["message"] = "Sélection réussie";
     $data["data"] = $res->fetchAll(PDO::FETCH_ASSOC);
 
-} catch(Exception $exception) {
+} catch (Exception $exception) {
     $data["status"] = "error";
     $data["message"] = $exception->getMessage();
     $data["data"] = "[]";

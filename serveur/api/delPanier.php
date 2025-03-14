@@ -6,7 +6,7 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"DELETE FROM PANIER
+    "DELETE FROM PANIER
 WHERE id_us = :id_us
 AND id_prod = :id_prod
 AND id_col = :id_col
@@ -25,7 +25,7 @@ try {
     $json["status"] = "success";
     $json["message"] = "Suppression réussie";
 
-} catch(Exception $exception) {
+} catch (Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
 }

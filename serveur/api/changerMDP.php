@@ -5,11 +5,11 @@ require_once 'header.php';
 
 $json = [];
 
-try{
+try {
     $password = password_hash($_POST["mdp"], PASSWORD_BCRYPT);
 
     $query =
-    "UPDATE `USER` SET `mdp` = :mdp_us 
+        "UPDATE `USER` SET `mdp` = :mdp_us 
     WHERE `id_us` = :id_us";
 
     $res = $db->prepare($query);
@@ -17,17 +17,17 @@ try{
     $res->bindParam(':mdp_us', $password);
     $res->bindParam(':id_us', $_POST['id_us']);
 
-    try{
+    try {
         $res->execute();
         $json["status"] = "success";
         $json["message"] = "Modification réussie";
 
-    } catch(Exception $exception) {
+    } catch (Exception $exception) {
         $json["status"] = "error";
         $json["message"] = $exception->getMessage();
     }
 
-} catch(Exception $exception) {
+} catch (Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
 }

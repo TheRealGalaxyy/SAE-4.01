@@ -126,35 +126,29 @@ function register() {
     date_naiss: values[5],
   };
   console.log(user);
-  fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/newUser.php",
-    {
-      method: "POST",
-      body: new URLSearchParams({
-        nom: user.nom,
-        prenom: user.prenom,
-        login: user.login,
-        mdp: user.mdp,
-        mel: user.mel,
-        date_naiss: user.date_naiss,
-      }),
-    }
-  )
+  fetch("http://192.168.1.97/SAE-4.01/serveur/api/newUser.php", {
+    method: "POST",
+    body: new URLSearchParams({
+      nom: user.nom,
+      prenom: user.prenom,
+      login: user.login,
+      mdp: user.mdp,
+      mel: user.mel,
+      date_naiss: user.date_naiss,
+    }),
+  })
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
       if (data.status == "success") {
         // L'Authentification a réussi
-        fetch(
-          "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/connexion.php",
-          {
-            method: "POST",
-            body: new URLSearchParams({
-              login: user.login,
-              mdp: user.mdp,
-            }),
-          }
-        ).then((response) =>
+        fetch("http://192.168.1.97/SAE-4.01/serveur/api/connexion.php", {
+          method: "POST",
+          body: new URLSearchParams({
+            login: user.login,
+            mdp: user.mdp,
+          }),
+        }).then((response) =>
           response.json().then((data) => {
             let date_expiration = new Date();
             date_expiration.setTime(

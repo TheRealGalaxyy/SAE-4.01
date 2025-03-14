@@ -79,16 +79,13 @@ function ConfirmerMDP(mdpOK) {
   alertMdpNonCorrespondant.style.display = "none";
 
   if (motDePasse.value.trim() === confimation.value.trim() && mdpOK) {
-    fetch(
-      "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/changerMDP.php",
-      {
-        method: "POST",
-        body: new URLSearchParams({
-          id_us: cookieValue,
-          mdp: motDePasse.value,
-        }),
-      }
-    ).then((response) => {
+    fetch("http://192.168.1.97/SAE-4.01/serveur/api/changerMDP.php", {
+      method: "POST",
+      body: new URLSearchParams({
+        id_us: cookieValue,
+        mdp: motDePasse.value,
+      }),
+    }).then((response) => {
       response.json().then((data) => {
         console.log(data);
         if (data["status"] === "success") {

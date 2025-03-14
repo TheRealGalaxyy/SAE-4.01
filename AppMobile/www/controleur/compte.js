@@ -10,7 +10,7 @@ async function afficherInfos() {
   }
   try {
     const response = await fetch(
-      "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getUser.php",
+      "http://192.168.1.97/SAE-4.01/serveur/api/getUser.php",
       {
         method: "POST",
         body: new URLSearchParams({

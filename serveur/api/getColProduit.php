@@ -6,18 +6,18 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"SELECT * FROM `COL_PROD`
+    "SELECT * FROM `COL_PROD`
 WHERE `id_prod` = :id_prod";
 
 $res = $db->prepare($query);
 $res->bindParam(":id_prod", $_POST["id_prod"]);
 
-try{
+try {
     $res->execute();
     $json["status"] = "success";
     $json["message"] = "recupération réussie";
     $json["data"] = $res->fetchAll(PDO::FETCH_ASSOC);
-} catch(Exception $exception) {
+} catch (Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
 }

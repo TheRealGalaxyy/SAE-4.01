@@ -6,7 +6,7 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"DELETE FROM PRODUIT
+    "DELETE FROM PRODUIT
 WHERE id_prod = :id_prod";
 
 $res = $db->prepare($query);
@@ -18,7 +18,7 @@ try {
     $json["status"] = "success";
     $json["message"] = "Suppression réussie";
 
-} catch(Exception $exception) {
+} catch (Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
 }

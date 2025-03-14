@@ -6,7 +6,7 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"SELECT *
+    "SELECT *
 FROM SELECT_PRODUITS
 WHERE id_prod = :id_prod";
 
@@ -20,7 +20,7 @@ try {
     $json["message"] = "Sélection réussie";
     $json["data"] = $res->fetchAll(PDO::FETCH_ASSOC);
 
-} catch(Exception $exception) {
+} catch (Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
     $json["data"] = "[]";

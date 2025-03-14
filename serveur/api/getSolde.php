@@ -5,8 +5,8 @@ require_once 'header.php';
 
 $json = [];
 
-$query = 
-"SELECT * 
+$query =
+    "SELECT * 
 FROM solde 
 WHERE id_prod = :id_prod
 AND CURDATE() BETWEEN date_deb AND date_fin";
@@ -19,7 +19,7 @@ try {
     $json["status"] = "success";
     $json["message"] = "Sélection réussie";
     $json["data"] = $res->fetchAll(PDO::FETCH_ASSOC);
-} catch(Exception $exception) {
+} catch (Exception $exception) {
     $json["status"] = "error";
     $json["message"] = $exception->getMessage();
     $json["data"] = [];

@@ -5,22 +5,19 @@ if (cookieValue === undefined) {
 }
 
 async function getPanier(id_us) {
-  return await fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getPanier.php",
-    {
-      method: "POST",
-      body: new URLSearchParams({
-        id_us: id_us,
-      }),
-    }
-  )
+  return await fetch("http://192.168.1.97/SAE-4.01/serveur/api/getPanier.php", {
+    method: "POST",
+    body: new URLSearchParams({
+      id_us: id_us,
+    }),
+  })
     //.then(reponse => console.log(reponse.json()))
     .then((reponse) => reponse.json());
 }
 
 async function getProduit(id_produit) {
   return await fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getProduit.php",
+    "http://192.168.1.97/SAE-4.01/serveur/api/getProduit.php",
     {
       method: "POST",
       body: new URLSearchParams({
@@ -50,18 +47,15 @@ function delButton(id) {
     const id_tail = e.target.id.split("|")[2];
     // console.log(e.target.id)
     // console.log(id_prod, id_col, id_tail);
-    fetch(
-      "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/delPanier.php",
-      {
-        method: "POST",
-        body: new URLSearchParams({
-          id_us: id_us,
-          id_prod: id_prod,
-          id_col: id_col,
-          id_tail: id_tail,
-        }),
-      }
-    ).then((response) => {
+    fetch("http://192.168.1.97/SAE-4.01/serveur/api/delPanier.php", {
+      method: "POST",
+      body: new URLSearchParams({
+        id_us: id_us,
+        id_prod: id_prod,
+        id_col: id_col,
+        id_tail: id_tail,
+      }),
+    }).then((response) => {
       response.json().then((json) => {
         if (json.status !== "success") {
           console.log("suppression échouée");
@@ -111,21 +105,18 @@ function modifButton(id) {
     // console.log("qte_pan",qte_pan);
     // console.log("new_id_col",new_id_col);
     // console.log("new_id_tail",new_id_tail);
-    fetch(
-      "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/setPanier.php",
-      {
-        method: "POST",
-        body: new URLSearchParams({
-          id_us: id_us,
-          id_prod: id_prod,
-          id_col: id_col,
-          id_tail: id_tail,
-          qte_pan: qte_pan,
-          new_id_col: new_id_col,
-          new_id_tail: new_id_tail,
-        }),
-      }
-    ).then((response) => {
+    fetch("http://192.168.1.97/SAE-4.01/serveur/api/setPanier.php", {
+      method: "POST",
+      body: new URLSearchParams({
+        id_us: id_us,
+        id_prod: id_prod,
+        id_col: id_col,
+        id_tail: id_tail,
+        qte_pan: qte_pan,
+        new_id_col: new_id_col,
+        new_id_tail: new_id_tail,
+      }),
+    }).then((response) => {
       response.json().then((json) => {
         //console.log(json);
         if (json.status !== "success") {
@@ -179,7 +170,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
   }
   panierDiv.innerHTML = `
 
-        <center><img id="img${id}" src="https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/img/articles/${
+        <center><img id="img${id}" src="http://192.168.1.97/SAE-4.01/serveur/img/articles/${
     panier.path_img
   }" alt="image du produit"></center>
         <p>${panier.nom_prod}</p>
@@ -230,7 +221,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
           if (element.nom_col === e.target.value) {
             document.getElementById(
               `img${id}`
-            ).src = `https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/img/articles/${element.path_img}`;
+            ).src = `http://192.168.1.97/SAE-4.01/serveur/img/articles/${element.path_img}`;
           }
         });
       });
@@ -296,28 +287,22 @@ async function appelPanier() {
 
 // Attach payer to the window object
 window.payer = function () {
-  fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/payer.php",
-    {
-      method: "POST",
-      body: new URLSearchParams({
-        id_us: id_us,
-      }),
-    }
-  ).then((reponse) => {
+  fetch("http://192.168.1.97/SAE-4.01/serveur/api/payer.php", {
+    method: "POST",
+    body: new URLSearchParams({
+      id_us: id_us,
+    }),
+  }).then((reponse) => {
     reponse.json().then((data) => {
       console.log(data);
       if (data.status == "success") {
         console.log("paiement réussi");
-        fetch(
-          "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/clearPanier.php",
-          {
-            method: "POST",
-            body: new URLSearchParams({
-              id_us: id_us,
-            }),
-          }
-        ).then((response) => {
+        fetch("http://192.168.1.97/SAE-4.01/serveur/api/clearPanier.php", {
+          method: "POST",
+          body: new URLSearchParams({
+            id_us: id_us,
+          }),
+        }).then((response) => {
           response.json().then((data) => {
             if (data.status == "success") {
               console.log("suppression réussie");

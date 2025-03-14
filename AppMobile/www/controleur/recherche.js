@@ -32,7 +32,7 @@ boutonRechercher.classList.add("col-sm-12");
 
 async function getInfoProd() {
   return await fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getGenericProduits.php",
+    "http://192.168.1.97/SAE-4.01/serveur/api/getGenericProduits.php",
     {
       method: "POST",
       body: new URLSearchParams({}),
@@ -72,19 +72,19 @@ async function fillMaps() {
 
 fetchSpecification(
   selectCategorie,
-  "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getCategories.php",
+  "http://192.168.1.97/SAE-4.01/serveur/api/getCategories.php",
   "Catégorie",
   "idCategorie"
 );
 fetchSpecification(
   selectCouleur,
-  "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getCouleurs.php",
+  "http://192.168.1.97/SAE-4.01/serveur/api/getCouleurs.php",
   "Couleur",
   "idCouleur"
 );
 fetchSpecification(
   selectTaille,
-  "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getTailles.php",
+  "http://192.168.1.97/SAE-4.01/serveur/api/getTailles.php",
   "Taille",
   "idTaille"
 );
@@ -171,43 +171,45 @@ function traiterChaine(barreRecherche) {
 
 selectCategorie.addEventListener("change", (e) => {
   e.preventDefault();
-  fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getProduits.php"
-  ).then((reponse) =>
-    reponse.json().then((data) => {
-      const prod_cat = data.data.filter(
-        (produit) => produit.id_cat == selectCategorie.value
-      );
-      let couleur = [];
-      let taille = [];
-      prod_cat.forEach((produit) => {
-        couleur.push(produit.id_col);
-        taille.push(produit.id_tail);
-      });
-      couleur = couleur.filter((v, i, a) => a.indexOf(v) === i);
-      taille = taille.filter((v, i, a) => a.indexOf(v) === i);
-      fetch(
-        "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getCouleurs.php"
-      ).then((reponse) =>
-        reponse.json().then((data) => {
-          const nom_couleur = data.data.filter((couleu) =>
-            couleur.includes(couleu.id_col)
-          );
-          selectCouleur.innerHTML = "";
-          ajouterOptions(selectCouleur, nom_couleur, "Couleur", "idCouleur");
-        })
-      );
-      fetch(
-        "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01/serveur/api/getTailles.php"
-      ).then((reponse) =>
-        reponse.json().then((data) => {
-          const nom_tail = data.data.filter((taill) =>
-            taille.includes(taill.id_tail)
-          );
-          selectTaille.innerHTML = "";
-          ajouterOptions(selectTaille, nom_tail, "Taille", "idTaille");
-        })
-      );
-    })
+  fetch("http://192.168.1.97/SAE-4.01/serveur/api/getProduits.php").then(
+    (reponse) =>
+      reponse.json().then((data) => {
+        const prod_cat = data.data.filter(
+          (produit) => produit.id_cat == selectCategorie.value
+        );
+        let couleur = [];
+        let taille = [];
+        prod_cat.forEach((produit) => {
+          couleur.push(produit.id_col);
+          taille.push(produit.id_tail);
+        });
+        couleur = couleur.filter((v, i, a) => a.indexOf(v) === i);
+        taille = taille.filter((v, i, a) => a.indexOf(v) === i);
+        fetch("http://192.168.1.97/SAE-4.01/serveur/api/getCouleurs.php").then(
+          (reponse) =>
+            reponse.json().then((data) => {
+              const nom_couleur = data.data.filter((couleu) =>
+                couleur.includes(couleu.id_col)
+              );
+              selectCouleur.innerHTML = "";
+              ajouterOptions(
+                selectCouleur,
+                nom_couleur,
+                "Couleur",
+                "idCouleur"
+              );
+            })
+        );
+        fetch("http://192.168.1.97/SAE-4.01/serveur/api/getTailles.php").then(
+          (reponse) =>
+            reponse.json().then((data) => {
+              const nom_tail = data.data.filter((taill) =>
+                taille.includes(taill.id_tail)
+              );
+              selectTaille.innerHTML = "";
+              ajouterOptions(selectTaille, nom_tail, "Taille", "idTaille");
+            })
+        );
+      })
   );
 });
