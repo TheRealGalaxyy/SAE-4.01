@@ -158,7 +158,7 @@ function produitsTaille(idTaille, data) {
 }
 
 
-async function imprimerUnProduit(produit) {
+export async function imprimerUnProduit(produit) {
     let path = produit["path_img"]
         ? "http://localhost/SAE-4.01/serveur/img/articles/" + produit["path_img"]
         : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";

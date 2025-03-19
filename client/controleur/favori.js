@@ -4,7 +4,7 @@ if (cookieValue === undefined) {
     window.location.href = 'accueil.html'; //Si le cookie est vide, l'utilisateur n'est pas connecté donc on retourne à l'accueil.
 }
 
-import { imprimerUnProduit } from "./accueil.js"
+import { imprimerUnProduit } from "./accueil.js";
 
 const id_us = cookieValue; // A changer en cookieValue
 
@@ -18,18 +18,17 @@ async function getFavori(id_us) {
         .catch((error) => console.log(error));
 }
 
-function afficherFavoris(produits) {
+async function afficherFavoris(produits) {
     //console.log(produits);
     const listeFav = document.querySelector(".listeFav");
     // console.log(produits);
 
-    produits.forEach((produit) => {
-
-        const produitElement = imprimerUnProduit(produit)
+    for (const produit of produits) {
+        const produitElement = await imprimerUnProduit(produit);
         
         listeFav.appendChild(produitElement);
         produitElement.shadowRoot.querySelector("label").querySelector("img").src = "img/icones/star_plein.png";
-    });
+    };
 }
 
 function btn() {
