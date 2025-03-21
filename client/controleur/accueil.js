@@ -88,7 +88,8 @@ export class ProduitGenerique extends HTMLElement {
             <p class="name">${this.getAttribute("name")}</p>
             <img class="img_prod" src="${this.getAttribute(
               "path_img"
-            )}" alt="${this.getAttribute("path_img")}" />
+            )}" alt="${this.getAttribute("path_img")}"
+            style="height: 210px; display: block; margin: 0 auto;"  />
             <div class="stock" style="${this.getAttribute(
               "stockAffiche"
             )}" >&nbsp&nbsp${this.getAttribute("stock")} unités restantes</div>
