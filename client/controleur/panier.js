@@ -6,7 +6,7 @@ if (cookieValue === undefined) {
 
 async function getPanier(id_us) {
   return await fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getPanier.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/api/getPanier.php",
     {
       method: "POST",
       body: new URLSearchParams({
@@ -20,7 +20,7 @@ async function getPanier(id_us) {
 
 async function getProduit(id_produit) {
   return await fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getProduit.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/api/getProduit.php",
     {
       method: "POST",
       body: new URLSearchParams({
@@ -50,7 +50,7 @@ function delButton(id) {
     // console.log(e.target.id)
     // console.log(id_prod, id_col, id_tail);
     fetch(
-      "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/delPanier.php",
+      "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/api/delPanier.php",
       {
         method: "POST",
         body: new URLSearchParams({
@@ -130,7 +130,7 @@ function ChangerInfoProd(id, e) {
   // console.log("new_id_col",new_id_col);
   // console.log("new_id_tail",new_id_tail);
   fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/setPanier.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/api/setPanier.php",
     {
       method: "POST",
       body: new URLSearchParams({
@@ -197,7 +197,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
   }
   panierDiv.innerHTML = `
 
-        <center><img id="img${id}" src="https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/img/articles/${
+        <center><img id="img${id}" src="https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/img/articles/${
     panier.path_img
   }" alt="image du produit"></center>
         <p>${panier.nom_prod}</p>
@@ -250,7 +250,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
           if (element.nom_col === e.target.value) {
             document.getElementById(
               `img${id}`
-            ).src = `https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/img/articles/${element.path_img}`;
+            ).src = `https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/img/articles/${element.path_img}`;
           }
         });
       });
@@ -317,7 +317,7 @@ async function appelPanier() {
 // Attach payer to the window object
 window.payer = function () {
   fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/payer.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/api/payer.php",
     {
       method: "POST",
       body: new URLSearchParams({
@@ -329,7 +329,7 @@ window.payer = function () {
       if (data.status == "success") {
         console.log("paiement réussi");
         fetch(
-          "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/clearPanier.php",
+          "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/api/clearPanier.php",
           {
             method: "POST",
             body: new URLSearchParams({

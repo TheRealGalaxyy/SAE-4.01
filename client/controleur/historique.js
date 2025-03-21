@@ -11,7 +11,7 @@ if (!isConnected()) {
 async function affInfos() {
   //requete API pour récupérer les infos de l'utilisateur
   const reponse = await fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getCommandes.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/api/getCommandes.php",
     {
       method: "POST",
       body: new URLSearchParams({

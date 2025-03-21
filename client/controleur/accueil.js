@@ -110,9 +110,9 @@ function afficherTousLesProduits() {
   const couleur = urlParams.get("idCouleur");
 
   const produitGenerique =
-    "http://localhost/SAE-4.01/serveur/api/getGenericProduits.php";
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/api/getGenericProduits.php";
   const produitComplet =
-    "http://localhost/SAE-4.01/serveur/api/getProduits.php";
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/api/getProduits.php";
   const url = taille || couleur ? produitComplet : produitGenerique;
 
   return (
@@ -189,7 +189,7 @@ function produitsTaille(idTaille, data) {
 
 export async function imprimerUnProduit(produit) {
   let path = produit["path_img"]
-    ? "http://localhost/SAE-4.01/serveur/img/articles/" + produit["path_img"]
+    ? "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/img/articles/" + produit["path_img"]
     : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
   let produitElement = document.createElement("produit-generique");
@@ -227,7 +227,7 @@ export async function imprimerUnProduit(produit) {
 }
 
 async function getSolde(id_prod) {
-  return fetch("http://localhost/SAE-4.01/serveur/api/getSolde.php", {
+  return fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/api/getSolde.php", {
     method: "POST",
     body: new URLSearchParams({ id_prod: id_prod }),
   })
@@ -303,7 +303,7 @@ async function imprimerTousLesProduits(produits) {
 }
 
 export async function getFavori(id_us) {
-  return await fetch("http://localhost/SAE-4.01/serveur/api/getFavori.php", {
+  return await fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/api/getFavori.php", {
     method: "POST",
     body: new URLSearchParams({
       id_us: id_us,
@@ -314,7 +314,7 @@ export async function getFavori(id_us) {
 }
 
 export function ajouterFavori(event, id_us) {
-  fetch("http://localhost/SAE-4.01/serveur/api/newFavori.php", {
+  fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/api/newFavori.php", {
     method: "POST",
     body: new URLSearchParams({
       id_us: id_us,
@@ -324,7 +324,7 @@ export function ajouterFavori(event, id_us) {
 }
 
 export function supprimerFavori(event, id_us) {
-  fetch("http://localhost/SAE-4.01/serveur/api/delFavori.php", {
+  fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag3/serveur/api/delFavori.php", {
     method: "POST",
     body: new URLSearchParams({
       id_us: id_us,
