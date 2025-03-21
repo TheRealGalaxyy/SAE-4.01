@@ -40,9 +40,10 @@ async function authentifier() {
   console.log("M : ", data.message);
   console.log("Data : ", data);
 
-  if (data.status === "success") {
-    let date_expiration = new Date();
-    date_expiration.setTime(date_expiration.getTime() + 1 * 60 * 60 * 1000);
+    if (data.status === "success") {
+
+        let date_expiration = new Date();
+        date_expiration.setTime(date_expiration.getTime() + 10800 * 1000);
 
     // console.log("User :",data.id_us);
 

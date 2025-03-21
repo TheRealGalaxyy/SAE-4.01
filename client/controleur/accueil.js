@@ -88,7 +88,8 @@ export class ProduitGenerique extends HTMLElement {
             <p class="name">${this.getAttribute("name")}</p>
             <img class="img_prod" src="${this.getAttribute(
               "path_img"
-            )}" alt="${this.getAttribute("path_img")}" />
+            )}" alt="${this.getAttribute("path_img")}"
+            style="height: 210px; display: block; margin: 0 auto;"  />
             <div class="stock" style="${this.getAttribute(
               "stockAffiche"
             )}" >&nbsp&nbsp${this.getAttribute("stock")} unités restantes</div>
@@ -109,17 +110,30 @@ function afficherTousLesProduits() {
   const couleur = urlParams.get("idCouleur");
 
   const produitGenerique =
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getGenericProduits.php";
+    "http://localhost/SAE-4.01/serveur/api/getGenericProduits.php";
   const produitComplet =
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getProduits.php";
+    "http://localhost/SAE-4.01/serveur/api/getProduits.php";
   const url = taille || couleur ? produitComplet : produitGenerique;
 
-  return fetch(url)
-    .then((reponse) => reponse.json())
-    .then((data) => {
-      imprimerTousLesProduits(data.data);
-    })
-    .catch((error) => console.log(error));
+  return (
+    fetch(url)
+      .then((reponse) => reponse.json())
+      // .then((data) => {
+      //     console.log("data");
+      //     console.log(data.data);
+      //     const mapProd = new Map();
+      //     data.data.forEach((element) => {
+      //       if (!mapProd.has(element.id_prod)) {
+      //         mapProd.set(element.id_prod, element);
+      //       }
+      //     });
+      //     imprimerTousLesProduits(Array.from(mapProd.values()));
+      //   })
+      .then((data) => {
+        imprimerTousLesProduits(data.data);
+      })
+      .catch((error) => console.log(error))
+  );
 }
 
 function produitsRecherche(recherche, data) {
@@ -173,10 +187,9 @@ function produitsTaille(idTaille, data) {
   return dejaSortit;
 }
 
-async function imprimerUnProduit(produit) {
+export async function imprimerUnProduit(produit) {
   let path = produit["path_img"]
-    ? "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/img/articles/" +
-      produit["path_img"]
+    ? "http://localhost/SAE-4.01/serveur/img/articles/" + produit["path_img"]
     : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
   let produitElement = document.createElement("produit-generique");
@@ -214,13 +227,10 @@ async function imprimerUnProduit(produit) {
 }
 
 async function getSolde(id_prod) {
-  return fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getSolde.php",
-    {
-      method: "POST",
-      body: new URLSearchParams({ id_prod: id_prod }),
-    }
-  )
+  return fetch("http://localhost/SAE-4.01/serveur/api/getSolde.php", {
+    method: "POST",
+    body: new URLSearchParams({ id_prod: id_prod }),
+  })
     .then((response) => response.json())
     .then((data) => (data.data.length > 0 ? data.data[0]["reduction"] : null))
     .catch((error) => {
@@ -258,7 +268,22 @@ async function imprimerTousLesProduits(produits) {
   }
   if (taille) {
     produits = produitsTaille(taille, produits);
+  } else {
+    // Retrait doublon
+    const mapProd1 = new Map();
+
+    for (let i = produits.length - 1; i >= 0; i--) {
+      const element = produits[i];
+      const key = element.nom_prod + "-" + element.nom_col;
+
+      if (!mapProd1.has(key)) {
+        mapProd1.set(key, element);
+      } else {
+        produits.splice(i, 1);
+      }
+    }
   }
+
   if (couleur) {
     produits = produitsCouleur(couleur, produits);
   }
@@ -278,43 +303,34 @@ async function imprimerTousLesProduits(produits) {
 }
 
 export async function getFavori(id_us) {
-  return await fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/getFavori.php",
-    {
-      method: "POST",
-      body: new URLSearchParams({
-        id_us: id_us,
-      }),
-    }
-  )
+  return await fetch("http://localhost/SAE-4.01/serveur/api/getFavori.php", {
+    method: "POST",
+    body: new URLSearchParams({
+      id_us: id_us,
+    }),
+  })
     .then((response) => response.json().then((data) => data.data))
     .catch((error) => console.log(error));
 }
 
 export function ajouterFavori(event, id_us) {
-  fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/newFavori.php",
-    {
-      method: "POST",
-      body: new URLSearchParams({
-        id_us: id_us,
-        id_prod: event.target.id.substring(2),
-      }),
-    }
-  ).catch((error) => console.log(error));
+  fetch("http://localhost/SAE-4.01/serveur/api/newFavori.php", {
+    method: "POST",
+    body: new URLSearchParams({
+      id_us: id_us,
+      id_prod: event.target.id.substring(2),
+    }),
+  }).catch((error) => console.log(error));
 }
 
 export function supprimerFavori(event, id_us) {
-  fetch(
-    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Tag2/serveur/api/delFavori.php",
-    {
-      method: "POST",
-      body: new URLSearchParams({
-        id_us: id_us,
-        id_prod: event.target.id.substring(2),
-      }),
-    }
-  ).catch((error) => console.log(error));
+  fetch("http://localhost/SAE-4.01/serveur/api/delFavori.php", {
+    method: "POST",
+    body: new URLSearchParams({
+      id_us: id_us,
+      id_prod: event.target.id.substring(2),
+    }),
+  }).catch((error) => console.log(error));
 }
 
 function traiterFavori(id_us) {
