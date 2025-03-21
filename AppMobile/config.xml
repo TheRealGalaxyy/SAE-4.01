@@ -6,6 +6,12 @@
         Apache Cordova Team
     </author>
     <content src="accueil.html" />
+    <access origin="*" />
+    <allow-navigation href="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+    <platform name="android">
+        <allow-navigation href="http://192.168.1.97/*" />
+        <allow-navigation href="https://192.168.1.97/*" />
+    </platform>
 </widget>
