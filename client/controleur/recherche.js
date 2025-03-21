@@ -171,43 +171,45 @@ function traiterChaine(barreRecherche) {
 
 selectCategorie.addEventListener("change", (e) => {
   e.preventDefault();
-  fetch(
-    "http://localhost/SAE-4.01/serveur/api/getProduits.php"
-  ).then((reponse) =>
-    reponse.json().then((data) => {
-      const prod_cat = data.data.filter(
-        (produit) => produit.id_cat == selectCategorie.value
-      );
-      let couleur = [];
-      let taille = [];
-      prod_cat.forEach((produit) => {
-        couleur.push(produit.id_col);
-        taille.push(produit.id_tail);
-      });
-      couleur = couleur.filter((v, i, a) => a.indexOf(v) === i);
-      taille = taille.filter((v, i, a) => a.indexOf(v) === i);
-      fetch(
-        "http://localhost/SAE-4.01/serveur/api/getCouleurs.php"
-      ).then((reponse) =>
-        reponse.json().then((data) => {
-          const nom_couleur = data.data.filter((couleu) =>
-            couleur.includes(couleu.id_col)
-          );
-          selectCouleur.innerHTML = "";
-          ajouterOptions(selectCouleur, nom_couleur, "Couleur", "idCouleur");
-        })
-      );
-      fetch(
-        "http://localhost/SAE-4.01/serveur/api/getTailles.php"
-      ).then((reponse) =>
-        reponse.json().then((data) => {
-          const nom_tail = data.data.filter((taill) =>
-            taille.includes(taill.id_tail)
-          );
-          selectTaille.innerHTML = "";
-          ajouterOptions(selectTaille, nom_tail, "Taille", "idTaille");
-        })
-      );
-    })
+  fetch("http://localhost/SAE-4.01/serveur/api/getProduits.php").then(
+    (reponse) =>
+      reponse.json().then((data) => {
+        const prod_cat = data.data.filter(
+          (produit) => produit.id_cat == selectCategorie.value
+        );
+        let couleur = [];
+        let taille = [];
+        prod_cat.forEach((produit) => {
+          couleur.push(produit.id_col);
+          taille.push(produit.id_tail);
+        });
+        couleur = couleur.filter((v, i, a) => a.indexOf(v) === i);
+        taille = taille.filter((v, i, a) => a.indexOf(v) === i);
+        fetch("http://localhost/SAE-4.01/serveur/api/getCouleurs.php").then(
+          (reponse) =>
+            reponse.json().then((data) => {
+              const nom_couleur = data.data.filter((couleu) =>
+                couleur.includes(couleu.id_col)
+              );
+              selectCouleur.innerHTML = "";
+              ajouterOptions(
+                selectCouleur,
+                nom_couleur,
+                "Couleur",
+                "idCouleur"
+              );
+            })
+        );
+        fetch("http://localhost/SAE-4.01/serveur/api/getTailles.php").then(
+          (reponse) =>
+            reponse.json().then((data) => {
+              const nom_tail = data.data.filter((taill) =>
+                taille.includes(taill.id_tail)
+              );
+              selectTaille.innerHTML = "";
+              ajouterOptions(selectTaille, nom_tail, "Taille", "idTaille");
+            })
+        );
+      })
   );
 });
