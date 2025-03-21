@@ -19,6 +19,8 @@ const searchValue = new URLSearchParams(window.location.search).get("search");
 barreRecherche.value = searchValue ? searchValue.replaceAll("+", " ") : "";
 barreRecherche.classList.add("col-xl-7");
 barreRecherche.classList.add("col-sm-12");
+barreRecherche.placeholder = "🔎 - Rechercher un produit";
+
 selectCategorie.classList.add("col-xl-2");
 selectCategorie.classList.add("col-sm-4");
 selectCouleur.classList.add("col-xl-1");
