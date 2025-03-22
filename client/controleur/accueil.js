@@ -1,4 +1,4 @@
-import { cookieValue } from "./function.js";
+import { cookieValue, isConnected } from "./function.js";
 export class ProduitGenerique extends HTMLElement {
   constructor() {
     super();
@@ -99,10 +99,15 @@ export class ProduitGenerique extends HTMLElement {
         </div>
         </a>
         `;
+
+    if (!isConnected()) {
+      this.shadowRoot.querySelector(".etoile").style.display = "none";
+    }
   }
 }
 
 customElements.define("produit-generique", ProduitGenerique);
+let produits = null;
 
 function afficherTousLesProduits() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -130,7 +135,8 @@ function afficherTousLesProduits() {
       //     imprimerTousLesProduits(Array.from(mapProd.values()));
       //   })
       .then((data) => {
-        imprimerTousLesProduits(data.data);
+        produits = data.data;
+        imprimerTousLesProduits(produits);
       })
       .catch((error) => console.log(error))
   );
@@ -251,7 +257,8 @@ function produitContientMot(produit, mot) {
         .replace(/[\u0300-\u036f]/g, "")
     );
 }
-
+let nbProdAffi = 0;
+const nbProd = 12;
 async function imprimerTousLesProduits(produits) {
   const urlParams = new URLSearchParams(window.location.search);
   const recherche = urlParams.get("search");
@@ -291,16 +298,29 @@ async function imprimerTousLesProduits(produits) {
   produits.sort((a, b) => a.id_prod - b.id_prod);
 
   const listeProd = document.querySelector(".produits");
-  listeProd.innerHTML = "";
+  const deb = nbProdAffi;
+  const fin = Math.min(deb + nbProd, produits.length);
+  const produitsPage = produits.slice(deb, fin);
 
   const elements = await Promise.all(
-    produits.map((produit) => imprimerUnProduit(produit))
+    produitsPage.map((produit) => imprimerUnProduit(produit))
   );
 
   elements.forEach((produitElement) => listeProd.appendChild(produitElement));
 
+  nbProdAffi = fin;
+
+  if (nbProdAffi >= produits.length) {
+    document.querySelector("#loadMoreButton").style.display = "none";
+  }
+
   traiterFavori(id_us);
 }
+
+let btn = document.querySelector("#loadMoreButton");
+btn.addEventListener("click", (event) => {
+  imprimerTousLesProduits(produits);
+});
 
 export async function getFavori(id_us) {
   return await fetch("http://localhost/SAE-4.01/serveur/api/getFavori.php", {

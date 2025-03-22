@@ -33,6 +33,7 @@
 
     <section>
         <div class="produits row"></div>
+        <button id="loadMoreButton" class="btn btn-primary">Afficher plus</button>
     </section>
     
     <footer id="printFooter">
@@ -45,6 +46,7 @@
     const span = $("span");
     console.log(span)
     span.innerHTML = (window.innerWidth == 1000 ? " - " : "<br />") + span.innerHTML
+    
 </script>
 <script type="module" src="./controleur/accueil.js"></script>
 <script type="module" src="./controleur/function.js"></script>
