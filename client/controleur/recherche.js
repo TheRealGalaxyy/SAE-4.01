@@ -231,12 +231,12 @@ let idTaille = urlParams.get("idTaille");
 
 if (idCategorie) {
   selectCategorie.value = idCategorie;
-  console.log("Id catégorie : " + idCategorie);
-  console.log("selectCategorie : ", selectCategorie);
-  console.log(selectCategorie);
-  console.log(
-    "Nombre de couleurs dispo : " + maps[1].get(parseInt(idCategorie)).length
-  );
+  // console.log("Id catégorie : " + idCategorie);
+  // console.log("selectCategorie : ", selectCategorie);
+  // console.log(selectCategorie);
+  // console.log(
+  //   "Nombre de couleurs dispo : " + maps[1].get(parseInt(idCategorie)).length
+  // );
 
   // ********
   // TAILLES
@@ -287,20 +287,16 @@ if (idCategorie) {
     .then(() => {
       if (idCouleur) {
         selectCouleur.value = idCouleur;
-        console.log("Id couleur : " + idCouleur);
+        // console.log("Id couleur : " + idCouleur);
       }
 
       if (idTaille) {
         selectTaille.value = idTaille;
-        console.log("Id taille : " + idTaille);
+        // console.log("Id taille : " + idTaille);
       }
     })
     .catch((error) => console.error("Pb recup couleur  :", error));
 }
-console.log(
-  "Options de selectCouleur :",
-  Array.from(selectCouleur.options).map((option) => option.value)
-);
 
 selectCategorie.addEventListener("change", (e) => {
   e.preventDefault();

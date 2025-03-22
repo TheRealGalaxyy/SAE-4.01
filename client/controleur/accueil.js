@@ -111,7 +111,7 @@ let produits = null;
 
 function afficherTousLesProduits() {
   const urlParams = new URLSearchParams(window.location.search);
-  const taille = urlParams.get("taille");
+  const taille = urlParams.get("idTaille");
   const couleur = urlParams.get("idCouleur");
 
   const produitGenerique =
@@ -119,27 +119,18 @@ function afficherTousLesProduits() {
   const produitComplet =
     "http://localhost/SAE-4.01/serveur/api/getProduits.php";
   const url = taille || couleur ? produitComplet : produitGenerique;
+  // console.log("bool");
+  // console.log(taille || couleur ? true : false);
+  // console.log(taille);
+  // console.log(couleur);
 
-  return (
-    fetch(url)
-      .then((reponse) => reponse.json())
-      // .then((data) => {
-      //     console.log("data");
-      //     console.log(data.data);
-      //     const mapProd = new Map();
-      //     data.data.forEach((element) => {
-      //       if (!mapProd.has(element.id_prod)) {
-      //         mapProd.set(element.id_prod, element);
-      //       }
-      //     });
-      //     imprimerTousLesProduits(Array.from(mapProd.values()));
-      //   })
-      .then((data) => {
-        produits = data.data;
-        imprimerTousLesProduits(produits);
-      })
-      .catch((error) => console.log(error))
-  );
+  return fetch(url)
+    .then((reponse) => reponse.json())
+    .then((data) => {
+      produits = data.data;
+      imprimerTousLesProduits(produits);
+    })
+    .catch((error) => console.log(error));
 }
 
 function produitsRecherche(recherche, data) {
@@ -190,6 +181,11 @@ function produitsTaille(idTaille, data) {
   data.forEach((produit) => {
     if (produit.id_tail == idTaille) dejaSortit.push(produit);
   });
+  console.log(dejaSortit);
+  dejaSortit = dejaSortit.filter((produit, index, self) => {
+    return index === self.findIndex((p) => p.id_prod === produit.id_prod);
+  });
+  console.log(dejaSortit);
   return dejaSortit;
 }
 
@@ -257,8 +253,10 @@ function produitContientMot(produit, mot) {
         .replace(/[\u0300-\u036f]/g, "")
     );
 }
+
 let nbProdAffi = 0;
 const nbProd = 12;
+
 async function imprimerTousLesProduits(produits) {
   const urlParams = new URLSearchParams(window.location.search);
   const recherche = urlParams.get("search");
