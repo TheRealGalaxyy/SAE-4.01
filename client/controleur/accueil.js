@@ -316,9 +316,11 @@ async function imprimerTousLesProduits(produits) {
 }
 
 let btn = document.querySelector("#loadMoreButton");
-btn.addEventListener("click", (event) => {
-  imprimerTousLesProduits(produits);
-});
+if (btn) {
+  btn.addEventListener("click", (event) => {
+    imprimerTousLesProduits(produits);
+  });
+}
 
 export async function getFavori(id_us) {
   return await fetch("http://localhost/SAE-4.01/serveur/api/getFavori.php", {
@@ -398,4 +400,7 @@ function traiterFavori(id_us) {
       });
   });
 }
-afficherTousLesProduits();
+if (btn){
+  afficherTousLesProduits();
+}
+
