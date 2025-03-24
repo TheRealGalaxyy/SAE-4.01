@@ -132,11 +132,13 @@ class ProduitDetail extends HTMLElement {
 
     const nbrCommande = this.shadowRoot.getElementById("nbrCommande");
     const prixTotal = this.shadowRoot.getElementById("prix_tot");
-    const stock = parseInt(this.getAttribute("stock"));
 
     nbrCommande.addEventListener("input", (event) => {
+      const stock = parseInt(this.shadowRoot.getElementById("stock").innerHTML);
       const prix = parseFloat(this.shadowRoot.getElementById("prix").innerHTML);
       const contenu = parseInt(event.target.value);
+      console.log(stock);
+      
 
       if (contenu <= 0 || isNaN(contenu) || contenu > stock) {
         event.target.style.background = "red";
@@ -160,6 +162,10 @@ class ProduitDetail extends HTMLElement {
       }
     });
   }
+}
+
+function addListener(stock) {
+  
 }
 
 customElements.define("produit-detail", ProduitDetail);
@@ -230,9 +236,11 @@ function imprimerSelectionCouleur(produits) {
         ? "http://localhost/SAE-4.01/serveur/img/articles/" + produit.path_img
         : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
+      const qte = root.querySelector("#nbrCommande").value;
+
       root.querySelector(".img_prod").setAttribute("src", path);
       root.getElementById("prix").innerHTML = produit.prix_unit;
-      root.getElementById("prix_tot").innerHTML = produit.prix_unit;
+      root.getElementById("prix_tot").innerHTML = produit.prix_unit * qte;
       root.getElementById("stock").innerHTML = produit.stock;
 
       // Gestion de la rupture de stock
@@ -249,6 +257,21 @@ function imprimerSelectionCouleur(produits) {
         root.getElementById(
           "stock"
         ).parentElement.nextElementSibling.style.display = "none";
+      }
+
+      const nbrCommande = root.getElementById("nbrCommande");
+      const prixTotal = root.getElementById("prix_tot");
+      const stock = parseInt(root.getElementById("stock").textContent);
+      const prix = parseFloat(root.getElementById("prix").innerHTML);
+      const contenu = parseInt(nbrCommande.value);
+
+      if (contenu <= 0 || isNaN(contenu) || contenu > stock) {
+        nbrCommande.style.background = "red";
+        prixTotal.innerHTML = prix;
+      } else {
+        console.log("c");
+        nbrCommande.style.background = "whitesmoke";
+        prixTotal.innerHTML = (prix * contenu).toFixed(2);
       }
     }
   });
@@ -297,6 +320,21 @@ function imprimerSelectionTaille(produits) {
         root.getElementById(
           "stock"
         ).parentElement.nextElementSibling.style.display = "none";
+      }
+      
+      const nbrCommande = root.getElementById("nbrCommande");
+      const prixTotal = root.getElementById("prix_tot");
+      const stock = parseInt(root.getElementById("stock").textContent);
+      const prix = parseFloat(root.getElementById("prix").innerHTML);
+      const contenu = parseInt(nbrCommande.value);
+
+      if (contenu <= 0 || isNaN(contenu) || contenu > stock) {
+        nbrCommande.style.background = "red";
+        prixTotal.innerHTML = prix;
+      } else {
+        console.log("c");
+        nbrCommande.style.background = "whitesmoke";
+        prixTotal.innerHTML = (prix * contenu).toFixed(2);
       }
     }
   });
@@ -380,7 +418,9 @@ function boutonCommander(id_produit) {
           reponse.json().then((data) => {
             if (data.status === "error") {
               if (isConnected()) {
-                alert(`Article déjà dans votre panier !\nVous pouvez toutefois changer votre commande dans la rubrique "Panier"`);
+                alert(
+                  `Article déjà dans votre panier !\nVous pouvez toutefois changer votre commande dans la rubrique "Panier"`
+                );
               } else {
                 alert(`Connectez vous pour commencer à commander !`);
               }
