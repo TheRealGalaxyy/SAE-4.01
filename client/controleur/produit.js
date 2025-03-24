@@ -137,8 +137,6 @@ class ProduitDetail extends HTMLElement {
       const stock = parseInt(this.shadowRoot.getElementById("stock").innerHTML);
       const prix = parseFloat(this.shadowRoot.getElementById("prix").innerHTML);
       const contenu = parseInt(event.target.value);
-      console.log(stock);
-      
 
       if (contenu <= 0 || isNaN(contenu) || contenu > stock) {
         event.target.style.background = "red";
@@ -164,10 +162,6 @@ class ProduitDetail extends HTMLElement {
   }
 }
 
-function addListener(stock) {
-  
-}
-
 customElements.define("produit-detail", ProduitDetail);
 async function AfficherProd() {
   return fetch("http://localhost/SAE-4.01/serveur/api/getProduit.php", {
@@ -179,6 +173,7 @@ async function AfficherProd() {
   })
     .then((reponse) => reponse.json())
     .then((data) => {
+      console.log(data.data);
       imprimerProduit(
         data.data.filter((produit) => produit.id_col == id_col)[0]
       );
@@ -229,7 +224,7 @@ function imprimerSelectionCouleur(produits) {
 
   root.getElementById("selectCouleur").addEventListener("change", (event) => {
     let id = event.target.value;
-    let produit = produits.find((p) => p.id_col == id);
+    let produit = produits.find((p) => p.id_col == id && root.getElementById("selectTaille").value == p.id_tail);
 
     if (produit) {
       let path = produit.path_img
@@ -269,7 +264,6 @@ function imprimerSelectionCouleur(produits) {
         nbrCommande.style.background = "red";
         prixTotal.innerHTML = prix;
       } else {
-        console.log("c");
         nbrCommande.style.background = "whitesmoke";
         prixTotal.innerHTML = (prix * contenu).toFixed(2);
       }
@@ -298,7 +292,7 @@ function imprimerSelectionTaille(produits) {
   root.getElementById("taille").appendChild(selecteur);
 
   root.getElementById("selectTaille").addEventListener("change", (event) => {
-    let produit = produits.find((p) => p.id_tail == event.target.value);
+    let produit = produits.find((p) => p.id_tail == event.target.value && root.getElementById("selectCouleur").value == p.id_col);
 
     if (produit) {
       const qte = root.querySelector("#nbrCommande").value;
@@ -332,7 +326,6 @@ function imprimerSelectionTaille(produits) {
         nbrCommande.style.background = "red";
         prixTotal.innerHTML = prix;
       } else {
-        console.log("c");
         nbrCommande.style.background = "whitesmoke";
         prixTotal.innerHTML = (prix * contenu).toFixed(2);
       }
