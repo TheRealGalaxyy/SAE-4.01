@@ -101,7 +101,7 @@ class ProduitDetail extends HTMLElement {
         <br>
         <div class="sub_info_prod">
             <div>
-                <p>Prix : <span id="prix">${this.getAttribute(
+                <p>Prix TTC : <span id="prix">${this.getAttribute(
                   "prix"
                 )}</span> €</p>
                 <p>SKU : <span id="sku">${this.getAttribute("sku")}</span></p>
