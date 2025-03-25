@@ -39,7 +39,6 @@ function findId(id, array) {
 
 function delButton(id) {
   const test = findId(id, document.querySelectorAll(".del"));
-  //console.log(test)
 
   test.addEventListener("click", (e) => {
     const id_prod = e.target.id.split("|")[0];
@@ -68,67 +67,85 @@ function delButton(id) {
   });
 }
 
-function modifButton(id) {
-  const test = findId(id, document.querySelectorAll(".mod"));
+function modifCouleur(id) {
+  document
+    .getElementById(`couleur${id}`)
+    .addEventListener("change", (e) => ChangerInfoProd(id, e));
+}
 
-  test.addEventListener("click", (e) => {
-    const id_prod = e.target.id.split("|")[0];
-    const id_col = e.target.id.split("|")[1];
-    const id_tail = e.target.id.split("|")[2];
-    const qte_pan = document.getElementById(id).value;
-    let new_id_col = null;
-    let new_id_tail = null;
+function modifQuantite(id) {
+  const quantite = findId(id, document.querySelectorAll(".qte"));
+  quantite.addEventListener("change", (e) => ChangerInfoProd(id, e));
+}
+
+function modifTaille(id) {
+  document
+    .getElementById(`taille${id}`)
+    .addEventListener("change", (e) => ChangerInfoProd(id, e));
+}
+
+function ChangerInfoProd(id, e) {
+  let id_prod = e.target.id.split("|")[0];
+  if (id_prod.length > 1) {
+    id_prod = id_prod.split("").at(-1);
+  }
+  console.log("e.target = ", e.target.id.split("|"));
+  console.log(id_prod);
+  const id_col = e.target.id.split("|")[1];
+  const id_tail = e.target.id.split("|")[2];
+  const qte_pan = document.getElementById(id).value;
+  let new_id_col = null;
+  let new_id_tail = null;
+  document
+    .getElementById(`couleur${id}`)
+    .querySelectorAll("option")
+    .forEach((element) => {
+      if (element.selected) {
+        new_id_col = element.id;
+      }
+    });
+  if (document.getElementById(`taille${id}`) === null) {
+    new_id_tail = 17;
+  } else {
     document
-      .getElementById(`couleur${id}`)
+      .getElementById(`taille${id}`)
       .querySelectorAll("option")
       .forEach((element) => {
         if (element.selected) {
-          new_id_col = element.id;
+          new_id_tail = element.id;
         }
       });
-    if (document.getElementById(`taille${id}`) === null) {
-      new_id_tail = 17;
-    } else {
-      document
-        .getElementById(`taille${id}`)
-        .querySelectorAll("option")
-        .forEach((element) => {
-          if (element.selected) {
-            new_id_tail = element.id;
-          }
-        });
-    }
-    // console.log("id_us",id_us);
-    // console.log("id_prod",id_prod);
-    // console.log("id_col",id_col);
-    // console.log("id_tail",id_tail);
-    // console.log("qte_pan",qte_pan);
-    // console.log("new_id_col",new_id_col);
-    // console.log("new_id_tail",new_id_tail);
-    fetch("http://192.168.1.97/SAE-4.01/serveur/api/setPanier.php", {
-      method: "POST",
-      body: new URLSearchParams({
-        id_us: id_us,
-        id_prod: id_prod,
-        id_col: id_col,
-        id_tail: id_tail,
-        qte_pan: qte_pan,
-        new_id_col: new_id_col,
-        new_id_tail: new_id_tail,
-      }),
-    }).then((response) => {
-      response.json().then((json) => {
-        //console.log(json);
-        if (json.status !== "success") {
-          alert("modif échouée");
-          appelPanier();
-          return;
-        }
-
-        console.log("modif réussie");
-        document.getElementById("panier").innerHTML = "";
+  }
+  // console.log("id_us",id_us);
+  // console.log("id_prod",id_prod);
+  // console.log("id_col",id_col);
+  // console.log("id_tail",id_tail);
+  // console.log("qte_pan",qte_pan);
+  // console.log("new_id_col",new_id_col);
+  // console.log("new_id_tail",new_id_tail);
+  fetch("http://192.168.1.97/SAE-4.01/serveur/api/setPanier.php", {
+    method: "POST",
+    body: new URLSearchParams({
+      id_us: id_us,
+      id_prod: id_prod,
+      id_col: id_col,
+      id_tail: id_tail,
+      qte_pan: qte_pan,
+      new_id_col: new_id_col,
+      new_id_tail: new_id_tail,
+    }),
+  }).then((response) => {
+    response.json().then((json) => {
+      //console.log(json);
+      if (json.status !== "success") {
+        alert("modif échouée");
         appelPanier();
-      });
+        return;
+      }
+
+      console.log("modif réussie");
+      document.getElementById("panier").innerHTML = "";
+      appelPanier();
     });
   });
 }
@@ -160,6 +177,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
   const panierDiv = document.createElement("div");
   panierDiv.classList.add("panierElement");
   const id = `${panier.id_prod}|${panier.id_col}|${panier.id_tail}`;
+
   let stockAffiche = "";
   let ruptureAffiche = "color:red";
   //console.log(panier)
@@ -188,7 +206,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
   } unités</p>
             <p id="rupture" style="${ruptureAffiche}">Stock : RUPTURE DE STOCK</p>
             <div id="button">
-                <button class="mod form_button" id="${id}">Modifier</button>
+                
                 <button class="del form_button" id="${id}">Supprimer</button>
             </div>
         </center>
@@ -196,7 +214,9 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
   document.getElementById("panier").appendChild(panierDiv);
 
   delButton(id);
-  modifButton(id);
+  modifCouleur(id);
+  modifQuantite(id);
+  modifTaille(id);
   rempliSelect(
     document.getElementById(`couleur${id}`),
     couleur,
@@ -294,7 +314,6 @@ window.payer = function () {
     }),
   }).then((reponse) => {
     reponse.json().then((data) => {
-      console.log(data);
       if (data.status == "success") {
         console.log("paiement réussi");
         fetch("http://192.168.1.97/SAE-4.01/serveur/api/clearPanier.php", {

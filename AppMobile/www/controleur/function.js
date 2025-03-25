@@ -13,7 +13,6 @@ function printHeader() {
 
   let navLinks = `
     <a href='./accueil.html'>Accueil</a>
-    <a href='./panier.html'>Panier</a>
     
   `;
 
@@ -21,6 +20,7 @@ function printHeader() {
     navLinks += `
     <img src='./img/icones/user-icon.png' class='logo' alt='Icone de connexion'>
     <a href='./historique.html'>Historique</a>
+    <a href='./panier.html'>Panier</a>
     <a href='./favori.html'>Favoris</a>
     <a href='./compte.html'>Compte</a>
     <a href='./logout.html'>Déconnexion</a>
@@ -120,7 +120,13 @@ if (document.querySelector(".recherche")) menuRechercheDeroulant();
 function printFooter() {
   const footer = document.querySelector("#printFooter");
   footer.innerHTML = `
-    <p>Paul Muller Pulls Moches - Site de vente </p>
+  <style>
+  #mentionsLeg{
+    color: black;
+  }
+   </style>
+    <p>Paul Muller Pulls Moches - Site de vente  </p>
+    <a id=mentionsLeg href="./mentionsLegal.html">Mentions Légales</a>
     `;
 }
 

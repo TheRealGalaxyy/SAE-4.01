@@ -400,7 +400,28 @@ function traiterFavori(id_us) {
       });
   });
 }
-if (btn){
+if (btn) {
   afficherTousLesProduits();
 }
 
+window.addEventListener("DOMContentLoaded", (event) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const loginSuccess = urlParams.get("login_success");
+
+  if (loginSuccess === "true") {
+    const modal = document.getElementById("cookieModal");
+
+    modal.style.display = "block";
+    modal.classList.add("show");
+    modal.removeAttribute("aria-hidden");
+    modal.setAttribute("aria-hidden", "false");
+
+    const closeButtons = document.getElementById("btn-close");
+
+    closeButtons.addEventListener("click", () => {
+      modal.classList.remove("show");
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden", "true");
+    });
+  }
+});

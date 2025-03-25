@@ -9,6 +9,14 @@ const maps = await fillMaps();
 const tailleByCategorie = maps[0];
 const couleurByCategorie = maps[1];
 
+const tailleByCategorieTriee = new Map(
+  [...tailleByCategorie.entries()].sort((a, b) => a[0] - b[0])
+);
+
+const couleurByCategorieTriee = new Map(
+  [...couleurByCategorie.entries()].sort((a, b) => a[0] - b[0])
+);
+
 barreRecherche.setAttribute("type", "text");
 boutonRechercher.setAttribute("type", "button");
 boutonRechercher.setAttribute("value", "Rechercher");
@@ -19,6 +27,8 @@ const searchValue = new URLSearchParams(window.location.search).get("search");
 barreRecherche.value = searchValue ? searchValue.replaceAll("+", " ") : "";
 barreRecherche.classList.add("col-xl-7");
 barreRecherche.classList.add("col-sm-12");
+barreRecherche.placeholder = "🔎 - Rechercher un produit";
+
 selectCategorie.classList.add("col-xl-2");
 selectCategorie.classList.add("col-sm-4");
 selectCouleur.classList.add("col-xl-1");
@@ -32,7 +42,7 @@ boutonRechercher.classList.add("col-sm-12");
 
 async function getInfoProd() {
   return await fetch(
-    "http://192.168.1.97/SAE-4.01/serveur/api/getGenericProduits.php",
+    "http://192.168.1.97/SAE-4.01/serveur/api/getProduits.php",
     {
       method: "POST",
       body: new URLSearchParams({}),
@@ -55,18 +65,21 @@ async function fillMaps() {
       tailleByCategorie.set(produit.id_cat, [produit.id_tail]);
     }
   });
-
+  // console.log("tailleByCategorie");
+  // console.log(tailleByCategorie);
   produits.forEach((produit) => {
     if (couleurByCategorie.has(produit.id_cat)) {
       const categorie = couleurByCategorie.get(produit.id_cat);
-      if (!categorie.includes(produit.id_coul)) {
-        categorie.push(produit.id_coul);
+      if (!categorie.includes(produit.id_col)) {
+        categorie.push(produit.id_col);
       }
-      couleurByCategorie.set(produit.id_coul, categorie);
+      couleurByCategorie.set(produit.id_cat, categorie);
     } else {
-      couleurByCategorie.set(produit.id_cat, [produit.id_coul]);
+      couleurByCategorie.set(produit.id_cat, [produit.id_col]);
     }
   });
+  // console.log("couleurByCategorie");
+  // console.log(couleurByCategorie);
   return [couleurByCategorie, tailleByCategorie];
 }
 
@@ -169,8 +182,7 @@ function traiterChaine(barreRecherche) {
   } else return chaine.value.replaceAll(" ", "+");
 }
 
-selectCategorie.addEventListener("change", (e) => {
-  e.preventDefault();
+function loadProduits() {
   fetch("http://192.168.1.97/SAE-4.01/serveur/api/getProduits.php").then(
     (reponse) =>
       reponse.json().then((data) => {
@@ -212,4 +224,84 @@ selectCategorie.addEventListener("change", (e) => {
         );
       })
   );
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+
+let idCategorie = urlParams.get("idCategorie");
+let idCouleur = urlParams.get("idCouleur");
+let idTaille = urlParams.get("idTaille");
+
+if (idCategorie) {
+  selectCategorie.value = idCategorie;
+  // console.log("Id catégorie : " + idCategorie);
+  // console.log("selectCategorie : ", selectCategorie);
+  // console.log(selectCategorie);
+  // console.log(
+  //   "Nombre de couleurs dispo : " + maps[1].get(parseInt(idCategorie)).length
+  // );
+
+  // ********
+  // TAILLES
+  // ********
+  let lstTaille = [];
+  maps[1].get(parseInt(idCategorie)).forEach((taille) => {
+    // console.log("Taille : " + taille);
+    lstTaille.push(taille);
+  });
+
+  console.log("Taille/Categ : ", lstTaille);
+
+  fetch("http://192.168.1.97/SAE-4.01/serveur/api/getTailles.php")
+    .then((reponse) => reponse.json())
+    .then((data) => {
+      // console.log(data.data);
+      const nom_tail = data.data.filter((taill) =>
+        lstTaille.includes(taill.id_tail)
+      );
+      // console.log(nom_tail);
+      selectTaille.innerHTML = "";
+      ajouterOptions(selectTaille, nom_tail, "Taille", "idTaille");
+    })
+    .catch((error) => console.error("Pb recup taille :", error));
+
+  // ********
+  // COULEURS
+  // ********
+  let lstCouleur = [];
+  maps[0].get(parseInt(idCategorie)).forEach((couleur) => {
+    // console.log("Couleur : " + couleur);
+    lstCouleur.push(couleur);
+  });
+
+  console.log("Couleur/Categ : ", lstCouleur);
+
+  fetch("http://192.168.1.97/SAE-4.01/serveur/api/getCouleurs.php")
+    .then((reponse) => reponse.json())
+    .then((data) => {
+      // console.log(data.data);
+      const nom_col = data.data.filter((col) =>
+        lstCouleur.includes(col.id_col)
+      );
+      // console.log(nom_col);
+      selectCouleur.innerHTML = "";
+      ajouterOptions(selectCouleur, nom_col, "Couleur", "idCol");
+    })
+    .then(() => {
+      if (idCouleur) {
+        selectCouleur.value = idCouleur;
+        // console.log("Id couleur : " + idCouleur);
+      }
+
+      if (idTaille) {
+        selectTaille.value = idTaille;
+        // console.log("Id taille : " + idTaille);
+      }
+    })
+    .catch((error) => console.error("Pb recup couleur  :", error));
+}
+
+selectCategorie.addEventListener("change", (e) => {
+  e.preventDefault();
+  loadProduits();
 });

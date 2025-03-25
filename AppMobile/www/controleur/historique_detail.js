@@ -36,9 +36,10 @@ async function recupDonnees() {
   afficherLesProduits(commande);
 }
 
-function afficherLesProduits(produits) {
+async function afficherLesProduits(produits) {
   //Fonction qui affiche les produits commandés avec leurs noms, catégories et descriptions, ajoute du meme css que sur la page d'accueil
   const produitsDiv = document.querySelector(".produits");
+  let prixT = 0;
   produits.forEach(
     ({ nom_prod, description, path_img, prix_unit, qte_com }) => {
       // console.log("Path :",path_img);
@@ -48,6 +49,7 @@ function afficherLesProduits(produits) {
         ? "http://192.168.1.97/SAE-4.01/serveur/img/articles/" + path_img
         : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
       let prix = prix_unit * qte_com;
+      prixT += prix_unit * qte_com;
 
       produitDiv.innerHTML = `
             <h2>${nom_prod}</h2>
@@ -59,6 +61,11 @@ function afficherLesProduits(produits) {
       produitsDiv.appendChild(produitDiv);
     }
   );
+  const produitDiv = document.createElement("div");
+  produitDiv.innerHTML += `
+            <h2>Prix total de la commande : ${prixT}€</h2>
+        `;
+  produitsDiv.appendChild(produitDiv);
 }
 
 recupDonnees();

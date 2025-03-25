@@ -1,4 +1,4 @@
-import { cookieValue } from "./function.js";
+import { cookieValue, isConnected } from "./function.js";
 export class ProduitGenerique extends HTMLElement {
   constructor() {
     super();
@@ -88,7 +88,8 @@ export class ProduitGenerique extends HTMLElement {
             <p class="name">${this.getAttribute("name")}</p>
             <img class="img_prod" src="${this.getAttribute(
               "path_img"
-            )}" alt="${this.getAttribute("path_img")}" />
+            )}" alt="${this.getAttribute("path_img")}"
+            style="height: 210px; display: block; margin: 0 auto;"  />
             <div class="stock" style="${this.getAttribute(
               "stockAffiche"
             )}" >&nbsp&nbsp${this.getAttribute("stock")} unités restantes</div>
@@ -98,14 +99,19 @@ export class ProduitGenerique extends HTMLElement {
         </div>
         </a>
         `;
+
+    if (!isConnected()) {
+      this.shadowRoot.querySelector(".etoile").style.display = "none";
+    }
   }
 }
 
 customElements.define("produit-generique", ProduitGenerique);
+let produits = null;
 
 function afficherTousLesProduits() {
   const urlParams = new URLSearchParams(window.location.search);
-  const taille = urlParams.get("taille");
+  const taille = urlParams.get("idTaille");
   const couleur = urlParams.get("idCouleur");
 
   const produitGenerique =
@@ -113,11 +119,16 @@ function afficherTousLesProduits() {
   const produitComplet =
     "http://192.168.1.97/SAE-4.01/serveur/api/getProduits.php";
   const url = taille || couleur ? produitComplet : produitGenerique;
+  // console.log("bool");
+  // console.log(taille || couleur ? true : false);
+  // console.log(taille);
+  // console.log(couleur);
 
   return fetch(url)
     .then((reponse) => reponse.json())
     .then((data) => {
-      imprimerTousLesProduits(data.data);
+      produits = data.data;
+      imprimerTousLesProduits(produits);
     })
     .catch((error) => console.log(error));
 }
@@ -170,10 +181,15 @@ function produitsTaille(idTaille, data) {
   data.forEach((produit) => {
     if (produit.id_tail == idTaille) dejaSortit.push(produit);
   });
+  console.log(dejaSortit);
+  dejaSortit = dejaSortit.filter((produit, index, self) => {
+    return index === self.findIndex((p) => p.id_prod === produit.id_prod);
+  });
+  console.log(dejaSortit);
   return dejaSortit;
 }
 
-async function imprimerUnProduit(produit) {
+export async function imprimerUnProduit(produit) {
   let path = produit["path_img"]
     ? "http://192.168.1.97/SAE-4.01/serveur/img/articles/" + produit["path_img"]
     : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
@@ -238,6 +254,9 @@ function produitContientMot(produit, mot) {
     );
 }
 
+let nbProdAffi = 0;
+const nbProd = 12;
+
 async function imprimerTousLesProduits(produits) {
   const urlParams = new URLSearchParams(window.location.search);
   const recherche = urlParams.get("search");
@@ -254,7 +273,22 @@ async function imprimerTousLesProduits(produits) {
   }
   if (taille) {
     produits = produitsTaille(taille, produits);
+  } else {
+    // Retrait doublon
+    const mapProd1 = new Map();
+
+    for (let i = produits.length - 1; i >= 0; i--) {
+      const element = produits[i];
+      const key = element.nom_prod + "-" + element.nom_col;
+
+      if (!mapProd1.has(key)) {
+        mapProd1.set(key, element);
+      } else {
+        produits.splice(i, 1);
+      }
+    }
   }
+
   if (couleur) {
     produits = produitsCouleur(couleur, produits);
   }
@@ -262,15 +296,30 @@ async function imprimerTousLesProduits(produits) {
   produits.sort((a, b) => a.id_prod - b.id_prod);
 
   const listeProd = document.querySelector(".produits");
-  listeProd.innerHTML = "";
+  const deb = nbProdAffi;
+  const fin = Math.min(deb + nbProd, produits.length);
+  const produitsPage = produits.slice(deb, fin);
 
   const elements = await Promise.all(
-    produits.map((produit) => imprimerUnProduit(produit))
+    produitsPage.map((produit) => imprimerUnProduit(produit))
   );
 
   elements.forEach((produitElement) => listeProd.appendChild(produitElement));
 
+  nbProdAffi = fin;
+
+  if (nbProdAffi >= produits.length) {
+    document.querySelector("#loadMoreButton").style.display = "none";
+  }
+
   traiterFavori(id_us);
+}
+
+let btn = document.querySelector("#loadMoreButton");
+if (btn) {
+  btn.addEventListener("click", (event) => {
+    imprimerTousLesProduits(produits);
+  });
 }
 
 export async function getFavori(id_us) {
@@ -351,4 +400,6 @@ function traiterFavori(id_us) {
       });
   });
 }
-afficherTousLesProduits();
+if (btn) {
+  afficherTousLesProduits();
+}

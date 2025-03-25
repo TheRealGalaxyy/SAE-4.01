@@ -21,18 +21,18 @@ async function getFavori(id_us) {
     .catch((error) => console.log(error));
 }
 
-function afficherFavoris(produits) {
+async function afficherFavoris(produits) {
   //console.log(produits);
   const listeFav = document.querySelector(".listeFav");
   // console.log(produits);
 
-  produits.forEach((produit) => {
-    const produitElement = imprimerUnProduit(produit);
+  for (const produit of produits) {
+    const produitElement = await imprimerUnProduit(produit);
 
     listeFav.appendChild(produitElement);
     produitElement.shadowRoot.querySelector("label").querySelector("img").src =
       "img/icones/star_plein.png";
-  });
+  }
 }
 
 function btn() {
