@@ -34,7 +34,17 @@ try {
     $res = $res->fetch();
 
     if (password_verify($_POST['mdp'], $res['mdp'])) {
-        setcookie("id_us", $res['id_us'], 10800 + time());
+        setcookie(
+            "id_us", // Nom du cookie
+            $res['id_us'], // Valeur du cookie
+            [
+                "expires" => time() + 10800, // Expiration dans 3 heures
+                "path" => "/", // Disponible sur tout le site
+                "secure" => isset($_SERVER['HTTPS']), // Transmis uniquement via HTTPS
+                "httponly" => true, // Empêche l'accès via JavaScript
+                "samesite" => "Strict" // Empêche les requêtes cross-site
+            ]
+        );
         $json["id_us"] = $res['id_us'];
         $json["status"] = "success";
         $json["message"] = "Connexion réussie";

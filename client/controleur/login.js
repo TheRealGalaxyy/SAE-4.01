@@ -42,16 +42,16 @@ async function authentifier() {
 
   if (data.status === "success") {
     let date_expiration = new Date();
-    date_expiration.setTime(date_expiration.getTime() + 10800 * 1000);
+    date_expiration.setTime(date_expiration.getTime() + 10800 * 1000); // 3 heures
 
     // console.log("User :",data.id_us);
-
     document.cookie =
       "id_user=" +
       data.id_us +
       ";expires=" +
       date_expiration.toUTCString() +
-      ";path=/;Secure;HttpOnly;SameSite=Strict"; // Ajout des flags de sécurité
+      ";path=/;SameSite=Strict";
+    
 
     // console.log("Cookie : ", document.cookie);
     window.location.href = "accueil.html?login_success=true";
