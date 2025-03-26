@@ -4,6 +4,7 @@ const boutonRechercher = document.createElement("input");
 const selectCategorie = document.createElement("select");
 const selectCouleur = document.createElement("select");
 const selectTaille = document.createElement("select");
+console.log("recherche");
 
 const maps = await fillMaps();
 const tailleByCategorie = maps[0];
@@ -27,7 +28,7 @@ const searchValue = new URLSearchParams(window.location.search).get("search");
 barreRecherche.value = searchValue ? searchValue.replaceAll("+", " ") : "";
 barreRecherche.classList.add("col-xl-7");
 barreRecherche.classList.add("col-sm-12");
-barreRecherche.placeholder = "🔎 - Rechercher un produit";
+barreRecherche.placeholder = "🔎 - Que recherchez-vous ?";
 
 selectCategorie.classList.add("col-xl-2");
 selectCategorie.classList.add("col-sm-4");
@@ -41,10 +42,13 @@ boutonRechercher.classList.add("col-sm-12");
 // xs, sm, md, lg, xl
 
 async function getInfoProd() {
-  return await fetch("http://localhost/SAE-4.01/serveur/api/getProduits.php", {
-    method: "POST",
-    body: new URLSearchParams({}),
-  }).then((reponse) => reponse.json());
+  return await fetch(
+    "http://192.168.1.97/SAE-4.01/serveur/api/getProduits.php",
+    {
+      method: "POST",
+      body: new URLSearchParams({}),
+    }
+  ).then((reponse) => reponse.json());
 }
 async function fillMaps() {
   var tailleByCategorie = new Map();
@@ -82,28 +86,32 @@ async function fillMaps() {
 
 fetchSpecification(
   selectCategorie,
-  "http://localhost/SAE-4.01/serveur/api/getCategories.php",
+  "http://192.168.1.97/SAE-4.01/serveur/api/getCategories.php",
   "Catégorie",
   "idCategorie"
 );
 fetchSpecification(
   selectCouleur,
-  "http://localhost/SAE-4.01/serveur/api/getCouleurs.php",
+  "http://192.168.1.97/SAE-4.01/serveur/api/getCouleurs.php",
   "Couleur",
   "idCouleur"
 );
 fetchSpecification(
   selectTaille,
-  "http://localhost/SAE-4.01/serveur/api/getTailles.php",
+  "http://192.168.1.97/SAE-4.01/serveur/api/getTailles.php",
   "Taille",
   "idTaille"
 );
-
+console.log(divRecherche);
 divRecherche.appendChild(barreRecherche);
 divRecherche.appendChild(selectCategorie);
 divRecherche.appendChild(selectCouleur);
 divRecherche.appendChild(selectTaille);
+let boutonLoupe = boutonRechercher;
+boutonLoupe.setAttribute("value", "Loupe");
+divRecherche.appendChild(boutonLoupe);
 divRecherche.appendChild(boutonRechercher);
+console.log(divRecherche);
 
 barreRecherche.addEventListener("keydown", (event) => {
   if (event.keyCode === 13) {
@@ -180,7 +188,7 @@ function traiterChaine(barreRecherche) {
 }
 
 function loadProduits() {
-  fetch("http://localhost/SAE-4.01/serveur/api/getProduits.php").then(
+  fetch("http://192.168.1.97/SAE-4.01/serveur/api/getProduits.php").then(
     (reponse) =>
       reponse.json().then((data) => {
         const prod_cat = data.data.filter(
@@ -194,7 +202,7 @@ function loadProduits() {
         });
         couleur = couleur.filter((v, i, a) => a.indexOf(v) === i);
         taille = taille.filter((v, i, a) => a.indexOf(v) === i);
-        fetch("http://localhost/SAE-4.01/serveur/api/getCouleurs.php").then(
+        fetch("http://192.168.1.97/SAE-4.01/serveur/api/getCouleurs.php").then(
           (reponse) =>
             reponse.json().then((data) => {
               const nom_couleur = data.data.filter((couleu) =>
@@ -209,7 +217,7 @@ function loadProduits() {
               );
             })
         );
-        fetch("http://localhost/SAE-4.01/serveur/api/getTailles.php").then(
+        fetch("http://192.168.1.97/SAE-4.01/serveur/api/getTailles.php").then(
           (reponse) =>
             reponse.json().then((data) => {
               const nom_tail = data.data.filter((taill) =>
@@ -249,7 +257,7 @@ if (idCategorie) {
 
   console.log("Taille/Categ : ", lstTaille);
 
-  fetch("http://localhost/SAE-4.01/serveur/api/getTailles.php")
+  fetch("http://192.168.1.97/SAE-4.01/serveur/api/getTailles.php")
     .then((reponse) => reponse.json())
     .then((data) => {
       // console.log(data.data);
@@ -273,7 +281,7 @@ if (idCategorie) {
 
   console.log("Couleur/Categ : ", lstCouleur);
 
-  fetch("http://localhost/SAE-4.01/serveur/api/getCouleurs.php")
+  fetch("http://192.168.1.97/SAE-4.01/serveur/api/getCouleurs.php")
     .then((reponse) => reponse.json())
     .then((data) => {
       // console.log(data.data);
