@@ -40,6 +40,52 @@ body {
   height: 100%;
 }
 
+.header {
+  position: relative;
+
+  margin: 0;
+  height: 450px;
+  background: url("../img/fond.jpg") no-repeat center center fixed;
+  background-size: cover;
+
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: -1;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.header {
+  color: white;
+  text-align: center;
+}
+
+.header h1,
+.header p,
+.header a,
+h1 {
+  max-width: 500px;
+  color: white;
+
+  font-weight: 750;
+  z-index: 2;
+}
+p {
+  color: #ababab;
+}
+
 a {
   margin: 15px 0;
 }
@@ -112,6 +158,7 @@ header {
   text-align: center;
   font-weight: bold;
   text-transform: uppercase;
+  z-index: 1000;
 }
 
 /* Boutons de navigation dans le header */

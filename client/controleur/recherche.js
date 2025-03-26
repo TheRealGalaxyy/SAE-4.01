@@ -25,18 +25,19 @@ boutonRechercher.classList.add("form_button");
 const searchValue = new URLSearchParams(window.location.search).get("search");
 
 barreRecherche.value = searchValue ? searchValue.replaceAll("+", " ") : "";
-barreRecherche.classList.add("col-xl-7");
 barreRecherche.classList.add("col-sm-12");
+barreRecherche.classList.add("col-xl-7");
 barreRecherche.placeholder = "🔎 - Que recherchez-vous ?";
 
 selectCategorie.classList.add("col-xl-2");
-selectCategorie.classList.add("col-sm-4");
+selectCategorie.classList.add("col-sm-2");
 selectCouleur.classList.add("col-xl-1");
-selectCouleur.classList.add("col-sm-4");
+selectCouleur.classList.add("col-sm-2");
 selectTaille.classList.add("col-xl-1");
-selectTaille.classList.add("col-sm-4");
+selectTaille.classList.add("col-sm-2");
 boutonRechercher.classList.add("col-xl-1");
 boutonRechercher.classList.add("col-sm-12");
+console.log(boutonRechercher);
 
 // xs, sm, md, lg, xl
 
@@ -98,27 +99,12 @@ fetchSpecification(
   "Taille",
   "idTaille"
 );
-console.log(divRecherche);
-const boutoneLoupe = document.createElement("button");
-
-boutoneLoupe.setAttribute("type", "button");
-boutoneLoupe.classList.add("form_button");
-boutoneLoupe.classList.add("col-xl-1");
-boutoneLoupe.classList.add("col-sm-12");
-
-boutoneLoupe.innerHTML = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-  </svg>
-`;
 
 divRecherche.appendChild(barreRecherche);
-divRecherche.appendChild(boutoneLoupe);
 divRecherche.appendChild(selectCategorie);
 divRecherche.appendChild(selectCouleur);
 divRecherche.appendChild(selectTaille);
 divRecherche.appendChild(boutonRechercher);
-console.log(divRecherche);
 
 barreRecherche.addEventListener("keydown", (event) => {
   if (event.keyCode === 13) {
