@@ -51,7 +51,7 @@ async function authentifier() {
       data.id_us +
       ";expires=" +
       date_expiration.toUTCString() +
-      ";path=/";
+      ";path=/;Secure;HttpOnly;SameSite=Strict"; // Ajout des flags de sécurité
 
     // console.log("Cookie : ", document.cookie);
     window.location.href = "accueil.html?login_success=true";
