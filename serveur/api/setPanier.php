@@ -6,14 +6,22 @@ require_once 'header.php';
 $json = [];
 
 $query =
-"UPDATE PANIER SET
-qte_pan = :qte_pan,
-id_col = :new_id_col,
-id_tail = :new_id_tail
+"UPDATE PANIER 
+SET qte_pan = :qte_pan,
+    id_col = :new_id_col,
+    id_tail = :new_id_tail
 WHERE id_us = :id_us
 AND id_prod = :id_prod
 AND id_col = :id_col
-AND id_tail = :id_tail";
+AND id_tail = :id_tail
+AND :qte_pan <= (
+    SELECT stock 
+    FROM TAILLE_COL_PROD 
+    WHERE id_prod = :id_prod
+    AND id_col = :id_col
+    AND id_taille = :id_tail
+    );
+";
 
 $res = $db->prepare($query);
 
