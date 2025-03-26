@@ -4,7 +4,6 @@ const boutonRechercher = document.createElement("input");
 const selectCategorie = document.createElement("select");
 const selectCouleur = document.createElement("select");
 const selectTaille = document.createElement("select");
-console.log("recherche");
 
 const maps = await fillMaps();
 const tailleByCategorie = maps[0];
@@ -42,13 +41,10 @@ boutonRechercher.classList.add("col-sm-12");
 // xs, sm, md, lg, xl
 
 async function getInfoProd() {
-  return await fetch(
-    "http://192.168.1.97/SAE-4.01/serveur/api/getProduits.php",
-    {
-      method: "POST",
-      body: new URLSearchParams({}),
-    }
-  ).then((reponse) => reponse.json());
+  return await fetch("http://localhost/SAE-4.01/serveur/api/getProduits.php", {
+    method: "POST",
+    body: new URLSearchParams({}),
+  }).then((reponse) => reponse.json());
 }
 async function fillMaps() {
   var tailleByCategorie = new Map();
@@ -86,30 +82,41 @@ async function fillMaps() {
 
 fetchSpecification(
   selectCategorie,
-  "http://192.168.1.97/SAE-4.01/serveur/api/getCategories.php",
+  "http://localhost/SAE-4.01/serveur/api/getCategories.php",
   "Catégorie",
   "idCategorie"
 );
 fetchSpecification(
   selectCouleur,
-  "http://192.168.1.97/SAE-4.01/serveur/api/getCouleurs.php",
+  "http://localhost/SAE-4.01/serveur/api/getCouleurs.php",
   "Couleur",
   "idCouleur"
 );
 fetchSpecification(
   selectTaille,
-  "http://192.168.1.97/SAE-4.01/serveur/api/getTailles.php",
+  "http://localhost/SAE-4.01/serveur/api/getTailles.php",
   "Taille",
   "idTaille"
 );
 console.log(divRecherche);
+const boutoneLoupe = document.createElement("button");
+
+boutoneLoupe.setAttribute("type", "button");
+boutoneLoupe.classList.add("form_button");
+boutoneLoupe.classList.add("col-xl-1");
+boutoneLoupe.classList.add("col-sm-12");
+
+boutoneLoupe.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+  </svg>
+`;
+
 divRecherche.appendChild(barreRecherche);
+divRecherche.appendChild(boutoneLoupe);
 divRecherche.appendChild(selectCategorie);
 divRecherche.appendChild(selectCouleur);
 divRecherche.appendChild(selectTaille);
-let boutonLoupe = boutonRechercher;
-boutonLoupe.setAttribute("value", "Loupe");
-divRecherche.appendChild(boutonLoupe);
 divRecherche.appendChild(boutonRechercher);
 console.log(divRecherche);
 
@@ -188,7 +195,7 @@ function traiterChaine(barreRecherche) {
 }
 
 function loadProduits() {
-  fetch("http://192.168.1.97/SAE-4.01/serveur/api/getProduits.php").then(
+  fetch("http://localhost/SAE-4.01/serveur/api/getProduits.php").then(
     (reponse) =>
       reponse.json().then((data) => {
         const prod_cat = data.data.filter(
@@ -202,7 +209,7 @@ function loadProduits() {
         });
         couleur = couleur.filter((v, i, a) => a.indexOf(v) === i);
         taille = taille.filter((v, i, a) => a.indexOf(v) === i);
-        fetch("http://192.168.1.97/SAE-4.01/serveur/api/getCouleurs.php").then(
+        fetch("http://localhost/SAE-4.01/serveur/api/getCouleurs.php").then(
           (reponse) =>
             reponse.json().then((data) => {
               const nom_couleur = data.data.filter((couleu) =>
@@ -217,7 +224,7 @@ function loadProduits() {
               );
             })
         );
-        fetch("http://192.168.1.97/SAE-4.01/serveur/api/getTailles.php").then(
+        fetch("http://localhost/SAE-4.01/serveur/api/getTailles.php").then(
           (reponse) =>
             reponse.json().then((data) => {
               const nom_tail = data.data.filter((taill) =>
@@ -257,7 +264,7 @@ if (idCategorie) {
 
   console.log("Taille/Categ : ", lstTaille);
 
-  fetch("http://192.168.1.97/SAE-4.01/serveur/api/getTailles.php")
+  fetch("http://localhost/SAE-4.01/serveur/api/getTailles.php")
     .then((reponse) => reponse.json())
     .then((data) => {
       // console.log(data.data);
@@ -281,7 +288,7 @@ if (idCategorie) {
 
   console.log("Couleur/Categ : ", lstCouleur);
 
-  fetch("http://192.168.1.97/SAE-4.01/serveur/api/getCouleurs.php")
+  fetch("http://localhost/SAE-4.01/serveur/api/getCouleurs.php")
     .then((reponse) => reponse.json())
     .then((data) => {
       // console.log(data.data);

@@ -143,7 +143,7 @@ function printFooter() {
 async function getUser() {
   try {
     const response = await fetch(
-      "http://192.168.1.97/SAE-4.01/serveur/api/getUser.php",
+      "http://localhost/SAE-4.01/serveur/api/getUser.php",
       {
         method: "POST",
         body: new URLSearchParams({
