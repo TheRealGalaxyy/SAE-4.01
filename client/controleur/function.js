@@ -6,6 +6,7 @@ export const cookieValue = document.cookie //Correspond à la valeur de la clé 
 export function isConnected() {
   return cookieValue !== undefined;
 }
+
 async function printHeader() {
   const header = document.querySelector("#printHeader");
   const connected = isConnected();

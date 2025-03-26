@@ -15,6 +15,16 @@ export class ProduitGenerique extends HTMLElement {
         a {
             text-decoration: none;
             color: black;
+            flex-direction: column; /* Aligner les éléments verticalement */
+            align-items: center; /* Centrer horizontalement */
+            justify-content: center; /* Centrer verticalement */
+            text-align: center; /* Centrer le texte */
+            width: 250px; /* Taille fixe pour les balises <a> */
+            height: 400px; /* Taille fixe pour les balises <a> */
+            margin: 10px; /* Espacement entre les éléments */
+            border-radius: 8px;
+            background-color: lightgray;
+            box-shadow: 3px 3px gray;
         }
         .img_prod {
             margin: 3%;
@@ -26,6 +36,12 @@ export class ProduitGenerique extends HTMLElement {
             /*margin: 3%;*/
             width: 20px;
             height: 20px;
+        }
+
+        .etoile, label {
+            display: flex;
+            justify-content: center; /* Centre horizontalement */
+            align-items: center; /* Centre verticalement */
         }
         .etoile, .prix {
             display: inline-block;
@@ -56,7 +72,8 @@ export class ProduitGenerique extends HTMLElement {
         }
         .flex {
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* Centre horizontalement */
+            align-items: center; /* Centre verticalement */
             padding: 3%;
         }
         .solde {
