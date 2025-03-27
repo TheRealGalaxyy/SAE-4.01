@@ -44,7 +44,7 @@ async function recupDonnees() {
 
 async function afficherLesProduits(produits) {
   //Fonction qui affiche les produits commandés avec leurs noms, catégories et descriptions, ajoute du meme css que sur la page d'accueil
-  const produitsDiv = document.querySelector(".produits");
+  const produitsDiv = document.querySelector(".produitsDet");
   let prixT = 0;
   produits.forEach(
     ({ nom_prod, description, path_img, prix_unit, qte_com }) => {

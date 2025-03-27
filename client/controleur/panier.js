@@ -175,10 +175,7 @@ function rempliSelect(select, array, arrayId, def) {
 }
 
 function casNulltaill(id, panier) {
-  if (panier === 17) {
-    return "";
-  }
-  return `<select  id="taille${id}"></select>`;
+  return panier === 17;
 }
 
 async function getSolde(id_prod) {
@@ -194,7 +191,14 @@ async function getSolde(id_prod) {
     });
 }
 
-async function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
+async function affichePanier(
+  panier,
+  qte,
+  taille,
+  couleur,
+  couleurId,
+  tailleId
+) {
   const prix = document.getElementById("prixTotal");
   const panierDiv = document.createElement("div");
   panierDiv.classList.add("panierElement");
@@ -202,7 +206,7 @@ async function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) 
 
   let stockAffiche = "";
   let ruptureAffiche = "color:red";
-  
+
   if (panier.stock <= 0) {
     stockAffiche = "display:none";
   } else {
@@ -213,39 +217,51 @@ async function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) 
   let prixAffiche = panier.prix_unit;
   let prixReduced = null;
   let pourcentageReduction = 0;
-  
+
   if (solde) {
     prixReduced = panier.prix_unit * (1 - solde / 100);
-    pourcentageReduction = solde; 
+    pourcentageReduction = solde;
   }
 
   panierDiv.innerHTML = `
-        <center><img id="img${id}" src="http://localhost/SAE-4.01/serveur/img/articles/${panier.path_img}" alt="image du produit"></center>
+        <center><img id="img${id}" src="http://localhost/SAE-4.01/serveur/img/articles/${
+    panier.path_img
+  }" alt="image du produit"></center>
         <p>${panier.nom_prod}</p>
         <div id="select">
             <select  id="couleur${id}"></select>
-            ${casNulltaill(id, panier.id_tail)}
+            ${
+              casNulltaill(id, panier.id_tail)
+                ? ""
+                : `<select id="taille${id}"></select>`
+            }
         </div> 
         <center>
             <div id="input_qte">Quantité : <input class="qte" id="${id}" type="number" value="${qte}"></div>
             
             <!-- Affichage du prix avec réduction si applicable -->
             <p id="prix">
-                Prix : ${prixReduced ? 
-                        `<span style="text-decoration: line-through; color: red;">${Math.round(panier.prix_unit * 100) / 100}€</span> 
+                Prix : ${
+                  prixReduced
+                    ? `<span style="text-decoration: line-through; color: red;">${
+                        Math.round(panier.prix_unit * 100) / 100
+                      }€</span> 
                         ${Math.round(prixReduced * 100) / 100}€ 
-                        <span style="color: red;">(-${pourcentageReduction}%)</span>` : 
-                        Math.round(prixAffiche * 100) / 100}
+                        <span style="color: red;">(-${pourcentageReduction}%)</span>`
+                    : Math.round(prixAffiche * 100) / 100
+                }
             </p>
 
-            <p id="stock" style="${stockAffiche}">Stock : <span id="stockValue">${panier.stock} unités</p>
+            <p id="stock" style="${stockAffiche}">Stock : <span id="stockValue">${
+    panier.stock
+  } unités</p>
             <p id="rupture" style="${ruptureAffiche}">Stock : RUPTURE DE STOCK</p>
             <div id="button">
                 <button class="del form_button" id="${id}">Supprimer</button>
             </div>
         </center>
         `;
-  
+
   document.getElementById("panier").appendChild(panierDiv);
 
   delButton(id);
@@ -266,9 +282,11 @@ async function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) 
         panier.nom_tail
       )
     : casNulltaill(id, panier.id_tail);
-  
+
   prix.innerHTML =
-    Math.round((parseFloat(prix.innerHTML) + (prixReduced || prixAffiche) * qte) * 100) / 100;
+    Math.round(
+      (parseFloat(prix.innerHTML) + (prixReduced || prixAffiche) * qte) * 100
+    ) / 100;
 
   document.getElementById(`couleur${id}`).addEventListener("change", (e) => {
     getProduit(panier.id_prod).then((response) => {
@@ -284,8 +302,6 @@ async function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) 
     });
   });
 }
-
-
 
 let produitsDansPanier = [];
 
