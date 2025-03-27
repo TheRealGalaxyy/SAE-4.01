@@ -486,8 +486,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const headerSpan = document.getElementById("header");
     headerSpan.innerHTML = `
               <div class="header">
-                  <h1 class="display-4">PM2 <span>Votre boutique en ligne</span></h1>
-                  <p class="lead">Affichez votre esprit de Noël avec fierté…<br> et une touche de mauvais goût assumé !</p>
+                  <h1 class="display-4 white">PM2 <span>Votre boutique en ligne</span></h1>
+                  <p class="lead white">Affichez votre esprit de Noël avec fierté…<br> et une touche de mauvais goût assumé !</p>
               </div>
           `;
     const contentDiv = document.getElementById("content");
