@@ -473,15 +473,16 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (window.location.search === "") {
+  if (
+    window.location.search === "" ||
+    window.location.search === "?login_success=true"
+  ) {
     const headerSpan = document.getElementById("header");
-    if (headerSpan) {
-      headerSpan.innerHTML = `
+    headerSpan.innerHTML = `
               <div class="header">
                   <h1 class="display-4">PM2 <span>Votre boutique en ligne</span></h1>
                   <p class="lead">Faites briller les fêtes avec nos pulls moches et accessoires de Noël qui vont faire sensation !</p>
               </div>
           `;
-    }
   }
 });

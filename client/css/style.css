@@ -238,7 +238,9 @@ table {
   margin: 5%;
 }
 
-table tr, table th, table td {
+table tr,
+table th,
+table td {
   padding: 5px;
   border: 1px solid black;
   border-radius: 4px;
@@ -753,4 +755,27 @@ input[type='number'].qte {
   100% {
     transform: translateX(-100%);
   }
+}
+
+#cookieModal div div {
+  background-color: #5f8755;
+  font-size: 16px !important;
+  color: white !important;
+}
+
+#cookieModal p,
+#cookieModal a {
+  background-color: #5f8755;
+  font-size: 16px !important;
+  color: white !important;
+}
+
+button {
+  background-color: #5f8755 !important;
+  border: 0px !important;
+}
+
+#cookieModal button {
+  background-color: #206f47 !important;
+  border: 0px !important;
 }
