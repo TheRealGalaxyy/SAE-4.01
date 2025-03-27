@@ -186,7 +186,7 @@ function register() {
 			}
 
 			// Echec
-			msgErreur.innerHTML = data.message;
+			msgErreur.innerHTML = data.message.split(":")[data.message.split(":").length - 1];
 			msgErreur.style.display = "block";
 			setTimeout(() => {
 				msgErreur.style.display = "none";
