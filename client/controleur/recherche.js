@@ -247,7 +247,7 @@ if (idCategorie) {
     lstTaille.push(taille);
   });
 
-  console.log("Taille/Categ : ", lstTaille);
+  // console.log("Taille/Categ : ", lstTaille);
 
   fetch("http://localhost/SAE-4.01/serveur/api/getTailles.php")
     .then((reponse) => reponse.json())
@@ -271,7 +271,7 @@ if (idCategorie) {
     lstCouleur.push(couleur);
   });
 
-  console.log("Couleur/Categ : ", lstCouleur);
+  // console.log("Couleur/Categ : ", lstCouleur);
 
   fetch("http://localhost/SAE-4.01/serveur/api/getCouleurs.php")
     .then((reponse) => reponse.json())

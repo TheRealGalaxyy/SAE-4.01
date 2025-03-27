@@ -199,11 +199,11 @@ function produitsTaille(idTaille, data) {
   data.forEach((produit) => {
     if (produit.id_tail == idTaille) dejaSortit.push(produit);
   });
-  console.log(dejaSortit);
-  dejaSortit = dejaSortit.filter((produit, index, self) => {
-    return index === self.findIndex((p) => p.id_prod === produit.id_prod);
-  });
-  console.log(dejaSortit);
+  // console.log(dejaSortit);
+  // dejaSortit = dejaSortit.filter((produit, index, self) => {
+  //   return index === self.findIndex((p) => p.id_prod === produit.id_prod);
+  // });
+  // console.log(dejaSortit);
   return dejaSortit;
 }
 
@@ -309,8 +309,22 @@ async function imprimerTousLesProduits(produits) {
 
   if (couleur) {
     produits = produitsCouleur(couleur, produits);
-  }
+  } else {
+    // Retrait doublon
+    const mapProd1 = new Map();
 
+    for (let i = produits.length - 1; i >= 0; i--) {
+      const element = produits[i];
+      const key = element.nom_prod + "-" + element.id_tail;
+
+      if (!mapProd1.has(key)) {
+        mapProd1.set(key, element);
+      } else {
+        produits.splice(i, 1);
+      }
+    }
+  }
+  // console.log(produits);
   produits.sort((a, b) => a.id_prod - b.id_prod);
 
   const listeProd = document.querySelector(".produits");
