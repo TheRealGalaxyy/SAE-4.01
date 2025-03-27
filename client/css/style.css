@@ -798,6 +798,10 @@ button {
   border: 0px !important;
 }
 
+.toggle-password {
+  background-color: transparent !important;
+}
+
 #cookieModal button {
   background-color: #206f47 !important;
   border: 0px !important;
