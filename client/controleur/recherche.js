@@ -41,7 +41,7 @@ boutonRechercher.classList.add("col-sm-12");
 // xs, sm, md, lg, xl
 
 async function getInfoProd() {
-  return await fetch("http://localhost/SAE-4.01/serveur/api/getProduits.php", {
+  return await fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getProduits.php", {
     method: "POST",
     body: new URLSearchParams({}),
   }).then((reponse) => reponse.json());
@@ -82,19 +82,19 @@ async function fillMaps() {
 
 fetchSpecification(
   selectCategorie,
-  "http://localhost/SAE-4.01/serveur/api/getCategories.php",
+  "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getCategories.php",
   "Catégorie",
   "idCategorie"
 );
 fetchSpecification(
   selectCouleur,
-  "http://localhost/SAE-4.01/serveur/api/getCouleurs.php",
+  "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getCouleurs.php",
   "Couleur",
   "idCouleur"
 );
 fetchSpecification(
   selectTaille,
-  "http://localhost/SAE-4.01/serveur/api/getTailles.php",
+  "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getTailles.php",
   "Taille",
   "idTaille"
 );
@@ -180,7 +180,7 @@ function traiterChaine(barreRecherche) {
 }
 
 function loadProduits() {
-  fetch("http://localhost/SAE-4.01/serveur/api/getProduits.php").then(
+  fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getProduits.php").then(
     (reponse) =>
       reponse.json().then((data) => {
         const prod_cat = data.data.filter(
@@ -194,7 +194,7 @@ function loadProduits() {
         });
         couleur = couleur.filter((v, i, a) => a.indexOf(v) === i);
         taille = taille.filter((v, i, a) => a.indexOf(v) === i);
-        fetch("http://localhost/SAE-4.01/serveur/api/getCouleurs.php").then(
+        fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getCouleurs.php").then(
           (reponse) =>
             reponse.json().then((data) => {
               const nom_couleur = data.data.filter((couleu) =>
@@ -209,7 +209,7 @@ function loadProduits() {
               );
             })
         );
-        fetch("http://localhost/SAE-4.01/serveur/api/getTailles.php").then(
+        fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getTailles.php").then(
           (reponse) =>
             reponse.json().then((data) => {
               const nom_tail = data.data.filter((taill) =>
@@ -249,7 +249,7 @@ if (idCategorie) {
 
   // console.log("Taille/Categ : ", lstTaille);
 
-  fetch("http://localhost/SAE-4.01/serveur/api/getTailles.php")
+  fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getTailles.php")
     .then((reponse) => reponse.json())
     .then((data) => {
       // console.log(data.data);
@@ -273,7 +273,7 @@ if (idCategorie) {
 
   // console.log("Couleur/Categ : ", lstCouleur);
 
-  fetch("http://localhost/SAE-4.01/serveur/api/getCouleurs.php")
+  fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getCouleurs.php")
     .then((reponse) => reponse.json())
     .then((data) => {
       // console.log(data.data);

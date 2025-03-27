@@ -10,7 +10,7 @@ async function afficherInfos() {
         window.location.href = 'accueil.html'; //Si le cookie est vide, l'utilisateur n'est pas connecté donc on retourne à l'accueil.
     }
     try {
-        const response = await fetch("http://localhost/SAE-4.01/serveur/api/getUser.php", {
+        const response = await fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getUser.php", {
             method: "POST",
             body: new URLSearchParams({
                 id_us: cookieValue,

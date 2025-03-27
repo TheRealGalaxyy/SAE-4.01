@@ -1,0 +1,8 @@
+Logins compte client 
+
+Compte 1 : 
+- login : client
+- mot de passe : Client1!
+Compte 2 : 
+- login : client2
+- mot de passe : Client2!

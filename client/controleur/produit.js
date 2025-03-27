@@ -208,7 +208,7 @@ class ProduitDetail extends HTMLElement {
 customElements.define("produit-detail", ProduitDetail);
 
 async function getSolde(id_prod) {
-  return fetch("http://localhost/SAE-4.01/serveur/api/getSolde.php", {
+  return fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getSolde.php", {
     method: "POST",
     body: new URLSearchParams({ id_prod: id_prod }),
   })
@@ -221,7 +221,7 @@ async function getSolde(id_prod) {
 }
 
 async function AfficherProd() {
-  return fetch("http://localhost/SAE-4.01/serveur/api/getProduit.php", {
+  return fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getProduit.php", {
     method: "POST",
     body: new URLSearchParams({
       id_prod: new URLSearchParams(window.location.search).get("id"), // id_prod
@@ -284,7 +284,7 @@ async function imprimerSelectionCouleur(produits) {
 
     if (produit) {
       let path = produit.path_img
-        ? "http://localhost/SAE-4.01/serveur/img/articles/" + produit.path_img
+        ? "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/img/articles/" + produit.path_img
         : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
       const qte = root.querySelector("#nbrCommande").value;
@@ -426,7 +426,7 @@ async function imprimerSelectionTaille(produits) {
 
 async function imprimerProduit(produit) {
   let path = produit.path_img
-    ? "http://localhost/SAE-4.01/SAE_401/serveur/img/articles/" +
+    ? "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/SAE_401/serveur/img/articles/" +
       produit.path_img
     : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
@@ -513,7 +513,7 @@ function boutonCommander(id_produit) {
     const erreur = root.getElementById("erreur");
 
     if (quantiteCommandeeValide(nbCommandee, stock)) {
-      fetch("http://localhost/SAE-4.01/serveur/api/newPanier.php", {
+      fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/newPanier.php", {
         method: "POST",
         body: new URLSearchParams({
           id_us: cookieValue,

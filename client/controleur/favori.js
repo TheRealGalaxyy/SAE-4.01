@@ -9,7 +9,7 @@ import { imprimerUnProduit } from "./accueil.js";
 const id_us = cookieValue; // A changer en cookieValue
 
 async function getFavori(id_us) {
-    return await fetch("http://localhost/SAE-4.01/serveur/api/getFavori.php", {
+    return await fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getFavori.php", {
             method: "POST",
             body: new URLSearchParams({
                 id_us: id_us,
@@ -27,7 +27,9 @@ async function afficherFavoris(produits) {
         const produitElement = await imprimerUnProduit(produit);
         
         listeFav.appendChild(produitElement);
-        produitElement.shadowRoot.querySelector("label").querySelector("img").src = "img/icones/star_plein.png";
+        produitElement.children[0].shadowRoot
+        .querySelector("label")
+        .querySelector("img").src = "img/icones/star_plein.png";
     };
 }
 
@@ -40,7 +42,7 @@ function btn() {
 
             //console.log("ptdr mais c'est quoi ce truc");
             // console.log(event.target.id);
-            fetch("http://localhost/SAE-4.01/serveur/api/delFavori.php", {
+            fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/delFavori.php", {
                 method: "POST",
                 body: new URLSearchParams({
                     id_us: id_us,
@@ -63,7 +65,7 @@ getFavori(id_us).then(() => {
 });
 
 document.getElementById("clear").addEventListener("click", () => {
-    fetch("http://localhost/SAE-4.01/serveur/api/clearFavori.php", {
+    fetch("https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/clearFavori.php", {
         method: "POST",
         body: new URLSearchParams({
             id_us: id_us,
