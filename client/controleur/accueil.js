@@ -283,20 +283,6 @@ async function imprimerTousLesProduits(produits) {
   const couleur = urlParams.get("idCouleur");
   const id_us = cookieValue;
 
-  let spanSoldes = document.getElementById("soldes");
-  spanSoldes.innerHTML = "🔖 <strong>Soldes : </strong>";
-
-  for (let produit of produits) {
-    let solde = await getSolde(produit["id_prod"]);
-    if (solde) {
-      spanSoldes.innerHTML += `<strong>
-${produit.nom_prod} - ${Math.round(solde * 100) / 100}%, </strong>`;
-    }
-  }
-
-  spanSoldes.innerHTML = spanSoldes.innerHTML.replace(/, $/, "") + "🔖";
-  spanSoldes.innerHTML += "";
-
   if (recherche) {
     produits = produitsRecherche(recherche, produits);
   }
@@ -338,6 +324,26 @@ ${produit.nom_prod} - ${Math.round(solde * 100) / 100}%, </strong>`;
       }
     }
   }
+
+  // Bandeau déffilant
+  let spanSoldes = document.getElementById("soldes");
+  let textSolde = "";
+  spanSoldes.innerHTML = "🔖 <strong>Soldes : </strong>";
+
+  for (let produit of produits) {
+    let solde = await getSolde(produit["id_prod"]);
+    if (solde) {
+      textSolde += `<strong>
+${produit.nom_prod} - ${Math.round(solde * 100) / 100}%, </strong>`;
+    }
+  }
+  if(textSolde.length > 0) {
+    spanSoldes.innerHTML += textSolde;
+    spanSoldes.innerHTML = spanSoldes.innerHTML.replace(/, $/, "") + "🔖";
+  }else{
+    spanSoldes.innerHTML = "<strong>Pas de soldes actuellement</strong>";
+  }
+
   // console.log(produits);
   produits.sort((a, b) => a.id_prod - b.id_prod);
 
