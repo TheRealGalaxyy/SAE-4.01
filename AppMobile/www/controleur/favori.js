@@ -9,7 +9,7 @@ import { imprimerUnProduit } from "./accueil.js";
 const id_us = cookieValue; // A changer en cookieValue
 
 async function getFavori(id_us) {
-  return await fetch("http://192.168.1.97/SAE-4.01/serveur/api/getFavori.php", {
+  return await fetch("http://10.0.2.2/SAE-4.01/serveur/api/getFavori.php", {
     method: "POST",
     body: new URLSearchParams({
       id_us: id_us,
@@ -42,7 +42,7 @@ function btn() {
     button.addEventListener("click", (event) => {
       //console.log("ptdr mais c'est quoi ce truc");
       // console.log(event.target.id);
-      fetch("http://192.168.1.97/SAE-4.01/serveur/api/delFavori.php", {
+      fetch("http://10.0.2.2/SAE-4.01/serveur/api/delFavori.php", {
         method: "POST",
         body: new URLSearchParams({
           id_us: id_us,
@@ -65,7 +65,7 @@ getFavori(id_us).then(() => {
 });
 
 document.getElementById("clear").addEventListener("click", () => {
-  fetch("http://192.168.1.97/SAE-4.01/serveur/api/clearFavori.php", {
+  fetch("http://10.0.2.2/SAE-4.01/serveur/api/clearFavori.php", {
     method: "POST",
     body: new URLSearchParams({
       id_us: id_us,

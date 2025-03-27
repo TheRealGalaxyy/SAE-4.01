@@ -164,7 +164,7 @@ class ProduitDetail extends HTMLElement {
 
 customElements.define("produit-detail", ProduitDetail);
 async function AfficherProd() {
-  return fetch("http://192.168.1.97/SAE-4.01/serveur/api/getProduit.php", {
+  return fetch("http://10.0.2.2/SAE-4.01/serveur/api/getProduit.php", {
     method: "POST",
 
     body: new URLSearchParams({
@@ -227,8 +227,7 @@ function imprimerSelectionCouleur(produits) {
 
     if (produit) {
       let path = produit.path_img
-        ? "http://192.168.1.97/SAE-4.01/serveur/img/articles/" +
-          produit.path_img
+        ? "http://10.0.2.2/SAE-4.01/serveur/img/articles/" + produit.path_img
         : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
       root.querySelector(".img_prod").setAttribute("src", path);
@@ -305,7 +304,7 @@ function imprimerSelectionTaille(produits) {
 
 async function imprimerProduit(produit) {
   let path = produit.path_img
-    ? "http://192.168.1.97/SAE-4.01/SAE_401/serveur/img/articles/" +
+    ? "http://10.0.2.2/SAE-4.01/SAE_401/serveur/img/articles/" +
       produit.path_img
     : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
@@ -367,7 +366,7 @@ function boutonCommander(id_produit) {
     const couleurID = couleurSelect.options[couleurSelect.selectedIndex].value;
 
     if (quantiteCommandeeValide(nbCommandee, stock)) {
-      fetch("http://192.168.1.97/SAE-4.01/serveur/api/newPanier.php", {
+      fetch("http://10.0.2.2/SAE-4.01/serveur/api/newPanier.php", {
         method: "POST",
         body: new URLSearchParams({
           id_us: cookieValue,

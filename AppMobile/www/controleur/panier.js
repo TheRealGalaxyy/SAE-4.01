@@ -5,7 +5,7 @@ if (cookieValue === undefined) {
 }
 
 async function getPanier(id_us) {
-  return await fetch("http://192.168.1.97/SAE-4.01/serveur/api/getPanier.php", {
+  return await fetch("http://10.0.2.2/SAE-4.01/serveur/api/getPanier.php", {
     method: "POST",
     body: new URLSearchParams({
       id_us: id_us,
@@ -16,15 +16,12 @@ async function getPanier(id_us) {
 }
 
 async function getProduit(id_produit) {
-  return await fetch(
-    "http://192.168.1.97/SAE-4.01/serveur/api/getProduit.php",
-    {
-      method: "POST",
-      body: new URLSearchParams({
-        id_prod: id_produit,
-      }),
-    }
-  );
+  return await fetch("http://10.0.2.2/SAE-4.01/serveur/api/getProduit.php", {
+    method: "POST",
+    body: new URLSearchParams({
+      id_prod: id_produit,
+    }),
+  });
 }
 
 function findId(id, array) {
@@ -46,7 +43,7 @@ function delButton(id) {
     const id_tail = e.target.id.split("|")[2];
     // console.log(e.target.id)
     // console.log(id_prod, id_col, id_tail);
-    fetch("http://192.168.1.97/SAE-4.01/serveur/api/delPanier.php", {
+    fetch("http://10.0.2.2/SAE-4.01/serveur/api/delPanier.php", {
       method: "POST",
       body: new URLSearchParams({
         id_us: id_us,
@@ -123,7 +120,7 @@ function ChangerInfoProd(id, e) {
   // console.log("qte_pan",qte_pan);
   // console.log("new_id_col",new_id_col);
   // console.log("new_id_tail",new_id_tail);
-  fetch("http://192.168.1.97/SAE-4.01/serveur/api/setPanier.php", {
+  fetch("http://10.0.2.2/SAE-4.01/serveur/api/setPanier.php", {
     method: "POST",
     body: new URLSearchParams({
       id_us: id_us,
@@ -188,7 +185,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
   }
   panierDiv.innerHTML = `
 
-        <center><img id="img${id}" src="http://192.168.1.97/SAE-4.01/serveur/img/articles/${
+        <center><img id="img${id}" src="http://10.0.2.2/SAE-4.01/serveur/img/articles/${
     panier.path_img
   }" alt="image du produit"></center>
         <p>${panier.nom_prod}</p>
@@ -241,7 +238,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
           if (element.nom_col === e.target.value) {
             document.getElementById(
               `img${id}`
-            ).src = `http://192.168.1.97/SAE-4.01/serveur/img/articles/${element.path_img}`;
+            ).src = `http://10.0.2.2/SAE-4.01/serveur/img/articles/${element.path_img}`;
           }
         });
       });
@@ -307,7 +304,7 @@ async function appelPanier() {
 
 // Attach payer to the window object
 window.payer = function () {
-  fetch("http://192.168.1.97/SAE-4.01/serveur/api/payer.php", {
+  fetch("http://10.0.2.2/SAE-4.01/serveur/api/payer.php", {
     method: "POST",
     body: new URLSearchParams({
       id_us: id_us,
@@ -316,7 +313,7 @@ window.payer = function () {
     reponse.json().then((data) => {
       if (data.status == "success") {
         console.log("paiement réussi");
-        fetch("http://192.168.1.97/SAE-4.01/serveur/api/clearPanier.php", {
+        fetch("http://10.0.2.2/SAE-4.01/serveur/api/clearPanier.php", {
           method: "POST",
           body: new URLSearchParams({
             id_us: id_us,

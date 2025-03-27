@@ -11,7 +11,7 @@ if (!isConnected()) {
 async function affInfos() {
   //requete API pour récupérer les infos de l'utilisateur
   const reponse = await fetch(
-    "http://192.168.1.97/SAE-4.01/serveur/api/getCommandes.php",
+    "http://10.0.2.2/SAE-4.01/serveur/api/getCommandes.php",
     {
       method: "POST",
       body: new URLSearchParams({

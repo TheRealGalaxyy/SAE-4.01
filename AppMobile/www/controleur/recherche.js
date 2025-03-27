@@ -41,13 +41,10 @@ boutonRechercher.classList.add("col-sm-12");
 // xs, sm, md, lg, xl
 
 async function getInfoProd() {
-  return await fetch(
-    "http://192.168.1.97/SAE-4.01/serveur/api/getProduits.php",
-    {
-      method: "POST",
-      body: new URLSearchParams({}),
-    }
-  ).then((reponse) => reponse.json());
+  return await fetch("http://10.0.2.2/SAE-4.01/serveur/api/getProduits.php", {
+    method: "POST",
+    body: new URLSearchParams({}),
+  }).then((reponse) => reponse.json());
 }
 async function fillMaps() {
   var tailleByCategorie = new Map();
@@ -85,19 +82,19 @@ async function fillMaps() {
 
 fetchSpecification(
   selectCategorie,
-  "http://192.168.1.97/SAE-4.01/serveur/api/getCategories.php",
+  "http://10.0.2.2/SAE-4.01/serveur/api/getCategories.php",
   "Catégorie",
   "idCategorie"
 );
 fetchSpecification(
   selectCouleur,
-  "http://192.168.1.97/SAE-4.01/serveur/api/getCouleurs.php",
+  "http://10.0.2.2/SAE-4.01/serveur/api/getCouleurs.php",
   "Couleur",
   "idCouleur"
 );
 fetchSpecification(
   selectTaille,
-  "http://192.168.1.97/SAE-4.01/serveur/api/getTailles.php",
+  "http://10.0.2.2/SAE-4.01/serveur/api/getTailles.php",
   "Taille",
   "idTaille"
 );
@@ -183,7 +180,7 @@ function traiterChaine(barreRecherche) {
 }
 
 function loadProduits() {
-  fetch("http://192.168.1.97/SAE-4.01/serveur/api/getProduits.php").then(
+  fetch("http://10.0.2.2/SAE-4.01/serveur/api/getProduits.php").then(
     (reponse) =>
       reponse.json().then((data) => {
         const prod_cat = data.data.filter(
@@ -197,7 +194,7 @@ function loadProduits() {
         });
         couleur = couleur.filter((v, i, a) => a.indexOf(v) === i);
         taille = taille.filter((v, i, a) => a.indexOf(v) === i);
-        fetch("http://192.168.1.97/SAE-4.01/serveur/api/getCouleurs.php").then(
+        fetch("http://10.0.2.2/SAE-4.01/serveur/api/getCouleurs.php").then(
           (reponse) =>
             reponse.json().then((data) => {
               const nom_couleur = data.data.filter((couleu) =>
@@ -212,7 +209,7 @@ function loadProduits() {
               );
             })
         );
-        fetch("http://192.168.1.97/SAE-4.01/serveur/api/getTailles.php").then(
+        fetch("http://10.0.2.2/SAE-4.01/serveur/api/getTailles.php").then(
           (reponse) =>
             reponse.json().then((data) => {
               const nom_tail = data.data.filter((taill) =>
@@ -250,9 +247,9 @@ if (idCategorie) {
     lstTaille.push(taille);
   });
 
-  console.log("Taille/Categ : ", lstTaille);
+  // console.log("Taille/Categ : ", lstTaille);
 
-  fetch("http://192.168.1.97/SAE-4.01/serveur/api/getTailles.php")
+  fetch("http://10.0.2.2/SAE-4.01/serveur/api/getTailles.php")
     .then((reponse) => reponse.json())
     .then((data) => {
       // console.log(data.data);
@@ -274,9 +271,9 @@ if (idCategorie) {
     lstCouleur.push(couleur);
   });
 
-  console.log("Couleur/Categ : ", lstCouleur);
+  // console.log("Couleur/Categ : ", lstCouleur);
 
-  fetch("http://192.168.1.97/SAE-4.01/serveur/api/getCouleurs.php")
+  fetch("http://10.0.2.2/SAE-4.01/serveur/api/getCouleurs.php")
     .then((reponse) => reponse.json())
     .then((data) => {
       // console.log(data.data);

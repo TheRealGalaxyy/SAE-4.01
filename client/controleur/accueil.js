@@ -1,4 +1,6 @@
 import { cookieValue, isConnected } from "./function.js";
+
+console.log("ACCUEIL");
 export class ProduitGenerique extends HTMLElement {
   constructor() {
     super();
@@ -440,5 +442,20 @@ window.addEventListener("DOMContentLoaded", (event) => {
       modal.style.display = "none";
       modal.setAttribute("aria-hidden", "true");
     });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.location.search === "") {
+    const headerSpan = document.getElementById("header");
+    if (headerSpan) {
+      console.log("On ajoute");
+      headerSpan.innerHTML = `
+              <div class="header">
+                  <h1 class="display-4">PM2 <span>Votre boutique en ligne</span></h1>
+                  <p class="lead">Faites briller les fêtes avec nos pulls moches et accessoires de Noël qui vont faire sensation !</p>
+              </div>
+          `;
+    }
   }
 });

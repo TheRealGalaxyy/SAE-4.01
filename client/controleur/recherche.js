@@ -37,7 +37,6 @@ selectTaille.classList.add("col-xl-1");
 selectTaille.classList.add("col-sm-2");
 boutonRechercher.classList.add("col-xl-1");
 boutonRechercher.classList.add("col-sm-12");
-console.log(boutonRechercher);
 
 // xs, sm, md, lg, xl
 
