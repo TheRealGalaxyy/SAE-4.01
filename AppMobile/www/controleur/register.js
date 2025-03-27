@@ -126,7 +126,7 @@ function register() {
     date_naiss: values[5],
   };
   console.log(user);
-  fetch("http://192.168.1.97/SAE-4.01/serveur/api/newUser.php", {
+  fetch("http://10.0.2.2/SAE-4.01/serveur/api/newUser.php", {
     method: "POST",
     body: new URLSearchParams({
       nom: user.nom,
@@ -142,7 +142,7 @@ function register() {
       console.log(data);
       if (data.status == "success") {
         // L'Authentification a réussi
-        fetch("http://192.168.1.97/SAE-4.01/serveur/api/connexion.php", {
+        fetch("http://10.0.2.2/SAE-4.01/serveur/api/connexion.php", {
           method: "POST",
           body: new URLSearchParams({
             login: user.login,

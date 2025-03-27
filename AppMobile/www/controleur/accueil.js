@@ -1,4 +1,16 @@
 import { cookieValue, isConnected } from "./function.js";
+document.addEventListener(
+  "deviceready",
+  function () {
+    console.log("ACCUEIL");
+    console.log("ACCUEIL1");
+    console.log("ACCUEIL1");
+    console.log("ACCUEIL2");
+    console.log("ACCUEIL3");
+  },
+  false
+);
+
 export class ProduitGenerique extends HTMLElement {
   constructor() {
     super();
@@ -115,9 +127,8 @@ function afficherTousLesProduits() {
   const couleur = urlParams.get("idCouleur");
 
   const produitGenerique =
-    "http://192.168.1.97/SAE-4.01/serveur/api/getGenericProduits.php";
-  const produitComplet =
-    "http://192.168.1.97/SAE-4.01/serveur/api/getProduits.php";
+    "http://10.0.2.2/SAE-4.01/serveur/api/getGenericProduits.php";
+  const produitComplet = "http://10.0.2.2/SAE-4.01/serveur/api/getProduits.php";
   const url = taille || couleur ? produitComplet : produitGenerique;
   // console.log("bool");
   // console.log(taille || couleur ? true : false);
@@ -191,7 +202,7 @@ function produitsTaille(idTaille, data) {
 
 export async function imprimerUnProduit(produit) {
   let path = produit["path_img"]
-    ? "http://192.168.1.97/SAE-4.01/serveur/img/articles/" + produit["path_img"]
+    ? "http://10.0.2.2/SAE-4.01/serveur/img/articles/" + produit["path_img"]
     : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
   let produitElement = document.createElement("produit-generique");
@@ -229,7 +240,7 @@ export async function imprimerUnProduit(produit) {
 }
 
 async function getSolde(id_prod) {
-  return fetch("http://192.168.1.97/SAE-4.01/serveur/api/getSolde.php", {
+  return fetch("http://10.0.2.2/SAE-4.01/serveur/api/getSolde.php", {
     method: "POST",
     body: new URLSearchParams({ id_prod: id_prod }),
   })
@@ -323,7 +334,7 @@ if (btn) {
 }
 
 export async function getFavori(id_us) {
-  return await fetch("http://192.168.1.97/SAE-4.01/serveur/api/getFavori.php", {
+  return await fetch("http://10.0.2.2/SAE-4.01/serveur/api/getFavori.php", {
     method: "POST",
     body: new URLSearchParams({
       id_us: id_us,
@@ -334,7 +345,7 @@ export async function getFavori(id_us) {
 }
 
 export function ajouterFavori(event, id_us) {
-  fetch("http://192.168.1.97/SAE-4.01/serveur/api/newFavori.php", {
+  fetch("http://10.0.2.2/SAE-4.01/serveur/api/newFavori.php", {
     method: "POST",
     body: new URLSearchParams({
       id_us: id_us,
@@ -344,7 +355,7 @@ export function ajouterFavori(event, id_us) {
 }
 
 export function supprimerFavori(event, id_us) {
-  fetch("http://192.168.1.97/SAE-4.01/serveur/api/delFavori.php", {
+  fetch("http://10.0.2.2/SAE-4.01/serveur/api/delFavori.php", {
     method: "POST",
     body: new URLSearchParams({
       id_us: id_us,

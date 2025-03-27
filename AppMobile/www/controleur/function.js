@@ -7,23 +7,34 @@ export function isConnected() {
   return cookieValue !== undefined;
 }
 
-function printHeader() {
+async function printHeader() {
   const header = document.querySelector("#printHeader");
   const connected = isConnected();
 
   let navLinks = `
-    <a href='./accueil.html'>Accueil</a>
+    <a href='./accueil.html'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+  <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+</svg></a>
     
   `;
-
   if (connected) {
+    const user = await getUser();
     navLinks += `
-    <img src='./img/icones/user-icon.png' class='logo' alt='Icone de connexion'>
-    <a href='./historique.html'>Historique</a>
-    <a href='./panier.html'>Panier</a>
-    <a href='./favori.html'>Favoris</a>
-    <a href='./compte.html'>Compte</a>
-    <a href='./logout.html'>Déconnexion</a>
+    <a href='./historique.html'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
+  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+  <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+</svg></a>
+    <a href='./panier.html'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket2-fill" viewBox="0 0 16 16">
+  <path d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1"/>
+</svg></a>
+    <a href='./favori.html'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+</svg></a>
+    <a href='./compte.html'>${user.nom_us}</a>
+    <a href='./logout.html'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-closed" viewBox="0 0 16 16">
+  <path d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3zm1 13h8V2H4z"/>
+  <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/>
+</svg></a>
     `;
   } else {
     navLinks += `
@@ -128,6 +139,25 @@ function printFooter() {
     <p>Paul Muller Pulls Moches - Site de vente  </p>
     <a id=mentionsLeg href="./mentionsLegal.html">Mentions Légales</a>
     `;
+}
+
+async function getUser() {
+  try {
+    const response = await fetch(
+      "http://localhost/SAE-4.01/serveur/api/getUser.php",
+      {
+        method: "POST",
+        body: new URLSearchParams({
+          id_us: cookieValue,
+        }),
+      }
+    );
+
+    const data = await response.json();
+    return data.data[0];
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 printHeader();

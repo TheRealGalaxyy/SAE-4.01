@@ -26,7 +26,7 @@ async function authentifier() {
     return;
   }
   const reponse = await fetch(
-    "http://192.168.1.97/SAE-4.01/serveur/api/connexion.php",
+    "http://10.0.2.2/SAE-4.01/serveur/api/connexion.php",
     {
       method: "POST",
       body: new URLSearchParams({

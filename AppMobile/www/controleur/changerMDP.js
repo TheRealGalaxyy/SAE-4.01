@@ -79,7 +79,7 @@ function ConfirmerMDP(mdpOK) {
   alertMdpNonCorrespondant.style.display = "none";
 
   if (motDePasse.value.trim() === confimation.value.trim() && mdpOK) {
-    fetch("http://192.168.1.97/SAE-4.01/serveur/api/changerMDP.php", {
+    fetch("http://10.0.2.2/SAE-4.01/serveur/api/changerMDP.php", {
       method: "POST",
       body: new URLSearchParams({
         id_us: cookieValue,

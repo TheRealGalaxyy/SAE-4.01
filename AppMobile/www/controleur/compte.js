@@ -10,7 +10,7 @@ async function afficherInfos() {
   }
   try {
     const response = await fetch(
-      "http://192.168.1.97/SAE-4.01/serveur/api/getUser.php",
+      "http://10.0.2.2/SAE-4.01/serveur/api/getUser.php",
       {
         method: "POST",
         body: new URLSearchParams({

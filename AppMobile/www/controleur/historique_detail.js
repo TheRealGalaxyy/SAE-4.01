@@ -7,7 +7,7 @@ async function getCommande(id_com) {
     id_com: id_com,
   });
   const response = await fetch(
-    "http://192.168.1.97/SAE-4.01/serveur/api/getCommande.php",
+    "http://10.0.2.2/SAE-4.01/serveur/api/getCommande.php",
     { method: "POST", body }
   );
   const { data } = await response.json();
@@ -46,7 +46,7 @@ async function afficherLesProduits(produits) {
       const produitDiv = document.createElement("div");
       produitDiv.classList.add("produit");
       let path = path_img
-        ? "http://192.168.1.97/SAE-4.01/serveur/img/articles/" + path_img
+        ? "http://10.0.2.2/SAE-4.01/serveur/img/articles/" + path_img
         : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
       let prix = prix_unit * qte_com;
       prixT += prix_unit * qte_com;
