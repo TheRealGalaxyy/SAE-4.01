@@ -110,7 +110,7 @@ export class ProduitGenerique extends HTMLElement {
             style="height: 210px; display: block; margin: 0 auto;"  />
             <div class="stock" style="${this.getAttribute(
               "stockAffiche"
-            )}" >&nbsp&nbsp${this.getAttribute("stock")} unités restantes</div>
+            )}" >&nbsp&nbsp${this.getAttribute("prix")}€</div>
             <div class="rupture" style="${this.getAttribute(
               "ruptureAffiche"
             )}" >&nbsp&nbspRUPTURE DE STOCK</div>
@@ -226,6 +226,7 @@ export async function imprimerUnProduit(produit) {
   produitElement.setAttribute("id_col", produit["id_col"]);
   produitElement.setAttribute("path_img", path);
   produitElement.setAttribute("stock", produit["stock_general"]);
+  produitElement.setAttribute("prix", produit["prix_unit"]);
 
   if (produit["stock_general"] == 0) {
     produitElement.setAttribute("stockAffiche", "display:none");
@@ -486,8 +487,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const headerSpan = document.getElementById("header");
     headerSpan.innerHTML = `
               <div class="header">
-                  <h1 class="display-4">PM2 <span>Votre boutique en ligne</span></h1>
-                  <p class="lead">Affichez votre esprit de Noël avec fierté…<br> et une touche de mauvais goût assumé !</p>
+                  <h1 class="display-4 white">PM2 <span>Votre boutique en ligne</span></h1>
+                  <p class="lead white">Affichez votre esprit de Noël avec fierté…<br> et une touche de mauvais goût assumé !</p>
               </div>
           `;
     const contentDiv = document.getElementById("content");

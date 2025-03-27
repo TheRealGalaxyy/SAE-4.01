@@ -23,7 +23,7 @@ input[type="number"] {
 }
 
 body {
-  background: #eaeded !important;
+  background: #e3e6e6 !important;
   font-family: Helvetica;
   margin: 0;
   padding: 0;
@@ -56,6 +56,20 @@ body {
   z-index: -1;
 }
 
+header.sticky {
+  position: relative; /* Définit un contexte pour l'image */
+  z-index: 1; /* Assure que le header reste derrière l'image */
+}
+
+#btn_deroul_recherche {
+  position: absolute; /* Permet de positionner l'image au-dessus */
+  top: 0px; /* Ajustez cette valeur pour déplacer l'image au-dessus du header */
+  left: 10px; /* Ajustez cette valeur pour positionner horizontalement */
+  z-index: 10; /* Place l'image au-dessus du header */
+  width: 50px; /* Ajustez la taille si nécessaire */
+  height: auto;
+}
+
 .header::before {
   content: "";
   position: absolute;
@@ -77,10 +91,14 @@ body {
 .header a,
 h1 {
   max-width: 500px;
-  color: white;
+  color: rgb(0, 0, 0);
 
   font-weight: 750;
   z-index: 2;
+}
+
+.white{
+  color: white !important;
 }
 p {
   color: #ababab;
@@ -835,46 +853,4 @@ button {
   display: block;
   margin-bottom: 8px;
   margin-left: 14vw;
-}
-
-.faq {
-  display: flex;
-  margin-top: 4vh;
-  margin-bottom: 4vh;
-  justify-content: center;
-}
-
-.faq-text {
-  margin-right: 2vw;
-}
-
-.faq h5 {
-  margin-top: 2vh;
-  max-width: 40vw;
-}
-
-.custom-faq {
-  color: #5f8755;
-}
-
-.accordion {
-  width: 40vw;
-}
-
-.custom-accordion {
-  background-color: #0f1011;
-  color: white;
-}
-
-.custom-accordion .accordion-button {
-  color: white;
-}
-
-.custom-accordion .accordion-button:not(.collapsed) {
-  color: #1f50dc;
-}
-
-.custom-accordion .accordion-body {
-  background-color: #eaeded;
-  color: black;
 }
