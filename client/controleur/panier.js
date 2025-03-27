@@ -442,7 +442,7 @@ appelPanier();
 
 document.getElementById('confirmerCommande').addEventListener('click', function () {
   const adresse = document.getElementById('adresse').value;
-  const ville = document.getElementById('ville').value;
+  const ville = document.getElementById('ville').value ;
   const codePostal = document.getElementById('codePostal').value;
   const telephone = document.getElementById('telephone').value;
 
