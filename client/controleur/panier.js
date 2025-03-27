@@ -364,10 +364,21 @@ async function appelPanier() {
 
 // Attach payer to the window object
 window.payer = function () {
+  const infosLivraison = JSON.parse(localStorage.getItem('infosLivraison'));
+
+  const adresse = infosLivraison.adresse;
+  const ville = infosLivraison.ville;
+  const codePostal = infosLivraison.codePostal;
+  const telephone = infosLivraison.telephone;
+
   fetch("http://localhost/SAE-4.01/serveur/api/payer.php", {
     method: "POST",
     body: new URLSearchParams({
       id_us: id_us,
+      adresse: adresse,
+      ville: ville,
+      codePostal: codePostal,
+      telephone: telephone,
     }),
   }).then((reponse) => {
     reponse.json().then((data) => {
@@ -428,3 +439,59 @@ document
 const id_us = cookieValue; // A changer en cookieValue
 
 appelPanier();
+
+document.getElementById('confirmerCommande').addEventListener('click', function () {
+  const adresse = document.getElementById('adresse').value;
+  const ville = document.getElementById('ville').value;
+  const codePostal = document.getElementById('codePostal').value;
+  const telephone = document.getElementById('telephone').value;
+
+  let erreurMessage = '';
+
+  if (!adresse) {
+    erreurMessage += 'L\'adresse est requise.\n';
+  }
+
+  if (!ville) {
+    erreurMessage += 'La ville est requise.\n';
+  }
+
+  const codePostalRegex = /^[0-9]{5}$/;
+  if (!codePostal || !codePostal.match(codePostalRegex)) {
+    erreurMessage += 'Le code postal doit être un nombre de 5 chiffres.\n';
+  }
+
+  const telephoneRegex = /^[0-9]{10}$/;
+  if (!telephone || !telephone.match(telephoneRegex)) {
+    erreurMessage += 'Le téléphone doit être composé de 10 chiffres.\n';
+  }
+
+  if (erreurMessage) {
+    document.getElementById('erreurMessage').innerText = erreurMessage;
+    document.getElementById('erreurMessage').style.display = 'block';
+  } else {
+    document.getElementById('erreurMessage').style.display = 'none';
+
+    const infosLivraison = {
+      adresse: adresse,
+      ville: ville,
+      codePostal: codePostal,
+      telephone: telephone
+    };
+    localStorage.setItem('infosLivraison', JSON.stringify(infosLivraison));
+
+    const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+    modal.hide();
+
+    $('#exampleModalPaypal').modal('show');
+  }
+});
+
+document.getElementById('modifierInfos').addEventListener('click', function () {
+  const modalPaypal = bootstrap.Modal.getInstance(document.getElementById('exampleModalPaypal'));
+  modalPaypal.hide();
+
+  const modalLivraison = new bootstrap.Modal(document.getElementById('exampleModal'));
+  modalLivraison.show();
+});
+
