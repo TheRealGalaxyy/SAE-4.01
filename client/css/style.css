@@ -23,7 +23,7 @@ input[type="number"] {
 }
 
 body {
-  background: whitesmoke;
+  background: rgb(238, 238, 238) !important;
   font-family: Helvetica;
   margin: 0;
   padding: 0;
@@ -33,10 +33,10 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-image: url("../img/fondSite3.jpg");
+  /* background-image: url("../img/fondSite3.jpg");
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   height: 100%;
 }
 
