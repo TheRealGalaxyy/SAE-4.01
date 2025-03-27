@@ -779,3 +779,33 @@ button {
   background-color: #206f47 !important;
   border: 0px !important;
 }
+
+.content {
+  margin-top: 10vh;
+  background-color: #5f8755;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  color: white;
+}
+
+.item {
+  text-align: center;
+  width: 30%;
+}
+
+.item svg {
+  margin-bottom: 10px;
+}
+
+.item p {
+  margin-top: 5px;
+  color: white;
+}
+
+.content .item svg {
+  display: block;
+  margin-bottom: 8px;
+  margin-left: 14vw;
+}
