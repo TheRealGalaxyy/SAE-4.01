@@ -129,7 +129,7 @@ function menuRechercheDeroulant() {
 if (document.querySelector(".recherche")) menuRechercheDeroulant();
 
 function printFooter() {
-  const footer = document.querySelector("#printFooter");
+  let footer = document.querySelector("#printFooter");
   footer.innerHTML = `
    <footer class="bg-primary text-light py-4 mt-5">
     <div class="container">
@@ -166,17 +166,6 @@ function printFooter() {
         </div>
     </div>
 </footer>    `;
-  console.log("footer");
-  const footer = document.querySelector("#printFooter");
-  footer.innerHTML = `
-  <style>
-  #mentionsLeg{
-    color: black;
-  }
-   </style>
-    <p>Paul Muller Pulls Moches - Site de vente  </p>
-    <a id=mentionsLeg href="./mentionsLegal.html">Mentions Légales</a>
-    `;
 }
 
 async function getUser() {
