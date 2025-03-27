@@ -4,6 +4,22 @@ const mdpErreurs = document.querySelectorAll('span[id^="mdpErreur"]');
 
 let mdpOK = false;
 let melOK = false;
+document.addEventListener("DOMContentLoaded", function () {
+	const toggleButton = document.getElementById("togglePassword");
+	const passwordField = document.getElementById("mdp");
+
+	if (toggleButton && passwordField) {
+		toggleButton.addEventListener("click", function () {
+			console.log("Bouton cliqué !");
+			passwordField.type =
+				passwordField.type === "password" ? "text" : "password";
+		});
+	} else {
+		console.error(
+			"Le bouton ou le champ de mot de passe est introuvable !"
+		);
+	}
+});
 
 mdpErreurs.forEach((mdpErreur) => {
 	mdpErreur.style.display = "none";
