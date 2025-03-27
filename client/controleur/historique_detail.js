@@ -58,7 +58,7 @@ async function afficherLesProduits(produits) {
       prixT += prix_unit * qte_com;
 
       produitDiv.innerHTML = `
-            <img id="img_prod" src="${path}" style="width:auto; height:150px; display:block; margin: 10px auto;">
+            <img id="img_prod" src="${path}" style="width:10vw; height:auto; display:block; margin: 10px auto;">
             <div class="detail-title">
               <h2>${nom_prod}</h2>
               <p>${description}</p>
