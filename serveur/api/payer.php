@@ -31,7 +31,7 @@ try{
     for($i = 0; $i < count($panier); $i++){
 
         $query = "UPDATE `TAILLE_COL_PROD` 
-        SET `stock` = `stock` - 1
+        SET `stock` = `stock` - :qte_pan
         WHERE `TAILLE_COL_PROD`.`id_prod` = :id_prod 
         AND `TAILLE_COL_PROD`.`id_col` = :id_col 
         AND `TAILLE_COL_PROD`.`id_taille` = :id_tail;";
@@ -39,13 +39,15 @@ try{
         $res->bindParam(":id_prod", $panier[$i]["id_prod"]);
         $res->bindParam(":id_col", $panier[$i]["id_col"]);
         $res->bindParam(":id_tail", $panier[$i]["id_tail"]);
+        $res->bindParam(":qte_pan", $panier[$i]["qte_pan"]);
         $res->execute();
 
         $query = "UPDATE `produit` 
-        SET `stock_quantity` = `stock_quantity` - 1 
+        SET `stock_quantity` = `stock_quantity` - :qte_pan 
         WHERE `produit`.`id_prod` = :id_prod;";
         $res = $db->prepare($query);
         $res->bindParam(":id_prod", $panier[$i]["id_prod"]);
+        $res->bindParam(":qte_pan", $panier[$i]["qte_pan"]);
         $res->execute();
 
         $query = "SELECT prix_unit
