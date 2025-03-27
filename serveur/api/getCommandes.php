@@ -6,7 +6,7 @@ require_once 'header.php';
 $json = [];
 
 $query =
-    "SELECT id_com, DATE_FORMAT(date_com, '%d/%m/%Y') date_com, ROUND(SUM(prix_total), 2) prix_total
+    "SELECT id_com, DATE_FORMAT(date_com, '%d/%m/%Y') date_com, ROUND(SUM(prix_total), 2) prix_total, adresse, ville, codePostal, telephone
 FROM `SELECT_COMMANDES`
 WHERE id_us = :id_us
 GROUP BY id_com";
