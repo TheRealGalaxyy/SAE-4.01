@@ -79,13 +79,16 @@ function ConfirmerMDP(mdpOK) {
   alertMdpNonCorrespondant.style.display = "none";
 
   if (motDePasse.value.trim() === confimation.value.trim() && mdpOK) {
-    fetch("http://10.0.2.2/SAE-4.01/serveur/api/changerMDP.php", {
-      method: "POST",
-      body: new URLSearchParams({
-        id_us: cookieValue,
-        mdp: motDePasse.value,
-      }),
-    }).then((response) => {
+    fetch(
+      "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/changerMDP.php",
+      {
+        method: "POST",
+        body: new URLSearchParams({
+          id_us: cookieValue,
+          mdp: motDePasse.value,
+        }),
+      }
+    ).then((response) => {
       response.json().then((data) => {
         console.log(data);
         if (data["status"] === "success") {
@@ -106,4 +109,19 @@ button.addEventListener("click", (e) => {
   e.preventDefault();
   console.log("click");
   ConfirmerMDP(mdpOK);
+});
+
+//afficher/cacher le mot de passe lorsque l'on clique sur le bouton
+const toggleNewButton = document.getElementById("toggleNewPassword");
+const passwordNew = document.getElementById("nouveauMdp");
+
+toggleNewButton.addEventListener("click", function () {
+  passwordNew.type = passwordNew.type === "password" ? "text" : "password";
+});
+
+const toggleConfButton = document.getElementById("toggleConfPassword");
+const passwordConf = document.getElementById("confirmation");
+
+toggleConfButton.addEventListener("click", function () {
+  passwordConf.type = passwordConf.type === "password" ? "text" : "password";
 });

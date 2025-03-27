@@ -5,23 +5,29 @@ if (cookieValue === undefined) {
 }
 
 async function getPanier(id_us) {
-  return await fetch("http://10.0.2.2/SAE-4.01/serveur/api/getPanier.php", {
-    method: "POST",
-    body: new URLSearchParams({
-      id_us: id_us,
-    }),
-  })
+  return await fetch(
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getPanier.php",
+    {
+      method: "POST",
+      body: new URLSearchParams({
+        id_us: id_us,
+      }),
+    }
+  )
     //.then(reponse => console.log(reponse.json()))
     .then((reponse) => reponse.json());
 }
 
 async function getProduit(id_produit) {
-  return await fetch("http://10.0.2.2/SAE-4.01/serveur/api/getProduit.php", {
-    method: "POST",
-    body: new URLSearchParams({
-      id_prod: id_produit,
-    }),
-  });
+  return await fetch(
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getProduit.php",
+    {
+      method: "POST",
+      body: new URLSearchParams({
+        id_prod: id_produit,
+      }),
+    }
+  );
 }
 
 function findId(id, array) {
@@ -43,15 +49,18 @@ function delButton(id) {
     const id_tail = e.target.id.split("|")[2];
     // console.log(e.target.id)
     // console.log(id_prod, id_col, id_tail);
-    fetch("http://10.0.2.2/SAE-4.01/serveur/api/delPanier.php", {
-      method: "POST",
-      body: new URLSearchParams({
-        id_us: id_us,
-        id_prod: id_prod,
-        id_col: id_col,
-        id_tail: id_tail,
-      }),
-    }).then((response) => {
+    fetch(
+      "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/delPanier.php",
+      {
+        method: "POST",
+        body: new URLSearchParams({
+          id_us: id_us,
+          id_prod: id_prod,
+          id_col: id_col,
+          id_tail: id_tail,
+        }),
+      }
+    ).then((response) => {
       response.json().then((json) => {
         if (json.status !== "success") {
           console.log("suppression échouée");
@@ -70,9 +79,22 @@ function modifCouleur(id) {
     .addEventListener("change", (e) => ChangerInfoProd(id, e));
 }
 
-function modifQuantite(id) {
+function modifQuantite(id, stock) {
   const quantite = findId(id, document.querySelectorAll(".qte"));
-  quantite.addEventListener("change", (e) => ChangerInfoProd(id, e));
+  let previousValue = quantite.value; // Sauvegarde de la valeur actuelle
+
+  quantite.addEventListener("change", (e) => {
+    if (e.target.value > stock) {
+      alert("La quantité demandée est supérieure au stock disponible");
+      e.target.value = previousValue; // Rétablir la valeur précédente
+    } else if (e.target.value <= 0) {
+      alert("La quantité demandée est invalide");
+      e.target.value = previousValue; // Rétablir la valeur précédente
+    } else {
+      previousValue = e.target.value; // Mettre à jour la valeur précédente
+      ChangerInfoProd(id, e);
+    }
+  });
 }
 
 function modifTaille(id) {
@@ -84,7 +106,7 @@ function modifTaille(id) {
 function ChangerInfoProd(id, e) {
   let id_prod = e.target.id.split("|")[0];
   if (id_prod.length > 1) {
-    id_prod = id_prod.split("").at(-1);
+    id_prod = id_prod.replace(/^\D+/g, ""); // Supprime tous les caractères non numériques au début
   }
   console.log("e.target = ", e.target.id.split("|"));
   console.log(id_prod);
@@ -120,18 +142,21 @@ function ChangerInfoProd(id, e) {
   // console.log("qte_pan",qte_pan);
   // console.log("new_id_col",new_id_col);
   // console.log("new_id_tail",new_id_tail);
-  fetch("http://10.0.2.2/SAE-4.01/serveur/api/setPanier.php", {
-    method: "POST",
-    body: new URLSearchParams({
-      id_us: id_us,
-      id_prod: id_prod,
-      id_col: id_col,
-      id_tail: id_tail,
-      qte_pan: qte_pan,
-      new_id_col: new_id_col,
-      new_id_tail: new_id_tail,
-    }),
-  }).then((response) => {
+  fetch(
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/setPanier.php",
+    {
+      method: "POST",
+      body: new URLSearchParams({
+        id_us: id_us,
+        id_prod: id_prod,
+        id_col: id_col,
+        id_tail: id_tail,
+        qte_pan: qte_pan,
+        new_id_col: new_id_col,
+        new_id_tail: new_id_tail,
+      }),
+    }
+  ).then((response) => {
     response.json().then((json) => {
       //console.log(json);
       if (json.status !== "success") {
@@ -139,7 +164,6 @@ function ChangerInfoProd(id, e) {
         appelPanier();
         return;
       }
-
       console.log("modif réussie");
       document.getElementById("panier").innerHTML = "";
       appelPanier();
@@ -163,13 +187,33 @@ function rempliSelect(select, array, arrayId, def) {
 }
 
 function casNulltaill(id, panier) {
-  if (panier === 17) {
-    return "";
-  }
-  return `<select  id="taille${id}"></select>`;
+  return panier === 17;
 }
 
-function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
+async function getSolde(id_prod) {
+  return fetch(
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getSolde.php",
+    {
+      method: "POST",
+      body: new URLSearchParams({ id_prod: id_prod }),
+    }
+  )
+    .then((response) => response.json())
+    .then((data) => (data.data.length > 0 ? data.data[0]["reduction"] : null))
+    .catch((error) => {
+      console.log(error);
+      return null;
+    });
+}
+
+async function affichePanier(
+  panier,
+  qte,
+  taille,
+  couleur,
+  couleurId,
+  tailleId
+) {
   const prix = document.getElementById("prixTotal");
   const panierDiv = document.createElement("div");
   panierDiv.classList.add("panierElement");
@@ -177,43 +221,70 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
 
   let stockAffiche = "";
   let ruptureAffiche = "color:red";
-  //console.log(panier)
+
   if (panier.stock <= 0) {
     stockAffiche = "display:none";
   } else {
     ruptureAffiche = "display:none";
   }
-  panierDiv.innerHTML = `
 
-        <center><img id="img${id}" src="http://10.0.2.2/SAE-4.01/serveur/img/articles/${
+  const solde = await getSolde(panier.id_prod);
+  let prixAffiche = panier.prix_unit;
+  let prixReduced = null;
+  let pourcentageReduction = 0;
+
+  if (solde) {
+    prixReduced = panier.prix_unit * (1 - solde / 100);
+    pourcentageReduction = solde;
+  }
+
+  panierDiv.innerHTML = `
+        <center><img id="img${id}" src="https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/img/articles/${
     panier.path_img
   }" alt="image du produit"></center>
         <p>${panier.nom_prod}</p>
         <div id="select">
             <select  id="couleur${id}"></select>
-            ${casNulltaill(id, panier.id_tail)}
+            ${
+              casNulltaill(id, panier.id_tail)
+                ? ""
+                : `<select id="taille${id}"></select>`
+            }
         </div> 
         <center>
             <div id="input_qte">Quantité : <input class="qte" id="${id}" type="number" value="${qte}"></div>
-            <p id="prix">Prix : ${
-              Math.round(panier.prix_unit * qte * 100) / 100
-            }€</p>
+            
+            <!-- Affichage du prix avec réduction si applicable -->
+            <p id="prix">
+                Prix : ${
+                  prixReduced
+                    ? `<span style="text-decoration: line-through; color: red;">${
+                        Math.round(panier.prix_unit * 100) / 100
+                      }€</span> 
+                        ${Math.round(prixReduced * 100) / 100}€ 
+                        <span style="color: red;">(-${pourcentageReduction}%)</span>`
+                    : Math.round(prixAffiche * 100) / 100
+                }
+            </p>
+
             <p id="stock" style="${stockAffiche}">Stock : <span id="stockValue">${
     panier.stock
   } unités</p>
             <p id="rupture" style="${ruptureAffiche}">Stock : RUPTURE DE STOCK</p>
             <div id="button">
-                
                 <button class="del form_button" id="${id}">Supprimer</button>
             </div>
         </center>
         `;
+
   document.getElementById("panier").appendChild(panierDiv);
 
   delButton(id);
   modifCouleur(id);
-  modifQuantite(id);
-  modifTaille(id);
+  modifQuantite(id, panier.stock);
+  if (panier.id_tail !== 17) {
+    modifTaille(id);
+  }
   rempliSelect(
     document.getElementById(`couleur${id}`),
     couleur,
@@ -228,9 +299,12 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
         panier.nom_tail
       )
     : casNulltaill(id, panier.id_tail);
+
   prix.innerHTML =
-    Math.round((parseFloat(prix.innerHTML) + panier.prix_unit * qte) * 100) /
-    100;
+    Math.round(
+      (parseFloat(prix.innerHTML) + (prixReduced || prixAffiche) * qte) * 100
+    ) / 100;
+
   document.getElementById(`couleur${id}`).addEventListener("change", (e) => {
     getProduit(panier.id_prod).then((response) => {
       response.json().then((BDDproduit) => {
@@ -238,7 +312,7 @@ function affichePanier(panier, qte, taille, couleur, couleurId, tailleId) {
           if (element.nom_col === e.target.value) {
             document.getElementById(
               `img${id}`
-            ).src = `http://10.0.2.2/SAE-4.01/serveur/img/articles/${element.path_img}`;
+            ).src = `https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/img/articles/${element.path_img}`;
           }
         });
       });
@@ -250,20 +324,24 @@ let produitsDansPanier = [];
 
 async function appelPanier() {
   document.getElementById("panier").innerHTML = "";
+  document.getElementById("titre").innerHTML = "";
   document.getElementById("prixTotal").innerHTML = 0;
   getPanier(id_us).then((panier) => {
     produitsDansPanier = panier.data;
+    const section = document.createElement("section");
+    section.classList.add("accueil");
+    const titre = document.createElement("h1");
     if (panier.data.length !== 0) {
       document.getElementById("footer").style.display = "block";
+      titre.innerHTML = "Votre panier";
+      section.appendChild(titre);
+      document.getElementById("titre").appendChild(section);
     } else {
       document.getElementById("footer").style.display = "none";
-      const section = document.createElement("section");
-      section.classList.add("accueil");
-      const rien = document.createElement("h1");
-      rien.innerHTML = "Votre panier est vide";
-      section.appendChild(rien);
-      document.getElementById("panier").appendChild(section);
-      document.getElementById("panier").id = "accueil";
+      titre.innerHTML = "Votre panier est vide";
+      section.appendChild(titre);
+      document.getElementById("titre").appendChild(section);
+      document.getElementById("titre").id = "accueil";
     }
     panier.data.forEach((produit) => {
       getProduit(produit.id_prod).then((response) => {
@@ -304,21 +382,38 @@ async function appelPanier() {
 
 // Attach payer to the window object
 window.payer = function () {
-  fetch("http://10.0.2.2/SAE-4.01/serveur/api/payer.php", {
-    method: "POST",
-    body: new URLSearchParams({
-      id_us: id_us,
-    }),
-  }).then((reponse) => {
+  const infosLivraison = JSON.parse(localStorage.getItem("infosLivraison"));
+
+  const adresse = infosLivraison.adresse;
+  const ville = infosLivraison.ville;
+  const codePostal = infosLivraison.codePostal;
+  const telephone = infosLivraison.telephone;
+
+  fetch(
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/payer.php",
+    {
+      method: "POST",
+      body: new URLSearchParams({
+        id_us: id_us,
+        adresse: adresse,
+        ville: ville,
+        codePostal: codePostal,
+        telephone: telephone,
+      }),
+    }
+  ).then((reponse) => {
     reponse.json().then((data) => {
       if (data.status == "success") {
         console.log("paiement réussi");
-        fetch("http://10.0.2.2/SAE-4.01/serveur/api/clearPanier.php", {
-          method: "POST",
-          body: new URLSearchParams({
-            id_us: id_us,
-          }),
-        }).then((response) => {
+        fetch(
+          "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/clearPanier.php",
+          {
+            method: "POST",
+            body: new URLSearchParams({
+              id_us: id_us,
+            }),
+          }
+        ).then((response) => {
           response.json().then((data) => {
             if (data.status == "success") {
               console.log("suppression réussie");
@@ -368,3 +463,66 @@ document
 const id_us = cookieValue; // A changer en cookieValue
 
 appelPanier();
+
+document
+  .getElementById("confirmerCommande")
+  .addEventListener("click", function () {
+    const adresse = document.getElementById("adresse").value;
+    const ville = document.getElementById("ville").value;
+    const codePostal = document.getElementById("codePostal").value;
+    const telephone = document.getElementById("telephone").value;
+
+    let erreurMessage = "";
+
+    if (!adresse) {
+      erreurMessage += "L'adresse est requise.\n";
+    }
+
+    if (!ville) {
+      erreurMessage += "La ville est requise.\n";
+    }
+
+    const codePostalRegex = /^[0-9]{5}$/;
+    if (!codePostal || !codePostal.match(codePostalRegex)) {
+      erreurMessage += "Le code postal doit être un nombre de 5 chiffres.\n";
+    }
+
+    const telephoneRegex = /^[0-9]{10}$/;
+    if (!telephone || !telephone.match(telephoneRegex)) {
+      erreurMessage += "Le téléphone doit être composé de 10 chiffres.\n";
+    }
+
+    if (erreurMessage) {
+      document.getElementById("erreurMessage").innerText = erreurMessage;
+      document.getElementById("erreurMessage").style.display = "block";
+    } else {
+      document.getElementById("erreurMessage").style.display = "none";
+
+      const infosLivraison = {
+        adresse: adresse,
+        ville: ville,
+        codePostal: codePostal,
+        telephone: telephone,
+      };
+      localStorage.setItem("infosLivraison", JSON.stringify(infosLivraison));
+
+      const modal = bootstrap.Modal.getInstance(
+        document.getElementById("exampleModal")
+      );
+      modal.hide();
+
+      $("#exampleModalPaypal").modal("show");
+    }
+  });
+
+document.getElementById("modifierInfos").addEventListener("click", function () {
+  const modalPaypal = bootstrap.Modal.getInstance(
+    document.getElementById("exampleModalPaypal")
+  );
+  modalPaypal.hide();
+
+  const modalLivraison = new bootstrap.Modal(
+    document.getElementById("exampleModal")
+  );
+  modalLivraison.show();
+});

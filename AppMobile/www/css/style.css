@@ -4,6 +4,11 @@
   transition: 200ms;
 }
 
+::placeholder {
+  color: black;
+  opacity: 0.5;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   /* display: none; <- Crashes Chrome on hover */
@@ -18,7 +23,7 @@ input[type="number"] {
 }
 
 body {
-  background: whitesmoke;
+  background: #e3e6e6 !important;
   font-family: Helvetica;
   margin: 0;
   padding: 0;
@@ -28,11 +33,75 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-image: url("../img/fondSite3.jpg");
+  /* background-image: url("../img/fondSite3.jpg");
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   height: 100%;
+}
+
+.header {
+  position: relative;
+
+  margin: 0;
+  height: 450px;
+  background: url("../img/fond.jpg") no-repeat center center fixed;
+  background-size: cover;
+
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: -1;
+}
+
+header.sticky {
+  position: relative; /* Définit un contexte pour l'image */
+  z-index: 1; /* Assure que le header reste derrière l'image */
+}
+
+#btn_deroul_recherche {
+  position: absolute; /* Permet de positionner l'image au-dessus */
+  top: 0px; /* Ajustez cette valeur pour déplacer l'image au-dessus du header */
+  left: 10px; /* Ajustez cette valeur pour positionner horizontalement */
+  z-index: 10; /* Place l'image au-dessus du header */
+  width: 50px; /* Ajustez la taille si nécessaire */
+  height: auto;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.header {
+  color: white;
+  text-align: center;
+}
+
+.header h1,
+.header p,
+.header a,
+h1 {
+  max-width: 500px;
+  color: rgb(0, 0, 0);
+
+  font-weight: 750;
+  z-index: 2;
+}
+
+.white {
+  color: white !important;
+}
+p {
+  color: #ababab;
 }
 
 a {
@@ -107,6 +176,7 @@ header {
   text-align: center;
   font-weight: bold;
   text-transform: uppercase;
+  z-index: 1000;
 }
 
 /* Boutons de navigation dans le header */
@@ -176,16 +246,22 @@ select {
 
 table {
   /* color: whitesmoke; */
+  width: 50%;
+  text-align: center;
+  border: 2px solid black;
   background-color: #5f8755;
-  box-shadow: 5px 5px green;
+  box-shadow: 5px 5px black;
   border-radius: 4px;
   padding: 30px;
+  margin: 5%;
 }
 
-tr,
-td,
-th {
+table tr,
+table th,
+table td {
   padding: 5px;
+  border: 1px solid black;
+  border-radius: 4px;
 }
 
 .accueil > .h1 {
@@ -201,31 +277,66 @@ th {
 .accueil section {
   max-width: 1500px;
 }
+.accueil1 > .h1 {
+  background-color: #5f8755;
+  color: black;
+  font-size: 30px;
+  margin: 30px auto 5vh auto;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-weight: normal;
+}
 
+.accueil1 section {
+  max-width: 1500px;
+}
 /* Uniquement sur la page d'accueil */
 
-.accueil div div {
+.accueil .produitsDet div {
+  display: flex;
+  align-items: center;
   box-sizing: border-box;
   padding: 30px;
   margin-bottom: 30px;
   background-color: #232323f0;
-  width: 100%;
+  max-width: 60vw;
+  max-height: 30vh;
   color: white;
-  font-size: 20px;
+  font-size: 1.25vw;
   border-radius: 4px;
 }
+.accueil .produitsDet div h2 {
+  font-size: 2vw;
+}
 
-.accueil div a {
+.accueil .produitsDet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.accueil .produitsDet .produit div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: transparent;
+}
+
+.detail-title {
+  max-width: 30vw !important;
+}
+
+/* .accueil div a {
   font-size: 30px;
   color: #8c6e44;
-}
+} */
 
 .accueil div a,
 .accueil div a:hover {
   border: none;
 }
 
-.accueil > p {
+/* .accueil > p {
   margin: 0 auto 30px auto;
   box-sizing: border-box;
   padding: 4px 8px;
@@ -235,7 +346,7 @@ th {
   background-color: #232323f0;
   color: white;
   width: 90%;
-}
+} */
 
 .accueil > p a {
   color: white;
@@ -529,7 +640,7 @@ input[type='number'].qte {
     font-size: 25px;
   }
   .accueil div a {
-    font-size: 35px;
+    font-size: 20px;
   }
   .accueil > p {
     font-size: 20px;
@@ -587,4 +698,201 @@ input[type='number'].qte {
   .btn_retour {
     position: absolute;
   }
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#mdp {
+  padding-right: 35px; /* Espace pour le bouton */
+  width: 100%;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 5px;
+}
+
+.toggle-password:hover {
+  color: #b92929;
+}
+
+.toggle-password svg {
+  display: block;
+}
+
+/* Footer principal */
+#printFooter footer {
+  background-color: #ba0324 !important;
+  color: white !important;
+}
+
+#printFooter .container {
+  max-width: 1200px;
+}
+
+#printFooter h5 {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#printFooter a,
+#printFooter p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8) !important;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+#printFooter a:hover {
+  color: white !important;
+}
+
+#printFooter hr {
+  background-color: white !important;
+  height: 2px;
+  opacity: 0.8;
+}
+
+#printFooter #mentionsLeg {
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  #printFooter .text-md-start,
+  #printFooter .text-md-end,
+  #printFooter .text-center {
+    text-align: center !important;
+  }
+}
+
+.bandeau-defilant {
+  width: 100%;
+  background-color: #22780f;
+  padding: 10px 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+}
+.bandeau-defilant-content {
+  display: inline-block;
+  white-space: nowrap;
+  color: #ffffff;
+  animation: defilement 10s linear infinite;
+}
+@keyframes defilement {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+#cookieModal div div {
+  background-color: #5f8755;
+  font-size: 16px !important;
+  color: white !important;
+}
+
+#cookieModal p,
+#cookieModal a {
+  background-color: #5f8755;
+  font-size: 16px !important;
+  color: white !important;
+}
+
+button {
+  background-color: #5f8755 !important;
+  border: 0px !important;
+}
+
+.toggle-password {
+  background-color: transparent !important;
+}
+
+#cookieModal button {
+  background-color: #206f47 !important;
+  border: 0px !important;
+}
+
+.content {
+  margin-top: 10vh;
+  background-color: #5f8755;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  color: white;
+}
+
+.item {
+  text-align: center;
+  width: 30%;
+}
+
+.item svg {
+  margin-bottom: 10px;
+}
+
+.item p {
+  margin-top: 5px;
+  color: white;
+}
+
+.content .item svg {
+  display: block;
+  margin-bottom: 8px;
+  margin-left: 14vw;
+}
+
+.faq {
+  display: flex;
+  margin-top: 10vh;
+  margin-bottom: 8vh;
+  justify-content: center;
+}
+
+.faq-text {
+  margin-right: 2vw;
+}
+
+.faq h5 {
+  margin-top: 2vh;
+  max-width: 40vw;
+}
+
+.custom-faq {
+  color: #5f8755;
+}
+
+.accordion {
+  width: 40vw;
+}
+
+.custom-accordion {
+  background-color: #0f1011;
+  color: white;
+}
+
+.custom-accordion .accordion-button {
+  color: white;
+}
+
+.custom-accordion .accordion-button:not(.collapsed) {
+  color: #1f50dc;
+}
+
+.custom-accordion .accordion-body {
+  background-color: #eaeded;
+  color: black;
 }

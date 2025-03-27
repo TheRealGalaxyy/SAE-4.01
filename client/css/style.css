@@ -57,16 +57,16 @@ body {
 }
 
 header.sticky {
-  position: relative; /* Définit un contexte pour l'image */
-  z-index: 1; /* Assure que le header reste derrière l'image */
+  position: relative;
+  z-index: 1;
 }
 
 #btn_deroul_recherche {
-  position: absolute; /* Permet de positionner l'image au-dessus */
-  top: 0px; /* Ajustez cette valeur pour déplacer l'image au-dessus du header */
-  left: 10px; /* Ajustez cette valeur pour positionner horizontalement */
-  z-index: 10; /* Place l'image au-dessus du header */
-  width: 50px; /* Ajustez la taille si nécessaire */
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  z-index: 10;
+  width: 50px;
   height: auto;
 }
 
@@ -509,6 +509,12 @@ form.search {
   position: sticky;
   max-width: 100%;
   padding: 20px;
+}
+
+.sticky {
+  position: sticky !important;
+  top: 0;
+  z-index: 5000;
 }
 
 .recherche > * {

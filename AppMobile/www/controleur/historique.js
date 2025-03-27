@@ -11,7 +11,7 @@ if (!isConnected()) {
 async function affInfos() {
   //requete API pour récupérer les infos de l'utilisateur
   const reponse = await fetch(
-    "http://10.0.2.2/SAE-4.01/serveur/api/getCommandes.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getCommandes.php",
     {
       method: "POST",
       body: new URLSearchParams({
@@ -43,10 +43,20 @@ async function affInfos() {
   recupDonnees.data.forEach((commande) => {
     let ligne = table.insertRow();
 
+    let AdresseCommande = ligne.insertCell();
     let dateCommande = ligne.insertCell();
     let prixCommande = ligne.insertCell();
     let idCommande = ligne.insertCell();
 
+    AdresseCommande.innerHTML =
+      "<b>Rue : </b>" +
+      commande.adresse +
+      "<br><b>Ville : </b>" +
+      commande.ville +
+      "<br><b>CP : </b>" +
+      commande.codePostal +
+      "<br><b>Contact : </b>" +
+      commande.telephone;
     dateCommande.innerHTML = commande.date_com;
     prixCommande.innerHTML = commande.prix_total + " €";
 

@@ -22,13 +22,16 @@ async function printUser() {
 }
 
 async function getUser() {
-  return fetch("http://10.0.2.2/SAE-4.01/serveur/api/getUser.php", {
-    method: "POST",
+  return fetch(
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/getUser.php",
+    {
+      method: "POST",
 
-    body: new URLSearchParams({
-      id_us: new URLSearchParams(window.location.search).get("id_us"), // id_us
-    }),
-  }).then((reponse) => reponse.json());
+      body: new URLSearchParams({
+        id_us: new URLSearchParams(window.location.search).get("id_us"), // id_us
+      }),
+    }
+  ).then((reponse) => reponse.json());
 }
 
 const section = document.getElementById("userInfo");

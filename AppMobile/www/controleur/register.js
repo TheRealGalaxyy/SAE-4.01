@@ -5,6 +5,22 @@ const mdpErreurs = document.querySelectorAll('span[id^="mdpErreur"]');
 let mdpOK = false;
 let melOK = false;
 
+//afficher/cacher le mot de passe lorsque l'on clique sur le bouton
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleButton = document.getElementById("togglePassword");
+  const passwordField = document.getElementById("mdp");
+
+  if (toggleButton && passwordField) {
+    toggleButton.addEventListener("click", function () {
+      console.log("Bouton cliqué !");
+      passwordField.type =
+        passwordField.type === "password" ? "text" : "password";
+    });
+  } else {
+    console.error("Le bouton ou le champ de mot de passe est introuvable !");
+  }
+});
+
 mdpErreurs.forEach((mdpErreur) => {
   mdpErreur.style.display = "none";
 });
@@ -126,29 +142,35 @@ function register() {
     date_naiss: values[5],
   };
   console.log(user);
-  fetch("http://10.0.2.2/SAE-4.01/serveur/api/newUser.php", {
-    method: "POST",
-    body: new URLSearchParams({
-      nom: user.nom,
-      prenom: user.prenom,
-      login: user.login,
-      mdp: user.mdp,
-      mel: user.mel,
-      date_naiss: user.date_naiss,
-    }),
-  })
+  fetch(
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/newUser.php",
+    {
+      method: "POST",
+      body: new URLSearchParams({
+        nom: user.nom,
+        prenom: user.prenom,
+        login: user.login,
+        mdp: user.mdp,
+        mel: user.mel,
+        date_naiss: user.date_naiss,
+      }),
+    }
+  )
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
       if (data.status == "success") {
         // L'Authentification a réussi
-        fetch("http://10.0.2.2/SAE-4.01/serveur/api/connexion.php", {
-          method: "POST",
-          body: new URLSearchParams({
-            login: user.login,
-            mdp: user.mdp,
-          }),
-        }).then((response) =>
+        fetch(
+          "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/connexion.php",
+          {
+            method: "POST",
+            body: new URLSearchParams({
+              login: user.login,
+              mdp: user.mdp,
+            }),
+          }
+        ).then((response) =>
           response.json().then((data) => {
             let date_expiration = new Date();
             date_expiration.setTime(
@@ -168,7 +190,8 @@ function register() {
       }
 
       // Echec
-      msgErreur.innerHTML = data.message;
+      msgErreur.innerHTML =
+        data.message.split(":")[data.message.split(":").length - 1];
       msgErreur.style.display = "block";
       setTimeout(() => {
         msgErreur.style.display = "none";

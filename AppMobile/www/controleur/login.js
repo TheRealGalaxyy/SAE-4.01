@@ -26,7 +26,7 @@ async function authentifier() {
     return;
   }
   const reponse = await fetch(
-    "http://10.0.2.2/SAE-4.01/serveur/api/connexion.php",
+    "https://devweb.iutmetz.univ-lorraine.fr/~riese3u/2A/SAE-4.01_Final/serveur/api/connexion.php",
     {
       method: "POST",
       body: new URLSearchParams({
@@ -42,19 +42,18 @@ async function authentifier() {
 
   if (data.status === "success") {
     let date_expiration = new Date();
-    date_expiration.setTime(date_expiration.getTime() + 10800 * 1000);
+    date_expiration.setTime(date_expiration.getTime() + 10800 * 1000); // 3 heures
 
     // console.log("User :",data.id_us);
-
     document.cookie =
       "id_user=" +
       data.id_us +
       ";expires=" +
       date_expiration.toUTCString() +
-      ";path=/";
+      ";path=/;SameSite=Strict";
 
     // console.log("Cookie : ", document.cookie);
-    window.location.href = "accueil.html";
+    window.location.href = "accueil.html?login_success=true";
     return;
   }
 
@@ -65,3 +64,13 @@ async function authentifier() {
     msgErreur.style.display = "none";
   }, 10000);
 }
+
+//afficher/cacher le mot de passe lorsque l'on clique sur le bouton
+
+const toggleButton = document.getElementById("togglePassword");
+const passwordField = document.getElementById("motdepasse");
+
+toggleButton.addEventListener("click", function () {
+  console.log("Bouton cliqué !");
+  passwordField.type = passwordField.type === "password" ? "text" : "password";
+});
