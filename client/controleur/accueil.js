@@ -337,10 +337,10 @@ async function imprimerTousLesProduits(produits) {
 ${produit.nom_prod} - ${Math.round(solde * 100) / 100}%, </strong>`;
     }
   }
-  if(textSolde.length > 0) {
+  if (textSolde.length > 0) {
     spanSoldes.innerHTML += textSolde;
     spanSoldes.innerHTML = spanSoldes.innerHTML.replace(/, $/, "") + "🔖";
-  }else{
+  } else {
     spanSoldes.innerHTML = "<strong>Pas de soldes actuellement</strong>";
   }
 
@@ -538,6 +538,106 @@ document.addEventListener("DOMContentLoaded", () => {
         </svg>
         <strong>QUALITÉ</strong>
         <p>Fiable et durable</p>
-      </div>`;
+      </div>
+      `;
+    const faq = document.getElementById("faq");
+    faq.innerHTML += `<div class="faq">
+      <div class="faq-content">
+        <div class="faq-text mb-4">
+          <h1 class="d-inline">
+            <span class="custom-faq d-inline">F</span>oire<br />
+            <span class="custom-faq d-inline">A</span>ux<br />
+            <span class="custom-faq d-inline">Q</span>uestions
+          </h1>
+          <h5>
+            Pour toute autre question, nous vous invitons à nous contacter par
+            email à pm2_metz@sfr.fr. Nous serons ravis de vous aider !
+          </h5>
+        </div>
+      </div>
+      <div class="accordion">
+        <div
+          class="accordion accordion-flush custom-accordion"
+          id="accordionFlushExample"
+        >
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed mt-n1"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseOne"
+                aria-expanded="false"
+                aria-controls="flush-collapseOne"
+              >
+                Quelle est la qualité de vos produits ?
+              </button>
+            </h2>
+            <div
+              id="flush-collapseOne"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionFlushExample"
+            >
+              <div class="accordion-body">
+                Nos pulls et accessoires sont conçus avec des matériaux
+                <code>confortables</code> et <code>durables</code>. La mocheté
+                est volontaire, mais la qualité est bien réelle !
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed mt-n1"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseTwo"
+                aria-expanded="false"
+                aria-controls="flush-collapseTwo"
+              >
+                Quels sont vos délais de livraison ?
+              </button>
+            </h2>
+            <div
+              id="flush-collapseTwo"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionFlushExample"
+            >
+              <div class="accordion-body">
+                Nos lutins travaillent dur pour expédier votre commande en
+                <code>24</code> à <code>48</code>h. La livraison standard prend
+                généralement entre <code>3</code> et <code>5</code> jours
+                ouvrés.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed mt-n1"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#flush-collapseThree"
+                aria-expanded="false"
+                aria-controls="flush-collapseThree"
+              >
+                Puis-je retourner un article s'il ne me convient pas ?
+              </button>
+            </h2>
+            <div
+              id="flush-collapseThree"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionFlushExample"
+            >
+              <div class="accordion-body">
+                Bien sûr ! Vous avez <code>14</code> jours après réception pour
+                nous retourner votre article s'il ne vous va pas ou si vous avez
+                changé d'avis.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
   }
 });
