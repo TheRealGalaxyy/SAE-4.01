@@ -267,7 +267,9 @@ async function affichePanier(
   delButton(id);
   modifCouleur(id);
   modifQuantite(id, panier.stock);
-  modifTaille(id);
+  if(panier.id_tail !== 17){
+    modifTaille(id);
+  }
   rempliSelect(
     document.getElementById(`couleur${id}`),
     couleur,
