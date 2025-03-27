@@ -275,14 +275,34 @@ table td {
 /* Uniquement sur la page d'accueil */
 
 .accueil .produits div {
+  display: flex;
+  align-items: center;
   box-sizing: border-box;
   padding: 30px;
   margin-bottom: 30px;
   background-color: #232323f0;
-  width: 100%;
+  max-width: 60vw;
+  max-height: 30vh;
   color: white;
-  font-size: 20px;
+  font-size: 1.25vw;
   border-radius: 4px;
+}
+
+.accueil .produits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.accueil .produits .produit div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: transparent;
+}
+
+.detail-title {
+  max-width: 30vw !important;
 }
 
 /* .accueil div a {

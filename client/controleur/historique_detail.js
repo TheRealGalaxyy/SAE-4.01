@@ -6,7 +6,6 @@ btn.addEventListener("click", (event) => {
   window.location.href = "historique.html";
 });
 
-
 async function getCommande(id_com) {
   //Fonction qui récupère les données de la commande en fct de l'id de la commande & de l'id de l'utilisateur
   const body = new URLSearchParams({
@@ -59,10 +58,14 @@ async function afficherLesProduits(produits) {
       prixT += prix_unit * qte_com;
 
       produitDiv.innerHTML = `
-            <h2>${nom_prod}</h2>
-            <img id="img_prod" src="${path}" style="width:auto; height:250px; display:block; margin: 10px auto;">
-            <p>${description}</p>
-            <p>Prix : ${prix.toFixed(2)}€</p><p>Quantité : ${qte_com}</p>
+            <img id="img_prod" src="${path}" style="width:auto; height:150px; display:block; margin: 10px auto;">
+            <div class="detail-title">
+              <h2>${nom_prod}</h2>
+              <p>${description}</p>
+            </div>
+            <div>
+              <p>Prix : ${prix.toFixed(2)}€</p><p>Quantité : ${qte_com}</p>
+            </div>
         `;
       produitDiv.classList.add("descProduit");
       produitsDiv.appendChild(produitDiv);
