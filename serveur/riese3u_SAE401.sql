@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 27 mars 2025 à 19:42
+-- Généré le : jeu. 27 mars 2025 à 23:35
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.18
 
@@ -382,7 +382,42 @@ INSERT INTO `col_prod` (`id_prod`, `id_col`, `diff_prix_col`, `path_img`) VALUES
 (13, 5, 0, 'sapinPlastiqueBlanc.jpg'),
 (14, 3, 0, 'sapinNaturelVert.jpg'),
 (14, 5, 0, 'sapinNaturelBlanc.jpg'),
-(15, 2, 0, 'pere_noel.png');
+(15, 2, 0, 'pere_noel.png'),
+(16, 1, 0, 'bonnet_renne.jpg'),
+(17, 1, 0, 'bonnet_flocon.webp'),
+(18, 1, 0, 'bonnet_sapin.jpg'),
+(19, 1, 0, 'bonnet_pere_noel.jpg'),
+(20, 1, 0, 'bonnet_etoile.jpg'),
+(21, 1, 0, 'bonnet_lutin.webp'),
+(22, 1, 0, 'bonnet_led.jpg'),
+(23, 1, 0, 'bonnet_tricot.jpg'),
+(24, 1, 0, 'bonnet_raye.jpg'),
+(25, 1, 0, 'bonnet_fluffy.png'),
+(26, 1, 0, 'pull_renne.jpg'),
+(27, 1, 0, 'pull_neige.jpg'),
+(28, 1, 0, 'pull_sapin.webp'),
+(29, 1, 0, 'pull_pere_noel.jpg'),
+(30, 1, 0, 'pull_etoile.webp'),
+(31, 1, 0, 'pull_lutin.webp'),
+(32, 1, 0, 'pull_led.webp'),
+(33, 1, 0, 'pull_tricot.jpg'),
+(34, 1, 0, 'pull_raye.webp'),
+(35, 1, 0, 'pull_fluffy.webp'),
+(36, 1, 0, 'gants_renne.jpg'),
+(37, 1, 0, 'gants_neige.jpg'),
+(38, 1, 0, 'gants_sapin.jpg'),
+(39, 1, 0, 'gants_pere_noel.jpg'),
+(40, 1, 0, 'gants_etoile.webp'),
+(41, 1, 0, 'chaussettes_renne.webp'),
+(42, 1, 0, 'chaussettes_neige.png'),
+(43, 1, 0, 'chaussettes_sapin.jpg'),
+(44, 1, 0, 'chaussettes_pere_noel.jpg'),
+(45, 1, 0, 'chaussettes_etoile.webp'),
+(46, 1, 0, 'chaussette_guirlande_led.webp'),
+(47, 1, 0, 'chaussette_boule_noel_rouge.webp'),
+(48, 1, 0, 'chaussette_etoile_sapin.jpg'),
+(49, 1, 0, 'chaussette_bonhomme_neige.webp'),
+(50, 1, 0, 'chaussette_noel.jpg');
 
 --
 -- Déclencheurs `col_prod`
@@ -430,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `codePostal` varchar(20) NOT NULL,
   `telephone` varchar(20) NOT NULL,
   PRIMARY KEY (`id_com`)
-) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `commande`
@@ -457,7 +492,8 @@ INSERT INTO `commande` (`id_com`, `date_com`, `id_us`, `adresse`, `ville`, `code
 (71, '2025-03-27', 7, '5 Boulevard des Rêves', 'Paris', '75013', '0102030421'),
 (72, '2025-03-27', 7, '23 Rue de la Forêt', 'Lille', '59000', '0102030422'),
 (73, '2025-03-27', 7, '45 Route de la Montagne', 'Grenoble', '38010', '0102030423'),
-(77, '2025-03-27', 7, '67 rue de la liberté', 'Metz', '23123', '0929292929');
+(77, '2025-03-27', 7, '67 rue de la liberté', 'Metz', '23123', '0929292929'),
+(78, '2025-03-27', 7, 'Rue', 'Metz', '57100', '0784385656');
 
 --
 -- Déclencheurs `commande`
@@ -612,7 +648,8 @@ INSERT INTO `detail_com` (`id_com`, `id_prod`, `id_col`, `id_tail`, `qte_com`, `
 (74, 3, 2, 4, 1, 18),
 (75, 3, 2, 4, 1, 18),
 (76, 3, 2, 4, 1, 18),
-(77, 4, 7, 4, 1, 43.2);
+(77, 4, 7, 4, 1, 43.2),
+(78, 6, 2, 3, 1, 14.4);
 
 --
 -- Déclencheurs `detail_com`
@@ -668,7 +705,10 @@ CREATE TABLE IF NOT EXISTS `favori` (
 --
 
 INSERT INTO `favori` (`id_us`, `id_prod`) VALUES
+(7, 2),
 (7, 3),
+(7, 4),
+(7, 5),
 (11, 1),
 (11, 2),
 (11, 7),
@@ -739,8 +779,7 @@ INSERT INTO `panier` (`id_us`, `id_prod`, `id_col`, `id_tail`, `qte_pan`) VALUES
 (11, 8, 2, 12, 11),
 (11, 15, 2, 11, 10),
 (16, 1, 16, 17, 1),
-(16, 11, 2, 11, 1),
-(7, 3, 2, 4, 1);
+(16, 11, 2, 11, 1);
 
 --
 -- Déclencheurs `panier`
@@ -814,7 +853,7 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `sku` varchar(100) DEFAULT NULL,
   `stock_quantity` int DEFAULT NULL,
   PRIMARY KEY (`id_prod`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `produit`
@@ -826,7 +865,7 @@ INSERT INTO `produit` (`id_prod`, `nom_prod`, `description`, `prix_base`, `id_ca
 (3, 'Pull de rennes', 'Un pull avec un rennes dessus, un indémodable', 15, 2, 'SKU3', 142),
 (4, 'Pull en laine', 'Un pull en laine très sobre, très confortable, très cosy', 30, 2, 'SKU4', 324),
 (5, 'Gants de ski', 'Des gants adaptés à tous types de neige, de pluie ou d\'intempéries diverses', 10, 3, 'SKU5', 281),
-(6, 'Sous-gants', 'Des sous-gants adaptés au gants de ski, très léger et qui tiennent chaud', 10, 3, 'SKU6', 754),
+(6, 'Sous-gants', 'Des sous-gants adaptés au gants de ski, très léger et qui tiennent chaud', 10, 3, 'SKU6', 753),
 (7, 'Gants en laine', 'Gants en laine adaptés à n\'importe quel besoin', 11, 3, 'SKU7', 397),
 (8, 'Chaussettes du père noël', 'Des chaussettes conviviales pour cacher les cadeaux et mettre près de la cheminée', 13, 4, 'SKU8', 339),
 (9, 'Chaussettes hautes', 'Chaussettes idéales pour se maintenir au chaud en toute circonstance', 17, 4, 'SKU9', 499),
@@ -835,7 +874,42 @@ INSERT INTO `produit` (`id_prod`, `nom_prod`, `description`, `prix_base`, `id_ca
 (12, 'Boules de noël', 'Des boules variées à accrocher à votre sapin', 7, 5, 'SKU12', 406),
 (13, 'Sapin de Noël en plastique', 'Un sapin de noël passe partout, sans la corvée du ménage', 60, 5, 'SKU13', 106),
 (14, 'Sapin de Noël naturel', 'Un sapin de noël naturel, avec les épines qui tombent et la déforestation qui va avec', 70, 5, 'SKU14', 110),
-(15, 'Le père noël', 'Un père noël à la mode, visiblement trop cool pour ce monde. La légende dit qu\'il fait trembler internet lui-même. Il est si fort qu\'il a pu se battre contre Chuck Norris et Rambo en même temps et il a gagné tout en distribuant ses cadeaux. Il est tellement puissant qu\'on ne peut pas lui attribuer de prix. Et si on ne peut pas lui attribuer de prix, c\'est que c\'est gratuit.', 0, 6, 'SKU15', 28);
+(15, 'Le père noël', 'Un père noël à la mode, visiblement trop cool pour ce monde. La légende dit qu\'il fait trembler internet lui-même. Il est si fort qu\'il a pu se battre contre Chuck Norris et Rambo en même temps et il a gagné tout en distribuant ses cadeaux. Il est tellement puissant qu\'on ne peut pas lui attribuer de prix. Et si on ne peut pas lui attribuer de prix, c\'est que c\'est gratuit.', 0, 6, 'SKU15', 28),
+(17, 'Bonnet Flocon', 'Bonnet blanc avec motif de flocons de neige.', 14.99, 1, 'SKU17', 40),
+(16, 'Bonnet Renne', 'Un bonnet rouge avec des bois de renne.', 12.99, 1, 'SKU16', 50),
+(18, 'Bonnet Sapin', 'Bonnet vert avec motif de sapins.', 13.5, 1, 'SKU18', 35),
+(19, 'Bonnet Père Noël', 'Bonnet rouge classique avec pompon blanc.', 10.99, 1, 'SKU19', 60),
+(20, 'Bonnet Étoilé', 'Bonnet bleu avec motifs étoiles dorées.', 15.99, 1, 'SKU20', 30),
+(21, 'Bonnet Lutin', 'Bonnet vert et rouge inspiré des lutins de Noël.', 11.99, 1, 'SKU21', 45),
+(22, 'Bonnet LED', 'Bonnet avec lumières LED clignotantes.', 16.99, 1, 'SKU22', 25),
+(23, 'Bonnet Tricot', 'Bonnet tricoté à la main.', 14.5, 1, 'SKU23', 38),
+(24, 'Bonnet Rayé', 'Bonnet rouge et blanc rayé.', 12.5, 1, 'SKU24', 50),
+(25, 'Bonnet Fluffy', 'Bonnet ultra-doux en laine.', 13.99, 1, 'SKU25', 42),
+(26, 'Pull Renne Rouge', 'Pull rouge avec motif de renne.', 29.99, 2, 'SKU26', 20),
+(27, 'Pull Neige', 'Pull bleu avec motif de neige.', 32.99, 2, 'SKU27', 18),
+(28, 'Pull Sapin', 'Pull vert avec motif de sapin et guirlandes.', 31.5, 2, 'SKU28', 25),
+(29, 'Pull Père Noël', 'Pull rouge avec un Père Noël brodé.', 28.99, 2, 'SKU29', 22),
+(30, 'Pull Étoilé', 'Pull noir avec motifs étoiles dorées.', 33.99, 2, 'SKU30', 15),
+(31, 'Pull Lutin', 'Pull vert et rouge inspiré des lutins de Noël.', 27.99, 2, 'SKU31', 19),
+(32, 'Pull LED', 'Pull avec lumières LED clignotantes.', 39.99, 2, 'SKU32', 10),
+(33, 'Pull Tricot', 'Pull tricoté à la main.', 35.5, 2, 'SKU33', 12),
+(34, 'Pull Rayé', 'Pull rouge et blanc rayé.', 30.5, 2, 'SKU34', 17),
+(35, 'Pull Fluffy', 'Pull ultra-doux en laine.', 31.99, 2, 'SKU35', 14),
+(36, 'Gants Renne', 'Gants rouges avec motifs de renne.', 9.99, 3, 'SKU36', 50),
+(37, 'Gants Neige', 'Gants bleus avec motifs de neige.', 11.5, 3, 'SKU37', 40),
+(38, 'Gants Sapin', 'Gants verts avec motifs de sapin.', 10.5, 3, 'SKU38', 35),
+(39, 'Gants Père Noël', 'Gants rouges et blancs.', 8.99, 3, 'SKU39', 60),
+(40, 'Gants Étoiles', 'Gants noirs avec étoiles dorées.', 12.5, 3, 'SKU40', 30),
+(41, 'Chaussettes Renne', 'Chaussettes rouges avec motifs de renne.', 6.99, 4, 'SKU41', 50),
+(42, 'Chaussettes Neige', 'Chaussettes bleues avec motifs de neige.', 7.5, 4, 'SKU42', 40),
+(43, 'Chaussettes Sapin', 'Chaussettes vertes avec motifs de sapin.', 6.5, 4, 'SKU43', 35),
+(44, 'Chaussettes Père Noël', 'Chaussettes rouges et blanches.', 5.99, 4, 'SKU44', 60),
+(45, 'Chaussettes Étoiles', 'Chaussettes noires avec étoiles dorées.', 8.5, 4, 'SKU45', 30),
+(46, 'Guirlande LED', 'Guirlande lumineuse multicolore.', 19.99, 5, 'SKU46', 50),
+(47, 'Boule de Noël Rouge', 'Boule rouge en verre.', 3.99, 5, 'SKU47', 100),
+(48, 'Étoile Sapin', 'Étoile dorée pour sapin de Noël.', 9.99, 5, 'SKU48', 40),
+(49, 'Bonhomme de Neige', 'Figurine en céramique.', 14.5, 5, 'SKU49', 30),
+(50, 'Chaussette de Noël', 'Grande chaussette rouge et blanche.', 12.99, 5, 'SKU50', 45);
 
 --
 -- Déclencheurs `produit`
@@ -1100,7 +1174,7 @@ INSERT INTO `taille_col_prod` (`id_prod`, `id_col`, `id_taille`, `prix`, `stock`
 (6, 11, 2, 10.50, 45),
 (6, 12, 2, 10.50, 31),
 (6, 14, 2, 10.50, 21),
-(6, 2, 3, 11.00, 11),
+(6, 2, 3, 11.00, 10),
 (6, 3, 3, 11.00, 44),
 (6, 4, 3, 11.00, 38),
 (6, 5, 3, 11.00, 8),
@@ -1309,7 +1383,42 @@ INSERT INTO `tail_prod` (`id_prod`, `id_tail`, `diff_prix_tail`) VALUES
 (14, 7, 20),
 (1, 17, 0),
 (2, 17, 0),
-(15, 11, 0);
+(15, 11, 0),
+(16, 17, 0),
+(17, 17, 0),
+(18, 17, 0),
+(19, 17, 0),
+(20, 17, 0),
+(21, 17, 0),
+(22, 17, 0),
+(23, 17, 0),
+(24, 17, 0),
+(25, 17, 0),
+(26, 17, 0),
+(27, 17, 0),
+(28, 17, 0),
+(29, 17, 0),
+(30, 17, 0),
+(31, 17, 0),
+(32, 17, 0),
+(33, 17, 0),
+(34, 17, 0),
+(35, 17, 0),
+(36, 17, 0),
+(37, 17, 0),
+(38, 17, 0),
+(39, 17, 0),
+(40, 17, 0),
+(41, 17, 0),
+(42, 17, 0),
+(43, 17, 0),
+(44, 17, 0),
+(45, 17, 0),
+(46, 17, 0),
+(47, 17, 0),
+(48, 17, 0),
+(49, 17, 0),
+(50, 17, 0);
 
 --
 -- Déclencheurs `tail_prod`
