@@ -1,122 +1,73 @@
 import { cookieValue, isConnected } from "./function.js";
-
 export class ProduitGenerique extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
   }
+
   connectedCallback() {
     this.shadowRoot.innerHTML = `
-        <style>
-        *,
-        *::before,
-        *::after {
-            transition: 200ms;
-        }
-        a {
-            text-decoration: none;
-            color: black;
-            flex-direction: column; /* Aligner les éléments verticalement */
-            align-items: center; /* Centrer horizontalement */
-            justify-content: center; /* Centrer verticalement */
-            text-align: center; /* Centrer le texte */
-            width: 250px; /* Taille fixe pour les balises <a> */
-            height: 400px; /* Taille fixe pour les balises <a> */
-            margin: 10px; /* Espacement entre les éléments */
-            border-radius: 8px;
-            background-color: lightgray;
-            box-shadow: 3px 3px gray;
-        }
-        .img_prod {
-            margin: 3%;
-            height: auto;
-            max-width: 94%;
-            border-radius: 4px;
-        }
-        .etoile{
-            /*margin: 3%;*/
-            width: 20px;
-            height: 20px;
-        }
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+      <style>
+        * { transition: 200ms; }
+        .etoile { width: 20px; height: 20px; }
+        .solde { display: inline-block; padding: 3px 8px; background-color: red; color: white; font-weight: bold; border-radius: 5px; }
+        .checkbox { display: none; }
+        .card:hover { box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); }
+      </style>
 
-        .etoile, label {
-            display: flex;
-            justify-content: center; /* Centre horizontalement */
-            align-items: center; /* Centre verticalement */
-        }
-        .etoile, .prix {
-            display: inline-block;
-        }
-        .etoile, .prix, label {
-            vertical-align: middle;
-        }
-        .checkbox{
-            display: none;
-        }
-        .descProduit {
-            border-radius: 8px;
-            background-color: lightgray;
-            box-shadow: 3px 3px gray;
-        }
-        .descProduit:hover {
-            box-shadow: 3px 3px green;
-            background-color: #5f8755;
-        }
-        .name {
-            margin: 3%;
-        }
-        .prix {
-            height: 20px;
-            margin: 0;
-            /*rigth: -50%;
-            position: relative;*/
-        }
-        .flex {
-            display: flex;
-            justify-content: center; /* Centre horizontalement */
-            align-items: center; /* Centre verticalement */
-            padding: 3%;
-        }
-        .solde {
-            display: inline-block;
-            padding: 3px 8px;
-            background-color: red;
-            color: white;
-            font-weight: bold;
-            border-radius: 5px;
-        }
-        </style>
-        <a href="detail_produit.html?id=${this.getAttribute(
-          "id"
-        )}&id_col=${this.getAttribute("id_col")}" class="descProduit">
-        <div class="descProduit">
-            <input type="checkbox" class="checkbox" id="ch${this.getAttribute(
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-6 mb-4">
+            <a href="detail_produit.html?id=${this.getAttribute(
               "id"
-            )}">
-            <div class="flex">
-                <label for="ch${this.getAttribute(
-                  "id"
-                )}"><img class="etoile" src='img/icones/star_vide.png'/></label>
-            </div>
-            <div class="solde" style="${this.getAttribute(
-              "soldeAffiche"
-            )}">EN SOLDE <span class="solde-valeur">-${this.getAttribute(
-      "soldeValeur"
-    )}%</span></div>
-            <p class="name">${this.getAttribute("name")}</p>
-            <img class="img_prod" src="${this.getAttribute(
-              "path_img"
-            )}" alt="${this.getAttribute("path_img")}"
-            style="height: 210px; display: block; margin: 0 auto;"  />
-            <div class="stock" style="${this.getAttribute(
-              "stockAffiche"
-            )}" >&nbsp&nbsp${this.getAttribute("prix")}€</div>
-            <div class="rupture" style="${this.getAttribute(
-              "ruptureAffiche"
-            )}" >&nbsp&nbspRUPTURE DE STOCK</div>
+            )}&id_col=${this.getAttribute(
+      "id_col"
+    )}" class="text-decoration-none text-dark">
+              <div class="card" style="width: 18rem;">
+                <img src="${this.getAttribute(
+                  "path_img"
+                )}" class="card-img-top" alt="${this.getAttribute(
+      "name"
+    )}" style="height: 210px; object-fit: cover;">
+                <div class="card-body text-center">
+                  <h5 class="card-title">${this.getAttribute("name")}</h5>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <div class="flex">
+                      <input type="checkbox" class="checkbox" id="ch${this.getAttribute(
+                        "id"
+                      )}">
+                      <label for="ch${this.getAttribute("id")}">
+                        <img class="etoile" src='img/icones/star_vide.png'/>
+                      </label>
+                    </div>
+                  </div>
+                  <p class="card-text text-center">
+                    <span class="stock" style="${this.getAttribute(
+                      "stockAffiche"
+                    )}">
+                      ${this.getAttribute("prix")}€
+                    </span>
+                    ${
+                      this.getAttribute("soldeValeur")
+                        ? `<span class="text-danger ms-2">-${this.getAttribute(
+                            "soldeValeur"
+                          )}%</span>`
+                        : ""
+                    }
+                    <span class="rupture text-danger" style="${this.getAttribute(
+                      "ruptureAffiche"
+                    )}">
+                      RUPTURE DE STOCK
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
-        </a>
-        `;
+      </div>
+    `;
 
     if (!isConnected()) {
       this.shadowRoot.querySelector(".etoile").style.display = "none";
@@ -213,14 +164,6 @@ export async function imprimerUnProduit(produit) {
     : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
   let produitElement = document.createElement("produit-generique");
-  produitElement.classList.add(
-    "col-xs-12",
-    "col-sm-6",
-    "col-md-4",
-    "col-lg-3",
-    "col-xl-2",
-    "descProduit"
-  );
   produitElement.setAttribute("name", produit["nom_prod"]);
   produitElement.setAttribute("id", produit["id_prod"]);
   produitElement.setAttribute("id_col", produit["id_col"]);
@@ -244,7 +187,11 @@ export async function imprimerUnProduit(produit) {
     produitElement.setAttribute("soldeAffiche", "display:none");
   }
 
-  return produitElement;
+  let wrapper = document.createElement("div");
+  wrapper.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3", "mb-4");
+  wrapper.appendChild(produitElement);
+
+  return wrapper;
 }
 
 export async function getSolde(id_prod) {
