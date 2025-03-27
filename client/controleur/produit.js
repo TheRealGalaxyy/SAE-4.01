@@ -97,6 +97,11 @@ class ProduitDetail extends HTMLElement {
         color: white;
         margin-right: 5px;
     }
+        .erreur {
+        color: red;
+        display: none;
+        font-weight: bold;
+  }
     </style>
     <div class="produitDetail">
     <input type="checkbox" class="checkbox" id="ch${id}" ${this.getAttribute(
@@ -152,6 +157,8 @@ class ProduitDetail extends HTMLElement {
                 <span id="prix_tot">${this.getAttribute("prix")}</span>€
             </p>
             <input type="button" value="Ajouter au panier">
+            </br>
+            <p class="erreur" id="erreur">dd</p>
         </div>
     </div>
     </div>
@@ -503,6 +510,7 @@ function boutonCommander(id_produit) {
       .querySelector("select");
     const tailleID = tailleSelect.options[tailleSelect.selectedIndex].value;
     const couleurID = couleurSelect.options[couleurSelect.selectedIndex].value;
+    const erreur = root.getElementById("erreur");
 
     if (quantiteCommandeeValide(nbCommandee, stock)) {
       fetch("http://localhost/SAE-4.01/serveur/api/newPanier.php", {
@@ -519,11 +527,12 @@ function boutonCommander(id_produit) {
           reponse.json().then((data) => {
             if (data.status === "error") {
               if (isConnected()) {
-                alert(
-                  `Article déjà dans votre panier !\nVous pouvez toutefois changer votre commande dans la rubrique "Panier"`
-                );
+                console.log(erreur);
+                erreur.style.display = "block";
+                erreur.innerHTML = `Article déjà dans votre panier !\nVous pouvez toutefois changer votre commande dans la rubrique "Panier"`;
               } else {
-                alert(`Connectez vous pour commencer à commander !`);
+                erreur.style.display = "block";
+                erreur.innerHTML = `Connectez vous pour commencer à commander !`;
               }
             } else if (data.status === "success") {
               window.location.href = "accueil.html";
@@ -534,9 +543,8 @@ function boutonCommander(id_produit) {
           console.log(error);
         });
     } else {
-      alert(
-        "La quantité de produit voulant être ajoutée au panier est impossible"
-      );
+      erreur.style.display = "block";
+      erreur.innerHTML = "La quantité de produit voulant être ajoutée au panier est impossible"
     }
   });
 }

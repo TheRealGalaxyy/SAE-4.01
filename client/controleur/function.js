@@ -167,6 +167,16 @@ function printFooter() {
     </div>
 </footer>    `;
   console.log("footer");
+  const footer = document.querySelector("#printFooter");
+  footer.innerHTML = `
+  <style>
+  #mentionsLeg{
+    color: black;
+  }
+   </style>
+    <p>Paul Muller Pulls Moches - Site de vente  </p>
+    <a id=mentionsLeg href="./mentionsLegal.html">Mentions Légales</a>
+    `;
 }
 
 async function getUser() {

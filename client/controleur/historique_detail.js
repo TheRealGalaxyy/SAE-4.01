@@ -1,5 +1,12 @@
 import { cookieValue } from "./function.js";
 
+// Retour sur l'historique
+let btn = document.getElementById("retour");
+btn.addEventListener("click", (event) => {
+  window.location.href = "historique.html";
+});
+
+
 async function getCommande(id_com) {
   //Fonction qui récupère les données de la commande en fct de l'id de la commande & de l'id de l'utilisateur
   const body = new URLSearchParams({
@@ -55,7 +62,7 @@ async function afficherLesProduits(produits) {
             <h2>${nom_prod}</h2>
             <img id="img_prod" src="${path}" style="width:auto; height:250px; display:block; margin: 10px auto;">
             <p>${description}</p>
-            <p>Prix : ${prix}€</p><p>Quantité : ${qte_com}</p>
+            <p>Prix : ${prix.toFixed(2)}€</p><p>Quantité : ${qte_com}</p>
         `;
       produitDiv.classList.add("descProduit");
       produitsDiv.appendChild(produitDiv);
@@ -63,7 +70,7 @@ async function afficherLesProduits(produits) {
   );
   const produitDiv = document.createElement("div");
   produitDiv.innerHTML += `
-            <h2>Prix total de la commande : ${prixT}€</h2>
+            <h2>Prix total de la commande : ${prixT.toFixed(2)}€</h2>
         `;
   produitsDiv.appendChild(produitDiv);
 }

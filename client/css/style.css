@@ -653,6 +653,35 @@ input[type='number'].qte {
   }
 }
 
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#mdp {
+  padding-right: 35px; /* Espace pour le bouton */
+  width: 100%;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 5px;
+}
+
+.toggle-password:hover {
+  color: #b92929;
+}
+
+.toggle-password svg {
+  display: block;
+}
+
 /* Footer principal */
 #printFooter footer {
   background-color: #ba0324 !important;
