@@ -56,17 +56,27 @@ try {
         $res->bindParam(":qte_pan", $panier[$i]["qte_pan"]);
         $res->execute();
 
-        $query = "SELECT prix_unit
-                  FROM SELECT_PRODUITS
-                  WHERE id_prod = :id_prod
-                  AND id_col = :id_col
-                  AND id_tail = :id_tail";
+        $query = "SELECT p.prix_unit, COALESCE(s.reduction, 0) AS reduction
+            FROM SELECT_PRODUITS p
+            LEFT JOIN SOLDE s ON p.id_prod = s.id_prod
+            AND NOW() BETWEEN s.date_deb AND s.date_fin
+            WHERE p.id_prod = :id_prod
+            AND p.id_col = :id_col
+            AND p.id_tail = :id_tail";
+
         $res = $db->prepare($query);
         $res->bindParam(":id_prod", $panier[$i]["id_prod"]);
         $res->bindParam(":id_col", $panier[$i]["id_col"]);
         $res->bindParam(":id_tail", $panier[$i]["id_tail"]);
         $res->execute();
-        $prix_unit = $res->fetchAll(PDO::FETCH_ASSOC)[0]["prix_unit"];
+        $result = $res->fetch(PDO::FETCH_ASSOC);
+
+        $prix_unit = $result["prix_unit"];
+        $reduction = $result["reduction"];
+
+        if ($reduction != 0) {
+            $prix_unit = $prix_unit * (1 - ($reduction / 100));
+        }
 
         $prix_total = $prix_unit * $panier[$i]["qte_pan"];
 

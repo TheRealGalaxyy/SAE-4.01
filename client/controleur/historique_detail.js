@@ -7,9 +7,9 @@ btn.addEventListener("click", (event) => {
 });
 
 async function getCommande(id_com) {
-  //Fonction qui récupère les données de la commande en fct de l'id de la commande & de l'id de l'utilisateur
+  // Fonction qui récupère les données de la commande en fonction de l'id de la commande & de l'id de l'utilisateur
   const body = new URLSearchParams({
-    id_us: cookieValue, //Remplacer par 3 pour tester
+    id_us: cookieValue, // Remplacer par 3 pour tester
     id_com: id_com,
   });
   const response = await fetch(
@@ -17,45 +17,37 @@ async function getCommande(id_com) {
     { method: "POST", body }
   );
   const { data } = await response.json();
-  //console.log(data);
+  console.log("Données reçues :", data);
   return data;
 }
 
-// async function getProduit(id_prod) { //Fonction qui récupère les données du produit en fct de ceux que l'utilisateur a commandé
-//     const body = new URLSearchParams({
-//         id_prod: id_prod,
-//      });
-//     const response = await fetch("https://devweb.iutmetz.univ-lorraine.fr/~laroche5/SAE_401/serveur/api/getProduit.php", { method: "POST", body });
-//     const { data } = await response.json();
-//     console.log("Data cmd :",data);
-//     return data;
-// }
-
 async function recupDonnees() {
-  //récupère les données de la commande et des produits commandés
+  // Récupère les données de la commande et des produits commandés
   const id_com = new URLSearchParams(window.location.search).get("id_com");
   const commande = await getCommande(id_com);
-  //const produits = await Promise.all(commande.map(({ id_prod }) => getProduit(id_prod))); //recupere les produits associés à la commande
-  // console.log("Commande :",commande);
-  // console.log("Produits :",produits);
-  console.log("Commande :", commande);
   afficherLesProduits(commande);
 }
 
 async function afficherLesProduits(produits) {
-  //Fonction qui affiche les produits commandés avec leurs noms, catégories et descriptions, ajoute du meme css que sur la page d'accueil
+  // Fonction qui affiche les produits commandés avec leurs noms, catégories et descriptions, ajoute le même css que sur la page d'accueil
   const produitsDiv = document.querySelector(".produitsDet");
   let prixT = 0;
   produits.forEach(
-    ({ nom_prod, description, path_img, prix_unit, qte_com }) => {
-      // console.log("Path :",path_img);
+    ({ nom_prod, description, path_img, prix_unit, qte_com, reduction }) => {
       const produitDiv = document.createElement("div");
       produitDiv.classList.add("produit");
       let path = path_img
         ? "http://localhost/SAE-4.01/serveur/img/articles/" + path_img
         : "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
+
+      const ancienPrix = prix_unit * qte_com;
+
+      if (reduction != 0) {
+        prix_unit *= 1 - reduction / 100;
+      }
+
       let prix = prix_unit * qte_com;
-      prixT += prix_unit * qte_com;
+      prixT += prix;
 
       produitDiv.innerHTML = `
             <img id="img_prod" src="${path}" style="width:10vw; height:auto; display:block; margin: 10px auto;">
@@ -64,7 +56,12 @@ async function afficherLesProduits(produits) {
               <p>${description}</p>
             </div>
             <div>
-              <p>Prix : ${prix.toFixed(2)}€</p><p>Quantité : ${qte_com}</p>
+              ${
+                reduction != 0
+                  ? `<p><span style="text-decoration: line-through; color: red;">${ancienPrix.toFixed(2)}€</span> ${prix.toFixed(2)}€</p>`
+                  : `<p>Prix : ${prix.toFixed(2)}€</p>`
+              }
+              <p>Quantité : ${qte_com}</p>
             </div>
         `;
       produitDiv.classList.add("descProduit");

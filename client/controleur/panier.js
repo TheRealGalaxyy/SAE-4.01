@@ -309,20 +309,24 @@ let produitsDansPanier = [];
 
 async function appelPanier() {
   document.getElementById("panier").innerHTML = "";
+  document.getElementById("titre").innerHTML = "";  
   document.getElementById("prixTotal").innerHTML = 0;
   getPanier(id_us).then((panier) => {
     produitsDansPanier = panier.data;
+    const section = document.createElement("section");
+    section.classList.add("accueil");
+    const titre = document.createElement("h1");
     if (panier.data.length !== 0) {
       document.getElementById("footer").style.display = "block";
+      titre.innerHTML = "Votre panier";
+      section.appendChild(titre);
+      document.getElementById("titre").appendChild(section);
     } else {
       document.getElementById("footer").style.display = "none";
-      const section = document.createElement("section");
-      section.classList.add("accueil");
-      const rien = document.createElement("h1");
-      rien.innerHTML = "Votre panier est vide";
-      section.appendChild(rien);
-      document.getElementById("panier").appendChild(section);
-      document.getElementById("panier").id = "accueil";
+      titre.innerHTML = "Votre panier est vide";
+      section.appendChild(titre);
+      document.getElementById("titre").appendChild(section);
+      document.getElementById("titre").id = "accueil";
     }
     panier.data.forEach((produit) => {
       getProduit(produit.id_prod).then((response) => {
@@ -441,7 +445,7 @@ appelPanier();
 
 document.getElementById('confirmerCommande').addEventListener('click', function () {
   const adresse = document.getElementById('adresse').value;
-  const ville = document.getElementById('ville').value;
+  const ville = document.getElementById('ville').value ;
   const codePostal = document.getElementById('codePostal').value;
   const telephone = document.getElementById('telephone').value;
 
