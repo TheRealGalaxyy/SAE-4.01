@@ -246,7 +246,7 @@ export async function imprimerUnProduit(produit) {
   return produitElement;
 }
 
-async function getSolde(id_prod) {
+export async function getSolde(id_prod) {
   return fetch("http://localhost/SAE-4.01/serveur/api/getSolde.php", {
     method: "POST",
     body: new URLSearchParams({ id_prod: id_prod }),
@@ -282,6 +282,20 @@ async function imprimerTousLesProduits(produits) {
   const taille = urlParams.get("idTaille");
   const couleur = urlParams.get("idCouleur");
   const id_us = cookieValue;
+
+  let spanSoldes = document.getElementById("soldes");
+  spanSoldes.innerHTML = "🔖 <strong>Soldes : </strong>";
+
+  for (let produit of produits) {
+    let solde = await getSolde(produit["id_prod"]);
+    if (solde) {
+      spanSoldes.innerHTML += `<strong>
+${produit.nom_prod} - ${Math.round(solde * 100) / 100}%, </strong>`;
+    }
+  }
+
+  spanSoldes.innerHTML = spanSoldes.innerHTML.replace(/, $/, "") + "🔖";
+  spanSoldes.innerHTML += "";
 
   if (recherche) {
     produits = produitsRecherche(recherche, produits);
