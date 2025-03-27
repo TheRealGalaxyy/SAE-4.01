@@ -77,10 +77,14 @@ body {
 .header a,
 h1 {
   max-width: 500px;
-  color: white;
+  color: rgb(0, 0, 0);
 
   font-weight: 750;
   z-index: 2;
+}
+
+.white{
+  color: white !important;
 }
 p {
   color: #ababab;
@@ -835,46 +839,4 @@ button {
   display: block;
   margin-bottom: 8px;
   margin-left: 14vw;
-}
-
-.faq {
-  display: flex;
-  margin-top: 4vh;
-  margin-bottom: 4vh;
-  justify-content: center;
-}
-
-.faq-text {
-  margin-right: 2vw;
-}
-
-.faq h5 {
-  margin-top: 2vh;
-  max-width: 40vw;
-}
-
-.custom-faq {
-  color: #5f8755;
-}
-
-.accordion {
-  width: 40vw;
-}
-
-.custom-accordion {
-  background-color: #0f1011;
-  color: white;
-}
-
-.custom-accordion .accordion-button {
-  color: white;
-}
-
-.custom-accordion .accordion-button:not(.collapsed) {
-  color: #1f50dc;
-}
-
-.custom-accordion .accordion-body {
-  background-color: #eaeded;
-  color: black;
 }
