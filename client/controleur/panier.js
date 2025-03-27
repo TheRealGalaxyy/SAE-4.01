@@ -301,6 +301,7 @@ async function appelPanier() {
       const section = document.createElement("section");
       section.classList.add("accueil");
       const rien = document.createElement("h1");
+      rien.style.color = "white";
       rien.innerHTML = "Votre panier est vide";
       section.appendChild(rien);
       document.getElementById("panier").appendChild(section);
