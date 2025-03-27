@@ -131,14 +131,42 @@ if (document.querySelector(".recherche")) menuRechercheDeroulant();
 function printFooter() {
   const footer = document.querySelector("#printFooter");
   footer.innerHTML = `
-  <style>
-  #mentionsLeg{
-    color: black;
-  }
-   </style>
-    <p>Paul Muller Pulls Moches - Site de vente  </p>
-    <a id=mentionsLeg href="./mentionsLegal.html">Mentions Légales</a>
-    `;
+   <footer class="bg-primary text-light py-4 mt-5">
+    <div class="container">
+        <hr class="bg-white">
+        <div class="row">
+            <div class="col-md-4 text-center text-md-start">
+                <h5 class="fw-bold">Paul Muller Pulls Moches</h5>
+                <p class="text-white-50 text-start">Site de vente d'articles de noël</p>
+            </div>
+
+            <div class="col-md-4 text-center">
+                <h5 class="fw-bold">Navigation</h5>
+                <ul class="list-unstyled">
+                    <li><a href="./accueil.html" class="text-white-50 text-decoration-none">Accueil</a></li>
+                    <li><a href="./panier.html" class="text-white-50 text-decoration-none">Panier</a></li>
+                    <li><a href="./favori.html" class="text-white-50 text-decoration-none">Favori</a></li>
+                    <li><a href="./historique.html" class="text-white-50 text-decoration-none">Historique</a></li>
+                    <li><a href="./compte.html" class="text-white-50 text-decoration-none">Compte</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 text-center text-md-end">
+                <h5 class="fw-bold">Contact</h5>
+                <p class="text-white-50 mb-0 text-end">Paul Muller</p> 
+                <p class="text-white-50 mb-0 text-end">Email: pm2_metz@sfr.fr</p> 
+            </div>
+        </div>
+
+        <hr class="bg-white">
+
+        <div class="text-center">
+            <a id=mentionsLeg href="./mentionsLegal.html" class="text-white-50 text-decoration-none">Mentions légales</a>
+            <p class="mb-0 text-white-50">&copy; 2025 Paul Muller Pulls Moches. Tous droits réservés.</p>
+        </div>
+    </div>
+</footer>    `;
+  console.log("footer");
 }
 
 async function getUser() {

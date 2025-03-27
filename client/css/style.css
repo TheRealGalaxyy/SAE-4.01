@@ -240,7 +240,7 @@ th {
   padding: 5px;
 }
 
-.accueil > h1 {
+.accueil > .h1 {
   background-color: #5f8755;
   color: black;
   font-size: 30px;
@@ -253,9 +253,21 @@ th {
 .accueil section {
   max-width: 1500px;
 }
+.accueil1 > .h1 {
+  background-color: #5f8755;
+  color: black;
+  font-size: 30px;
+  margin: 30px auto 5vh auto;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-weight: normal;
+}
 
+.accueil1 section {
+  max-width: 1500px;
+}
 /* Uniquement sur la page d'accueil */
-
+/* 
 .accueil div div {
   box-sizing: border-box;
   padding: 30px;
@@ -265,19 +277,19 @@ th {
   color: white;
   font-size: 20px;
   border-radius: 4px;
-}
+} */
 
-.accueil div a {
+/* .accueil div a {
   font-size: 30px;
   color: #8c6e44;
-}
+} */
 
 .accueil div a,
 .accueil div a:hover {
   border: none;
 }
 
-.accueil > p {
+/* .accueil > p {
   margin: 0 auto 30px auto;
   box-sizing: border-box;
   padding: 4px 8px;
@@ -287,7 +299,7 @@ th {
   background-color: #232323f0;
   color: white;
   width: 90%;
-}
+} */
 
 .accueil > p a {
   color: white;
@@ -581,7 +593,7 @@ input[type='number'].qte {
     font-size: 25px;
   }
   .accueil div a {
-    font-size: 35px;
+    font-size: 20px;
   }
   .accueil > p {
     font-size: 20px;
@@ -638,5 +650,50 @@ input[type='number'].qte {
   .btn_creation,
   .btn_retour {
     position: absolute;
+  }
+}
+
+/* Footer principal */
+#printFooter footer {
+  background-color: #ba0324 !important;
+  color: white !important;
+}
+
+#printFooter .container {
+  max-width: 1200px;
+}
+
+#printFooter h5 {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#printFooter a,
+#printFooter p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8) !important;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+#printFooter a:hover {
+  color: white !important;
+}
+
+#printFooter hr {
+  background-color: white !important;
+  height: 2px;
+  opacity: 0.8;
+}
+
+#printFooter #mentionsLeg {
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  #printFooter .text-md-start,
+  #printFooter .text-md-end,
+  #printFooter .text-center {
+    text-align: center !important;
   }
 }

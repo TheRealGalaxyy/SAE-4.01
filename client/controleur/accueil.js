@@ -1,6 +1,5 @@
 import { cookieValue, isConnected } from "./function.js";
 
-console.log("ACCUEIL");
 export class ProduitGenerique extends HTMLElement {
   constructor() {
     super();
@@ -449,7 +448,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (window.location.search === "") {
     const headerSpan = document.getElementById("header");
     if (headerSpan) {
-      console.log("On ajoute");
       headerSpan.innerHTML = `
               <div class="header">
                   <h1 class="display-4">PM2 <span>Votre boutique en ligne</span></h1>
