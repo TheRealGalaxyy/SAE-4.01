@@ -26,7 +26,7 @@ DELIMITER $$
 -- Procédures
 --
 DROP PROCEDURE IF EXISTS `DELETE_FAVORI`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `DELETE_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  NO SQL BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `DELETE_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  NO SQL BEGIN
 
 DECLARE v_id_prod_existe, v_id_us_existe BOOLEAN;
 
@@ -43,7 +43,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `id_cat_existe`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `id_cat_existe` (IN `v_id_cat` INT, OUT `v_id_cat_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_cat_existe` (IN `v_id_cat` INT, OUT `v_id_cat_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_cat_invalide CONDITION FOR SQLSTATE "45004";
 DECLARE error_message VARCHAR(80);
@@ -59,7 +59,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `id_col_existe`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `id_col_existe` (IN `v_id_col` INT, OUT `v_id_col_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_col_existe` (IN `v_id_col` INT, OUT `v_id_col_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_col_invalide CONDITION FOR SQLSTATE "45002";
 DECLARE error_message VARCHAR(80);
@@ -75,7 +75,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `id_com_existe`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `id_com_existe` (IN `v_id_com` INT, OUT `v_id_com_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_com_existe` (IN `v_id_com` INT, OUT `v_id_com_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_com_invalide CONDITION FOR SQLSTATE "45005";
 DECLARE error_message VARCHAR(80);
@@ -91,7 +91,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `id_perm_existe`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `id_perm_existe` (IN `v_id_perm` INT, OUT `v_id_perm_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_perm_existe` (IN `v_id_perm` INT, OUT `v_id_perm_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_perm_invalide CONDITION FOR SQLSTATE "45007";
 DECLARE error_message VARCHAR(80);
@@ -107,7 +107,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `id_prod_existe`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `id_prod_existe` (IN `v_id_prod` INT, OUT `v_id_prod_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_prod_existe` (IN `v_id_prod` INT, OUT `v_id_prod_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_prod_invalide CONDITION FOR SQLSTATE "45001";
 DECLARE error_message VARCHAR(80);
@@ -123,7 +123,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `id_tail_existe`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `id_tail_existe` (IN `v_id_tail` INT, OUT `v_id_tail_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_tail_existe` (IN `v_id_tail` INT, OUT `v_id_tail_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_tail_invalide CONDITION FOR SQLSTATE "45003";
 DECLARE error_message VARCHAR(80);
@@ -139,7 +139,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `id_us_existe`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `id_us_existe` (IN `v_id_us` INT, OUT `v_id_us_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `id_us_existe` (IN `v_id_us` INT, OUT `v_id_us_existe` BOOLEAN)   BEGIN
 
 DECLARE v_id_us_invalide CONDITION FOR SQLSTATE "45006";
 DECLARE error_message VARCHAR(80);
@@ -155,7 +155,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `INSERT_FAVORI`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `INSERT_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  DETERMINISTIC NO SQL BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `INSERT_FAVORI` (IN `v_id_prod` INT, IN `v_id_us` INT)  DETERMINISTIC NO SQL BEGIN
 
 INSERT INTO FAVORI
 (id_prod, id_us)
@@ -165,7 +165,7 @@ VALUES
 END$$
 
 DROP PROCEDURE IF EXISTS `login_non_existe`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `login_non_existe` (IN `v_login` VARCHAR(20), OUT `v_login_non_existe` BOOLEAN)  NO SQL BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `login_non_existe` (IN `v_login` VARCHAR(20), OUT `v_login_non_existe` BOOLEAN)  NO SQL BEGIN
 
 DECLARE v_login_invalide CONDITION FOR SQLSTATE "45018";
 DECLARE error_message VARCHAR(80);
@@ -181,7 +181,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `mail_non_existe`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mail_non_existe` (IN `v_mail` VARCHAR(100), OUT `v_mail_non_existe` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `mail_non_existe` (IN `v_mail` VARCHAR(100), OUT `v_mail_non_existe` BOOLEAN)   BEGIN
 
 DECLARE v_mail_invalide CONDITION FOR SQLSTATE "45019";
 DECLARE error_message VARCHAR(80);
@@ -197,7 +197,7 @@ END IF;
 END$$
 
 DROP PROCEDURE IF EXISTS `verifier_date`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `verifier_date` (IN `v_date` DATE, OUT `v_date_conforme` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `verifier_date` (IN `v_date` DATE, OUT `v_date_conforme` BOOLEAN)   BEGIN
 
 DECLARE v_date_superieure CONDITION FOR SQLSTATE "45101";
 DECLARE v_date_inferieure CONDITION FOR SQLSTATE "45102";
@@ -242,7 +242,7 @@ SET v_date_conforme := TRUE;
 END$$
 
 DROP PROCEDURE IF EXISTS `verifier_prix`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `verifier_prix` (IN `v_prix` FLOAT, OUT `v_prix_correct` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `verifier_prix` (IN `v_prix` FLOAT, OUT `v_prix_correct` BOOLEAN)   BEGIN
 
 DECLARE v_prix_negatif CONDITION FOR SQLSTATE "45103";
 DECLARE error_message VARCHAR(80);
@@ -260,7 +260,7 @@ SET v_prix_correct := TRUE;
 END$$
 
 DROP PROCEDURE IF EXISTS `verifier_qte`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `verifier_qte` (IN `v_qte` INT, OUT `v_qte_correcte` BOOLEAN)   BEGIN
+CREATE DEFINER=CURRENT_USER PROCEDURE `verifier_qte` (IN `v_qte` INT, OUT `v_qte_correcte` BOOLEAN)   BEGIN
 
 DECLARE v_qte_negative CONDITION FOR SQLSTATE "45104";
 DECLARE error_message VARCHAR(80);
@@ -1521,7 +1521,7 @@ DELIMITER ;
 DROP TABLE IF EXISTS `select_commandes`;
 
 DROP VIEW IF EXISTS `select_commandes`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_commandes`  AS SELECT `c`.`telephone` AS `telephone`, `c`.`codePostal` AS `codePostal`, `c`.`ville` AS `ville`, `c`.`adresse` AS `adresse`, `c`.`id_com` AS `id_com`, `c`.`id_us` AS `id_us`, `dc`.`id_prod` AS `id_prod`, `dc`.`id_col` AS `id_col`, `dc`.`id_tail` AS `id_tail`, `c`.`date_com` AS `date_com`, `dc`.`qte_com` AS `qte_com`, `dc`.`prix_total` AS `prix_total` FROM (((`commande` `c` join `detail_com` `dc` on((`dc`.`id_com` = `c`.`id_com`))) join `couleur` `co` on((`dc`.`id_col` = `co`.`id_col`))) join `taille` `t` on((`dc`.`id_tail` = `t`.`id_tail`))) ORDER BY `c`.`id_us` ASC, `c`.`id_com` ASC, `dc`.`id_prod` ASC, `dc`.`id_col` ASC, `dc`.`id_tail` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=CURRENT_USER SQL SECURITY DEFINER VIEW `select_commandes`  AS SELECT `c`.`telephone` AS `telephone`, `c`.`codePostal` AS `codePostal`, `c`.`ville` AS `ville`, `c`.`adresse` AS `adresse`, `c`.`id_com` AS `id_com`, `c`.`id_us` AS `id_us`, `dc`.`id_prod` AS `id_prod`, `dc`.`id_col` AS `id_col`, `dc`.`id_tail` AS `id_tail`, `c`.`date_com` AS `date_com`, `dc`.`qte_com` AS `qte_com`, `dc`.`prix_total` AS `prix_total` FROM (((`commande` `c` join `detail_com` `dc` on((`dc`.`id_com` = `c`.`id_com`))) join `couleur` `co` on((`dc`.`id_col` = `co`.`id_col`))) join `taille` `t` on((`dc`.`id_tail` = `t`.`id_tail`))) ORDER BY `c`.`id_us` ASC, `c`.`id_com` ASC, `dc`.`id_prod` ASC, `dc`.`id_col` ASC, `dc`.`id_tail` ASC ;
 
 -- --------------------------------------------------------
 
@@ -1531,7 +1531,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `select_paniers`;
 
 DROP VIEW IF EXISTS `select_paniers`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_paniers`  AS SELECT `pa`.`id_us` AS `id_us`, `p`.`id_prod` AS `id_prod`, `p`.`stock` AS `stock`, `p`.`nom_prod` AS `nom_prod`, `p`.`id_cat` AS `id_cat`, `p`.`nom_cat` AS `nom_cat`, `p`.`id_col` AS `id_col`, `p`.`nom_col` AS `nom_col`, `p`.`id_tail` AS `id_tail`, `p`.`nom_tail` AS `nom_tail`, `p`.`path_img` AS `path_img`, `p`.`prix_unit` AS `prix_unit`, `pa`.`qte_pan` AS `qte_pan`, (`pa`.`qte_pan` * `p`.`prix_unit`) AS `prix_total` FROM (`panier` `pa` join (select `sp`.`id_prod` AS `id_prod`,`sp`.`nom_prod` AS `nom_prod`,`sp`.`id_cat` AS `id_cat`,`sp`.`nom_cat` AS `nom_cat`,`sp`.`id_col` AS `id_col`,`sp`.`nom_col` AS `nom_col`,`sp`.`id_tail` AS `id_tail`,`sp`.`nom_tail` AS `nom_tail`,`sp`.`path_img` AS `path_img`,`sp`.`prix_unit` AS `prix_unit`,`sp`.`stock` AS `stock` from `select_produits` `sp`) `p` on(((`pa`.`id_prod` = `p`.`id_prod`) and (`pa`.`id_col` = `p`.`id_col`) and (`pa`.`id_tail` = `p`.`id_tail`)))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=CURRENT_USER SQL SECURITY DEFINER VIEW `select_paniers`  AS SELECT `pa`.`id_us` AS `id_us`, `p`.`id_prod` AS `id_prod`, `p`.`stock` AS `stock`, `p`.`nom_prod` AS `nom_prod`, `p`.`id_cat` AS `id_cat`, `p`.`nom_cat` AS `nom_cat`, `p`.`id_col` AS `id_col`, `p`.`nom_col` AS `nom_col`, `p`.`id_tail` AS `id_tail`, `p`.`nom_tail` AS `nom_tail`, `p`.`path_img` AS `path_img`, `p`.`prix_unit` AS `prix_unit`, `pa`.`qte_pan` AS `qte_pan`, (`pa`.`qte_pan` * `p`.`prix_unit`) AS `prix_total` FROM (`panier` `pa` join (select `sp`.`id_prod` AS `id_prod`,`sp`.`nom_prod` AS `nom_prod`,`sp`.`id_cat` AS `id_cat`,`sp`.`nom_cat` AS `nom_cat`,`sp`.`id_col` AS `id_col`,`sp`.`nom_col` AS `nom_col`,`sp`.`id_tail` AS `id_tail`,`sp`.`nom_tail` AS `nom_tail`,`sp`.`path_img` AS `path_img`,`sp`.`prix_unit` AS `prix_unit`,`sp`.`stock` AS `stock` from `select_produits` `sp`) `p` on(((`pa`.`id_prod` = `p`.`id_prod`) and (`pa`.`id_col` = `p`.`id_col`) and (`pa`.`id_tail` = `p`.`id_tail`)))) ;
 
 -- --------------------------------------------------------
 
@@ -1541,7 +1541,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `select_produits`;
 
 DROP VIEW IF EXISTS `select_produits`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_produits`  AS SELECT `p`.`id_prod` AS `id_prod`, `p`.`nom_prod` AS `nom_prod`, `p`.`description` AS `description`, `p`.`sku` AS `sku`, coalesce(`tcp`.`stock`,0) AS `stock`, `p`.`stock_quantity` AS `stock_general`, `ca`.`id_cat` AS `id_cat`, `ca`.`nom_cat` AS `nom_cat`, `co`.`id_col` AS `id_col`, `co`.`nom_col` AS `nom_col`, `t`.`id_tail` AS `id_tail`, `t`.`nom_tail` AS `nom_tail`, `cp`.`path_img` AS `path_img`, round((((coalesce(`tcp`.`prix`,`p`.`prix_base`) + coalesce(`cp`.`diff_prix_col`,0)) + coalesce(`tp`.`diff_prix_tail`,0)) * 1.2),2) AS `prix_unit` FROM ((((((`produit` `p` left join `col_prod` `cp` on((`cp`.`id_prod` = `p`.`id_prod`))) left join `tail_prod` `tp` on((`tp`.`id_prod` = `p`.`id_prod`))) join `categorie` `ca` on((`ca`.`id_cat` = `p`.`id_cat`))) left join `couleur` `co` on((`co`.`id_col` = `cp`.`id_col`))) left join `taille` `t` on((`t`.`id_tail` = `tp`.`id_tail`))) left join `taille_col_prod` `tcp` on(((`tcp`.`id_prod` = `p`.`id_prod`) and (`tcp`.`id_col` = `co`.`id_col`) and (`tcp`.`id_taille` = `t`.`id_tail`)))) ORDER BY `p`.`nom_prod` ASC, `ca`.`nom_cat` ASC, `co`.`nom_col` ASC, `t`.`nom_tail` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=CURRENT_USER SQL SECURITY DEFINER VIEW `select_produits`  AS SELECT `p`.`id_prod` AS `id_prod`, `p`.`nom_prod` AS `nom_prod`, `p`.`description` AS `description`, `p`.`sku` AS `sku`, coalesce(`tcp`.`stock`,0) AS `stock`, `p`.`stock_quantity` AS `stock_general`, `ca`.`id_cat` AS `id_cat`, `ca`.`nom_cat` AS `nom_cat`, `co`.`id_col` AS `id_col`, `co`.`nom_col` AS `nom_col`, `t`.`id_tail` AS `id_tail`, `t`.`nom_tail` AS `nom_tail`, `cp`.`path_img` AS `path_img`, round((((coalesce(`tcp`.`prix`,`p`.`prix_base`) + coalesce(`cp`.`diff_prix_col`,0)) + coalesce(`tp`.`diff_prix_tail`,0)) * 1.2),2) AS `prix_unit` FROM ((((((`produit` `p` left join `col_prod` `cp` on((`cp`.`id_prod` = `p`.`id_prod`))) left join `tail_prod` `tp` on((`tp`.`id_prod` = `p`.`id_prod`))) join `categorie` `ca` on((`ca`.`id_cat` = `p`.`id_cat`))) left join `couleur` `co` on((`co`.`id_col` = `cp`.`id_col`))) left join `taille` `t` on((`t`.`id_tail` = `tp`.`id_tail`))) left join `taille_col_prod` `tcp` on(((`tcp`.`id_prod` = `p`.`id_prod`) and (`tcp`.`id_col` = `co`.`id_col`) and (`tcp`.`id_taille` = `t`.`id_tail`)))) ORDER BY `p`.`nom_prod` ASC, `ca`.`nom_cat` ASC, `co`.`nom_col` ASC, `t`.`nom_tail` ASC ;
 
 -- --------------------------------------------------------
 
@@ -1551,7 +1551,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `select_users`;
 
 DROP VIEW IF EXISTS `select_users`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `select_users`  AS SELECT `u`.`id_us` AS `id_us`, `u`.`nom_us` AS `nom_us`, `u`.`prenom_us` AS `prenom_us`, `u`.`mel` AS `mel`, `u`.`date_naiss` AS `date_naiss`, `u`.`login` AS `login`, `u`.`mdp` AS `mdp`, `p`.`id_perm` AS `id_perm`, `p`.`nom_perm` AS `nom_perm` FROM (`user` `u` join `permission` `p` on((`p`.`id_perm` = `u`.`id_perm`))) ORDER BY `p`.`id_perm` ASC, `u`.`nom_us` ASC, `u`.`prenom_us` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=CURRENT_USER SQL SECURITY DEFINER VIEW `select_users`  AS SELECT `u`.`id_us` AS `id_us`, `u`.`nom_us` AS `nom_us`, `u`.`prenom_us` AS `prenom_us`, `u`.`mel` AS `mel`, `u`.`date_naiss` AS `date_naiss`, `u`.`login` AS `login`, `u`.`mdp` AS `mdp`, `p`.`id_perm` AS `id_perm`, `p`.`nom_perm` AS `nom_perm` FROM (`user` `u` join `permission` `p` on((`p`.`id_perm` = `u`.`id_perm`))) ORDER BY `p`.`id_perm` ASC, `u`.`nom_us` ASC, `u`.`prenom_us` ASC ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
