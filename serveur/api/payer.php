@@ -48,9 +48,9 @@ try {
         $res->bindParam(":qte_pan", $panier[$i]["qte_pan"]);
         $res->execute();
 
-        $query = "UPDATE `produit` 
+        $query = "UPDATE `PRODUIT` 
                   SET `stock_quantity` = `stock_quantity` - :qte_pan
-                  WHERE `produit`.`id_prod` = :id_prod";
+                  WHERE `PRODUIT`.`id_prod` = :id_prod";
         $res = $db->prepare($query);
         $res->bindParam(":id_prod", $panier[$i]["id_prod"]);
         $res->bindParam(":qte_pan", $panier[$i]["qte_pan"]);
