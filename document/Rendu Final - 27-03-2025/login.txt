@@ -6,3 +6,7 @@ Compte 1 :
 Compte 2 : 
 - login : client2
 - mot de passe : Client2!
+
+Paypal SandBox :
+- loging : sb-4343247n38315222@personal.example.com
+- mot de passe : C#Z$1l4v
