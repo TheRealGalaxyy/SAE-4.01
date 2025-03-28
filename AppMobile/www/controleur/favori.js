@@ -33,8 +33,9 @@ async function afficherFavoris(produits) {
     const produitElement = await imprimerUnProduit(produit);
 
     listeFav.appendChild(produitElement);
-    produitElement.shadowRoot.querySelector("label").querySelector("img").src =
-      "img/icones/star_plein.png";
+    produitElement.children[0].shadowRoot
+      .querySelector("label")
+      .querySelector("img").src = "img/icones/star_plein.png";
   }
 }
 

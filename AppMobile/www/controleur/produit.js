@@ -119,9 +119,11 @@ class ProduitDetail extends HTMLElement {
     )}%</span></div>
     <center><h1>${this.getAttribute("name")}</h1></center>
     <span class="main_info_prod">
-        <center><img class="img_prod" alt="Image produit" src="${this.getAttribute(
+        <center><img src="${this.getAttribute(
           "path_img"
-        )}"></center>
+        )}" class="card-img-top" alt="${this.getAttribute(
+      "name"
+    )}" style="height: 210px; object-fit: cover;"></center>
         <center><p class="desc_prod">${this.getAttribute(
           "description"
         )}</p></center>
